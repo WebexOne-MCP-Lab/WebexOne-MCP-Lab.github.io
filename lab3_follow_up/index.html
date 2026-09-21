@@ -1,0 +1,1633 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)">
+      
+      
+        <meta name="author" content="Chad Patterson, Payven Simien">
+      
+      
+        <link rel="canonical" href="https://webexone-mcp-lab.github.io/lab3_follow_up/">
+      
+      
+        <link rel="prev" href="../lab2_connect_discover/">
+      
+      
+        <link rel="next" href="../lab4_quality/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../template_assets/webex75.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Lab 3 - Build the Meeting Follow-Up Assistant - LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-3-build-the-meeting-follow-up-assistant" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)" class="md-header__button md-logo" aria-label="LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)" data-md-component="logo">
+      
+  <img src="../template_assets/webexLogo91.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 3 - Build the Meeting Follow-Up Assistant
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../welcome/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Welcome
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lab
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../skills/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Skill Customization
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../topologies/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Topologies
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../reference/credentials/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)" class="md-nav__button md-logo" aria-label="LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)" data-md-component="logo">
+      
+  <img src="../template_assets/webexLogo91.png" alt="logo">
+
+    </a>
+    LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../welcome/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1_control_hub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1 - Provision Webex MCP in Control Hub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2_connect_discover/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 - Connect the AI Client and Discover Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 - Build the Meeting Follow-Up Assistant
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 - Build the Meeting Follow-Up Assistant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#workflow-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-interactive-follow-up-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1 - Interactive follow-up workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1 - Interactive follow-up workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-find-the-meeting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Find the meeting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-retrieve-the-transcript-or-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Retrieve the transcript or summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-extract-decisions-and-action-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Extract decisions and action items
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-challenge-an-ambiguous-action-item" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Challenge an ambiguous action item
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-review-the-draft-before-posting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Review the draft before posting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-create-the-follow-up-space-and-post" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 Create the follow-up space and post
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37-schedule-a-follow-up-meeting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.7 Schedule a follow-up meeting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-build-a-reusable-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2 - Build a reusable skill
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2 - Build a reusable skill">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#38-create-the-skill-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.8 Create the skill file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39-refine-the-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.9 Refine the skill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#310-test-the-skill-on-a-new-meeting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.10 Test the skill on a new meeting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4_quality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 - Build the Meeting Quality Assistant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 - Cross-Workflow Capstone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Customization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skill Customization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill File Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills/customization-exercise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customization Exercise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topologies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Topologies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/credentials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Credentials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/take-home/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Take-Home Bundle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/mcp-vs-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP vs REST API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/mcp-transports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Transports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Completion Checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting Matrix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/caveats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Known Caveats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/links/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Links and Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="lab-3-build-the-meeting-follow-up-assistant">Lab 3 - Build the Meeting Follow-Up Assistant</h1>
+<div class="admonition note">
+<p class="admonition-title">Time: 55-95 min</p>
+<p>Walk through a complete meeting follow-up workflow by prompting the agent step-by-step, then package the workflow into a reusable skill file.</p>
+</div>
+<h2 id="workflow-overview">Workflow overview</h2>
+<pre class="mermaid"><code>flowchart TD
+    A["Find meeting"] --&gt; B["Retrieve transcript / summary"]
+    B --&gt; C["Extract decisions and action items"]
+    C --&gt; D["Challenge ambiguous items"]
+    D --&gt; E["Review draft"]
+    E --&gt; F{"Human approval gate"}
+    F -- "Reject or edit" --&gt; E
+    F -- "Approve" --&gt; G["Create follow-up space"]
+    G --&gt; H["Post recap"]
+    H --&gt; I["Optionally schedule follow-up"]
+    I --&gt; J["Package as reusable skill"]</code></pre>
+<hr>
+<h2 id="phase-1-interactive-follow-up-workflow">Phase 1 - Interactive follow-up workflow</h2>
+<p>In this phase you will prompt the agent to complete each step of a meeting follow-up. You are driving the workflow - the agent executes tools on your behalf.</p>
+<h3 id="31-find-the-meeting">3.1 Find the meeting</h3>
+<div class="admonition blank">
+<p class="admonition-title">Prompt the agent</p>
+<p><copy>Find my recent meeting with "LAB-FOLLOWUP" in the title. Show me the title, date, and participants.</copy></p>
+</div>
+<ul>
+<li>If multiple meetings match, the agent should show candidates and ask you to pick one.</li>
+</ul>
+<h3 id="32-retrieve-the-transcript-or-summary">3.2 Retrieve the transcript or summary</h3>
+<div class="admonition blank">
+<p class="admonition-title">Prompt the agent</p>
+<p><copy>Get the transcript and summary for that meeting. Show me a brief overview of what was discussed.</copy></p>
+</div>
+<ul>
+<li>Note whether it retrieved a transcript, a summary, or both.</li>
+</ul>
+<h3 id="33-extract-decisions-and-action-items">3.3 Extract decisions and action items</h3>
+<div class="admonition blank">
+<p class="admonition-title">Prompt the agent</p>
+<p><copy>From that meeting transcript, extract all decisions made and action items assigned. For each action item, include: who owns it, when it's due, and a short quote from the transcript as evidence.</copy></p>
+</div>
+<ul>
+<li>Review the output. Are the action items real or hallucinated?</li>
+<li>The <strong>evidence</strong> field is key - it lets you distinguish explicit commitments from LLM inferences.</li>
+<li>Ask follow-up questions if anything looks wrong.</li>
+</ul>
+<h3 id="34-challenge-an-ambiguous-action-item">3.4 Challenge an ambiguous action item</h3>
+<p>Choose one extracted action item whose owner, due date, or intent is unclear.</p>
+<div class="admonition blank">
+<p class="admonition-title">Prompt the agent</p>
+<p><copy>Recheck the transcript evidence for the most ambiguous action item. Tell me which parts are explicitly stated and which parts you inferred. If the owner or due date is not explicit, mark it as unassigned or not specified instead of guessing.</copy></p>
+</div>
+<ul>
+<li>Compare the revised item with the original extraction.</li>
+<li>Correct the agent if it treated a joke, suggestion, or unresolved discussion as a commitment.</li>
+<li>Confirm the final item includes only evidence-supported facts.</li>
+</ul>
+<h3 id="35-review-the-draft-before-posting">3.5 Review the draft before posting</h3>
+<div class="admonition blank">
+<p class="admonition-title">Prompt the agent</p>
+<p><copy>Draft a follow-up message that includes the meeting summary, decisions, and action items. Show me exactly what you plan to post - do not post it yet. Formatting rules for the Webex message: Do NOT use markdown tables, Webex does not render them properly. Use bullet lists for action items. Use bold text and line breaks for meeting details, not tables. Use headings to separate sections. Keep emojis minimal and professional.</copy></p>
+</div>
+<ul>
+<li>Review the draft carefully. Is anything missing, incorrect, or inappropriate to share?</li>
+<li>Ask the agent to make edits if needed (for example, "Remove the second action item, that was a joke not a real commitment").</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Webex markdown</p>
+<p>Webex supports bold, italic, headings, bullet lists, numbered lists, and links - but <strong>not tables</strong>. If the agent uses table syntax, it will appear as raw text. Guide the agent to use lists instead.</p>
+</div>
+<h3 id="36-create-the-follow-up-space-and-post">3.6 Create the follow-up space and post</h3>
+<div class="admonition blank">
+<p class="admonition-title">Prompt the agent</p>
+<p><copy>The draft looks good. Create a Webex space called "LAB Follow-up — [meeting title]" and post that message.</copy></p>
+</div>
+<ul>
+<li>The agent should ask for your approval before creating the space and posting.</li>
+<li>Review the proposed action: space name, message content.</li>
+<li>Approve when ready.</li>
+<li>Switch to the <strong>Webex desktop app</strong> and confirm the space was created with the correct message.</li>
+</ul>
+<h3 id="37-schedule-a-follow-up-meeting">3.7 Schedule a follow-up meeting</h3>
+<div class="admonition blank">
+<p class="admonition-title">Prompt the agent</p>
+<p><copy>Was a follow-up meeting mentioned in the transcript? If so, what date, time, timezone, and attendees were specified? If all details are explicit, propose scheduling it. If anything is ambiguous, ask me to clarify.</copy></p>
+</div>
+<ul>
+<li>The agent should <strong>not</strong> invent a time from vague phrases like "next week."</li>
+<li>If details are missing, it should ask you - not guess.</li>
+</ul>
+<hr>
+<h2 id="phase-2-build-a-reusable-skill">Phase 2 - Build a reusable skill</h2>
+<p>Now that you have completed the workflow manually, turn it into a reusable skill file that the agent can follow automatically for future meetings.</p>
+<h3 id="38-create-the-skill-file">3.8 Create the skill file</h3>
+<div class="admonition blank">
+<p class="admonition-title">Prompt the agent</p>
+<p><copy>Based on the workflow we just completed, create a skill file called <code>meeting-follow-up/SKILL.md</code> that captures this entire follow-up process. The skill should: find a meeting by title or ID; retrieve the transcript/summary; extract decisions and action items with evidence; create a follow-up space and post the recap (with approval); schedule a follow-up meeting only when the required details are explicit. Include clear instructions the agent can follow. Require human approval before any write action. Format output as structured sections.</copy></p>
+</div>
+<ul>
+<li>Review the generated skill file.</li>
+<li>Does it capture the workflow you just did?</li>
+<li>Does it include the approval gate?</li>
+</ul>
+<h3 id="39-refine-the-skill">3.9 Refine the skill</h3>
+<p>Customize one visible behavior without weakening its safety rules.</p>
+<div class="admonition blank">
+<p class="admonition-title">Prompt the agent</p>
+<p><copy>Update the meeting-follow-up skill so follow-up spaces use the name "Customer Follow-Up — [meeting title]". Format action items as bullet points with bold owner names. Keep all approval and evidence requirements unchanged.</copy></p>
+</div>
+<ul>
+<li>Review the change in <code>meeting-follow-up/SKILL.md</code>.</li>
+<li>Confirm the skill still requires evidence and human approval.</li>
+<li>This demonstrates the boundary between customizable presentation and non-negotiable safety behavior.</li>
+</ul>
+<h3 id="310-test-the-skill-on-a-new-meeting">3.10 Test the skill on a new meeting</h3>
+<p>Start a <strong>new chat session</strong> in Kiro so the agent has no prior context from the steps above.</p>
+<div class="admonition blank">
+<p class="admonition-title">Prompt the agent (new session)</p>
+<p><copy>Run the meeting-follow-up skill. List my recent meetings and let me pick which one to create a follow-up for.</copy></p>
+</div>
+<ul>
+<li>The agent should use the skill file to guide its workflow - not rely on previous conversation history.</li>
+<li>Pick a <strong>different</strong> meeting than the one you used above.</li>
+<li>Walk through the approval steps as prompted.</li>
+<li>Confirm the follow-up space and recap are created successfully.</li>
+</ul>
+<div class="admonition webex">
+<p class="admonition-title">What this proves</p>
+<p>The skill works as a standalone, reusable workflow. The agent discovers the meeting, extracts content, drafts a recap, gets your approval, and posts - all guided by the skill file, not your step-by-step prompts.</p>
+</div>
+<hr>
+<h2 id="checkpoint">Checkpoint</h2>
+<p>You are ready for Lab 4 when:</p>
+<ul>
+<li>[x] You interactively completed a full meeting follow-up workflow</li>
+<li>[x] You corrected an ambiguous or unsupported extraction</li>
+<li>[x] The agent created a follow-up space with a reviewed recap (with your approval)</li>
+<li>[x] You built a reusable skill file that captures the workflow</li>
+<li>[x] You customized the skill without weakening its safety rules</li>
+<li>[x] The skill was tested and produced a consistent result</li>
+<li>[x] No transcript or credentials were exposed unnecessarily</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../lab2_connect_discover/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lab 2 - Connect the AI Client and Discover Tools">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Lab 2 - Connect the AI Client and Discover Tools
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lab4_quality/" class="md-footer__link md-footer__link--next" aria-label="Next: Lab 4 - Build the Meeting Quality Assistant">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Lab 4 - Build the Meeting Quality Assistant
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Cisco
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.instant", "navigation.top", "navigation.footer", "search.suggest", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../template_assets/js/newLoad.js"></script>
+      
+        <script src="../template_assets/js/setInfo.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "fade", "closeEffect": "fade", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
