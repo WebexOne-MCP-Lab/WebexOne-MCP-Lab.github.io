@@ -1,7 +1,7 @@
 ---
 site_name: 'LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)' # must be same as "site_name"
 site_description: 'LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)'
-site_author: Cisco Webex
+site_author: Chad Patterson, Payven Simien
 site_url: 'https://webexone-mcp-lab.github.io/'
 copyright: Copyright &copy; 2026 Cisco
 theme:
