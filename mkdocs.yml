@@ -1,0 +1,115 @@
+---
+site_name: 'LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)' # must be same as "site_name"
+site_description: 'LAB-11161 AI-Powered Meeting Agent with Webex Model Context Protocol (MCP)'
+site_author: Chad Patterson, Payven Simien
+site_url: 'https://webexone-mcp-lab.github.io/'
+copyright: Copyright &copy; 2026 Cisco
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.indexes
+    - navigation.instant
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - content.code.copy
+    - toc.integrate
+  custom_dir: docs/overrides
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  logo: template_assets/webexLogo91.png
+  favicon: template_assets/webex75.png
+extra:
+  generator: false
+  repository_url: "https://github.com/WebexOne-MCP-Lab/WebexOne-MCP-Lab.github.io"
+  quality_tool_url: "https://github.com/WebexOne-MCP-Lab/WebexOne-MCP-Lab.github.io/blob/main/quality-tool/server.py"
+  site_event: WebexOne 2026
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - template_assets/js/newLoad.js
+  - template_assets/js/setInfo.js
+plugins:
+  - search
+  - macros
+  # - with-pdf:
+  #     cover_title: LAB-11161
+  #     cover_subtitle: AI-Powered Meetings with Webex MCP
+  #     cover_logo: template_assets/wx1Splash_new.gif
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: fade
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: false
+      skip_classes:
+      - custom-skip-class-name
+      auto_caption: true
+      caption_position: top
+markdown_extensions:
+  - md_in_html
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - tables
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+nav:
+  - Home: index.md
+  - Welcome: welcome.md
+  - Lab:
+      - Overview: overview.md
+      - Lab 1 - Provision Webex MCP in Control Hub: lab1_control_hub.md
+      - Lab 2 - Connect the AI Client and Discover Tools: lab2_connect_discover.md
+      - Lab 3 - Build the Meeting Follow-Up Assistant: lab3_follow_up.md
+      - Lab 4 - Build the Meeting Quality Assistant: lab4_quality.md
+      - Lab 5 - Cross-Workflow Capstone: lab5_capstone.md
+      - Conclusion: conclusion.md
+  - Skill Customization:
+      - Skill File Overview: skills/overview.md
+      - Customization Exercise: skills/customization-exercise.md
+  - Topologies: topologies.md
+  - Reference:
+      - Lab Credentials: reference/credentials.md
+      - Take-Home Bundle: reference/take-home.md
+      - MCP vs REST API: reference/mcp-vs-rest.md
+      - MCP Transports: reference/mcp-transports.md
+      - Completion Checklist: reference/checklist.md
+      - Troubleshooting Matrix: reference/troubleshooting.md
+      - Known Caveats: reference/caveats.md
+      - Links and Resources: reference/links.md
+  # Lab-guide authoring docs are deliberately NOT in this site. MkDocs publishes every
+  # .md under docs/ whether or not it appears in nav, so they live in the internal
+  # lab-team-syllabus instead. See lab-team-syllabus/docs/authoring/.
