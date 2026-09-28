@@ -97,7 +97,7 @@ Now that you have completed the workflow manually, turn it into a reusable skill
 ### 3.8 Create the skill file
 
 !!! blank "Prompt the agent"
-    <copy>Based on the workflow we just completed, create a skill file called `meeting-follow-up/SKILL.md` that captures this entire follow-up process. The skill should: find a meeting by title or ID; retrieve the transcript/summary; extract decisions and action items with evidence; create a follow-up space and post the recap (with approval); schedule a follow-up meeting only when the required details are explicit. Include clear instructions the agent can follow. Require human approval before any write action. Format output as structured sections.</copy>
+    <copy>Based on the workflow we just completed, create a VS Code Agent Skill at `.github/skills/meeting-follow-up/SKILL.md` that captures this entire follow-up process. Include YAML frontmatter with `name: meeting-follow-up` and a description of when to use it. The skill should: find a meeting by title or ID; retrieve the transcript/summary; extract decisions and action items with evidence; create a follow-up space and post the recap (with approval); schedule a follow-up meeting only when the required details are explicit. Require human approval before any write action. Format output as structured sections.</copy>
 
 - Review the generated skill file.
 - Does it capture the workflow you just did?
@@ -110,13 +110,13 @@ Customize one visible behavior without weakening its safety rules.
 !!! blank "Prompt the agent"
     <copy>Update the meeting-follow-up skill so follow-up spaces use the name "Customer Follow-Up — [meeting title]". Format action items as bullet points with bold owner names. Keep all approval and evidence requirements unchanged.</copy>
 
-- Review the change in `meeting-follow-up/SKILL.md`.
+- Review the change in `.github/skills/meeting-follow-up/SKILL.md`.
 - Confirm the skill still requires evidence and human approval.
 - This demonstrates the boundary between customizable presentation and non-negotiable safety behavior.
 
 ### 3.10 Test the skill on a new meeting
 
-Start a **new chat session** in Kiro so the agent has no prior context from the steps above.
+Start a **new local Copilot Chat session** in VS Code so the agent has no prior context from the steps above. Confirm the skill appears under **Configure Skills** (or type `/` in chat to find it).
 
 !!! blank "Prompt the agent (new session)"
     <copy>Run the meeting-follow-up skill. List my recent meetings and let me pick which one to create a follow-up for.</copy>

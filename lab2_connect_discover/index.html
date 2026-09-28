@@ -1327,8 +1327,8 @@
 </div>
 <h2 id="section-1-verify-your-connection">Section 1 - Verify your connection</h2>
 <ol>
-<li>Open the supplied lab workspace in Kiro.</li>
-<li>Confirm both MCP servers show a green connected status in the <strong>MCP Servers</strong> panel (configured in Lab 1).</li>
+<li>Open the supplied lab workspace in VS Code and start a local GitHub Copilot Chat session in <strong>Agent</strong> mode.</li>
+<li>Run <strong>MCP: List Servers</strong> and confirm both Webex servers are running. In Copilot Chat, open <strong>Configure Tools</strong> and confirm their tools are enabled (configured in Lab 1).</li>
 </ol>
 <h2 id="section-2-discover-tools">Section 2 - Discover tools</h2>
 <ol>
@@ -1353,7 +1353,7 @@
 <p><copy>Show me the Webex Meetings and Messaging tools currently available. Group them by read-only and write/side-effecting behavior. Do not invoke any write tool. For each tool, show the required inputs and explain what data it can access.</copy></p>
 </div>
 <h2 id="section-3-tool-selection-challenge">Section 3 - Tool-selection challenge</h2>
-<p>Before running each request below, predict which MCP server and tool the agent should use. Then run the request and compare your prediction with the actual tool call Kiro displays.</p>
+<p>Before running each request below, predict which MCP server and tool the agent should use. Then run the request and compare your prediction with the tool call shown in Copilot Chat.</p>
 <table>
 <thead>
 <tr>
@@ -1381,7 +1381,7 @@
 <li>Did the agent choose the tool you expected?</li>
 <li>What required inputs did the tool need?</li>
 <li>Was the operation read-only or side-effecting?</li>
-<li>Did Kiro request approval?</li>
+<li>Did Copilot Chat request approval?</li>
 </ul>
 <div class="admonition curious">
 <p class="admonition-title">Why this matters</p>
@@ -1391,11 +1391,11 @@
 <p>Now that you know what tools are available, try them out and watch the results in real time.</p>
 <h3 id="preparation">Preparation</h3>
 <ol>
-<li>Open the <strong>Webex</strong> desktop application on your lab workstation and sign in with your lab credentials. Keep it visible alongside Kiro so you can watch changes happen in real time.</li>
+<li>Open the <strong>Webex</strong> desktop application on your lab workstation and sign in with your lab credentials. Keep it visible alongside VS Code so you can watch changes happen in real time.</li>
 </ol>
 <div class="admonition important">
 <p class="admonition-title">Tool approval</p>
-<p>When the agent tries to invoke a tool, Kiro will prompt you to approve the action before it executes. This is expected - review what the tool will do and click <strong>Allow</strong> to proceed. This is the human-in-the-loop safety model in action.</p>
+<p>Keep Copilot Chat on manual permissions. When a tool call requires approval, expand its details, review the exact inputs, and approve it for this use only. If a write call runs without a prompt, check <strong>Chat: Manage Tool Approval</strong> before continuing the approval experiment.</p>
 </div>
 <h3 id="try-these-tasks">Try these tasks</h3>
 <p>Ask the agent to do each of the following. Watch the results appear in the Webex desktop app as the agent executes each tool.</p>
@@ -1410,11 +1410,11 @@
 <p>By the end of the warm-up you should have a Webex space with a message in it, visible in the Webex desktop app. This confirms both MCP servers are working and the agent can read and write data on your behalf.</p>
 </div>
 <h2 id="section-5-approval-experiment">Section 5 - Approval experiment</h2>
-<p>Compare how Kiro handles a read operation and a write operation:</p>
+<p>Compare how Copilot Chat handles a read operation and a write operation:</p>
 <ol>
 <li>Ask the agent to list your Webex spaces. Review the tool call and approval behavior.</li>
 <li>Ask the agent to post a second message in your warm-up space.</li>
-<li>When Kiro asks for approval, choose <strong>Reject</strong>.</li>
+<li>When Copilot Chat asks for approval, decline the tool call.</li>
 <li>Confirm no message appeared in Webex.</li>
 <li>Revise the message, run the request again, review the exact tool inputs, and approve it.</li>
 <li>Confirm only the approved message appears.</li>
@@ -1439,7 +1439,7 @@
 <h2 id="checkpoint">Checkpoint</h2>
 <p>You are ready for Lab 3 when:</p>
 <ul>
-<li>[x] Both MCP servers are connected (green status in Kiro)</li>
+<li>[x] Both MCP servers are running and their tools are enabled in Copilot Chat</li>
 <li>[x] You can list and describe the available MCP tools</li>
 <li>[x] You created a Webex space and posted a message using the agent</li>
 <li>[x] You can see the space and message in the Webex desktop app</li>

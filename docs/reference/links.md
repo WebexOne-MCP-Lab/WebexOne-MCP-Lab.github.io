@@ -3,7 +3,9 @@
 ## MCP standard and tooling
 
 - [Model Context Protocol - introduction](https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro){:target="_blank"} - the open standard itself
-- [Kiro documentation](https://kiro.dev/docs/){:target="_blank"} - the IDE and agent used in this lab
+- [VS Code MCP server guide](https://code.visualstudio.com/docs/agent-customization/mcp-servers){:target="_blank"} - configure and inspect MCP servers in the lab editor
+- [GitHub Copilot Chat setup](https://code.visualstudio.com/docs/setup/copilot){:target="_blank"} - sign in and choose the lab's AI model
+- [VS Code Agent Skills](https://code.visualstudio.com/docs/agent-customization/agent-skills){:target="_blank"} - discover and use the workflow skills
 - [FastMCP](https://gofastmcp.com/getting-started/welcome){:target="_blank"} - the Python framework used to build this lab's custom quality server
 - [The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf){:target="_blank"} - the skill-authoring model this lab's `skills/` bundle follows
 

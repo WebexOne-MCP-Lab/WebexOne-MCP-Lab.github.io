@@ -40,22 +40,23 @@ The Meeting Qualities API requires the `analytics:read_all` scope and an org adm
     uv run server.py
     ```
 
-7. Register the server in Kiro's `.kiro/settings/mcp.json`, alongside the two official servers:
+7. Add the server inside the `servers` object of your workspace's `.vscode/mcp.json`, alongside the two official servers. On the lab's Windows desktop, `${workspaceFolder}` resolves to the open workspace:
 
     ```json
     "webex-meeting-qualities": {
+      "type": "stdio",
       "command": "uv",
-      "args": ["run", "--directory", "/absolute/path/to/quality-tool", "server.py"]
+      "args": ["run", "--directory", "${workspaceFolder}/quality-tool", "server.py"]
     }
     ```
 
-8. Save the file and confirm the server shows green in Kiro's **MCP Servers** panel. You should now see a third tool available: `get_meeting_qualities`.
+8. Save the file, run **MCP: List Servers**, and start `webex-meeting-qualities`. Confirm it is running and `get_meeting_qualities` appears under **Configure Tools** in Copilot Chat.
 
 !!! curious "Where does the token live?"
     Only in `quality-tool/.env`, on the machine running the server. The agent never sees it, the model never sees it, and it is never sent in a prompt. That isolation is the main reason to wrap a REST API in an MCP server rather than letting the agent call it directly.
 
 !!! curious "Notice the different transport"
-    Unlike the Webex servers, this one has no `url` - Kiro launches it as a local subprocess over **stdio**. That is what keeps the token off the network entirely. See [MCP Transports](reference/mcp-transports.md).
+    Unlike the Webex servers, this one has no `url` - VS Code launches it as a local subprocess over **stdio**. The token stays in the local `.env` file and is not sent to an MCP endpoint. The server still sends it to the Webex Analytics API over HTTPS when it calls that API. See [MCP Transports](reference/mcp-transports.md).
 
 ### 4.3 Know the API's limits
 
@@ -174,13 +175,13 @@ The agent should:
 ### 4.13 Build the skill file
 
 !!! blank "Prompt the agent"
-    <copy>Create a `meeting-quality/SKILL.md` that captures the full troubleshooting workflow we just completed. Add instructions for: finding a meeting via the Meetings MCP server; calling get_meeting_qualities; analyzing metrics (separate observations from hypotheses); respecting data_gaps and never treating an unmeasured value as zero; generating data-linked troubleshooting checks; drafting an incident summary (no markdown tables, always attribute data sources); creating an Incident Mode space (with approval); posting updates as thread replies; and handling authentication, invalid meeting IDs, empty data, and rate limits without fabricating results. Require human approval before creating spaces or posting messages.</copy>
+    <copy>Create a VS Code Agent Skill at `.github/skills/meeting-quality/SKILL.md` with YAML frontmatter (`name: meeting-quality` and a description of when to use it). Capture the troubleshooting workflow we just completed: find a meeting via the Meetings MCP server; call get_meeting_qualities; analyze metrics (separate observations from hypotheses); respect data_gaps and never treat an unmeasured value as zero; generate data-linked troubleshooting checks; draft an incident summary (no markdown tables, always attribute data sources); create an Incident Mode space (with approval); post updates as thread replies; and handle authentication, invalid meeting IDs, empty data, and rate limits without fabricating results. Require human approval before creating spaces or posting messages.</copy>
 
 - Review the generated skill file. Does it capture everything?
 
 ### 4.14 Test the skill on a new meeting
 
-Start a **new chat session** in Kiro so the agent has no prior context.
+Start a **new local Copilot Chat session** in VS Code so the agent has no prior context. Confirm the skill appears under **Configure Skills**.
 
 !!! blank "Prompt the agent (new session)"
     <copy>Run the meeting-quality skill. List my recent meetings and let me pick which one to troubleshoot.</copy>
@@ -198,7 +199,7 @@ Start a **new chat session** in Kiro so the agent has no prior context.
 
 You are ready for Lab 5 when:
 
-- [x] The custom quality MCP server is connected and green in Kiro
+- [x] The custom quality MCP server is running in VS Code and its tool is enabled in Copilot Chat
 - [x] The agent retrieved and analyzed quality data for a meeting
 - [x] Observations were separated from hypotheses with confidence levels
 - [x] Unsupported claims were identified and removed

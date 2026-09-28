@@ -648,15 +648,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#section-2-configure-kiro-and-generate-mcp-tokens" class="md-nav__link">
+  <a href="#section-2-configure-vs-code-and-generate-mcp-tokens" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Section 2 - Configure Kiro and generate MCP tokens
+        Section 2 - Configure VS Code and generate MCP tokens
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Section 2 - Configure Kiro and generate MCP tokens">
+    <nav class="md-nav" aria-label="Section 2 - Configure VS Code and generate MCP tokens">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1329,7 +1329,7 @@
 <h1 id="lab-1-provision-webex-mcp-in-control-hub">Lab 1 - Provision Webex MCP in Control Hub</h1>
 <div class="admonition note">
 <p class="admonition-title">Time: 10-30 min</p>
-<p>Enable the official Webex Meetings and Messaging MCP servers, apply governance controls, then generate the tokens that let Kiro connect to them.</p>
+<p>Enable the official Webex Meetings and Messaging MCP servers, apply governance controls, then generate the tokens that let VS Code connect to them.</p>
 </div>
 <h2 id="section-1-enable-the-agentic-apps">Section 1 - Enable the Agentic Apps</h2>
 <p>Sign in to Control Hub with your lab account:</p>
@@ -1414,24 +1414,40 @@
 <p>The Messaging server has 26 tools. We enable only what the lab exercises use. Webhooks, file operations, and delete/update actions are not needed and stay disabled.</p>
 <p>This is the single strongest control you have: a tool that is not enabled here <strong>cannot</strong> be invoked, no matter what a prompt or skill file asks for.</p>
 </div>
-<h2 id="section-2-configure-kiro-and-generate-mcp-tokens">Section 2 - Configure Kiro and generate MCP tokens</h2>
-<p>To connect the AI client to the Webex MCP servers, first set up the MCP configuration in Kiro, then generate tokens and paste them in.</p>
+<h2 id="section-2-configure-vs-code-and-generate-mcp-tokens">Section 2 - Configure VS Code and generate MCP tokens</h2>
+<p>In the lab workspace, sign in to GitHub Copilot Chat with the GitHub account assigned by the lab team. Set the chat <strong>Session Target</strong> to <strong>Local</strong>, select <strong>Agent</strong> mode, and choose the model designated for this lab. The Local target is required here because VS Code's secure <code>${input:...}</code> token prompts are not forwarded to the separate Copilot Agent Host.</p>
 <h3 id="add-the-mcp-configuration">Add the MCP configuration</h3>
 <ol>
 <li>
-<p>In Kiro, open the MCP configuration file (<code>.kiro/settings/mcp.json</code>) and replace its contents with the following template:</p>
+<p>In VS Code, open the supplied lab workspace. Create or open <code>.vscode/mcp.json</code> at its root and add this configuration. Keep the <code>inputs</code> entries: VS Code will ask for the tokens when each server starts and store them securely.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"inputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"promptString"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webex-meeting-token"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Webex Meeting Agentic App token"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"promptString"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webex-messaging-token"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Webex Messaging Agentic App token"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"servers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"webex-meeting"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http"</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mcp.webexapis.com/mcp/webex-meeting"</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">"Authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer &lt;YOUR_MEETING_TOKEN&gt;"</span>
+<span class="w">        </span><span class="nt">"Authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer ${input:webex-meeting-token}"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nt">"webex-messaging"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http"</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mcp.webexapis.com/mcp/webex-messaging"</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">"Authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer &lt;YOUR_MESSAGING_TOKEN&gt;"</span>
+<span class="w">        </span><span class="nt">"Authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer ${input:webex-messaging-token}"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -1445,19 +1461,19 @@
 <li>Click your <strong>avatar</strong> (top right) → <strong>Webex Agentic App token</strong>.</li>
 <li>Under <strong>Generate token</strong>, click <strong>Generate now</strong>.</li>
 <li>Select the <strong>Webex Meeting</strong> MCP server, give the token a name (for example <code>Lab Meeting Token</code>), and click <strong>Create token</strong>.</li>
-<li>Copy the token and paste it into the <code>webex-meeting</code> Authorization header in <code>mcp.json</code>.</li>
+<li>Copy the token; you will enter it in VS Code's hidden input prompt for <code>webex-meeting-token</code>.</li>
 <li>Generate a second token for the <strong>Webex Messaging</strong> MCP server (for example <code>Lab Messaging Token</code>).</li>
-<li>Copy the token and paste it into the <code>webex-messaging</code> Authorization header in <code>mcp.json</code>.</li>
-<li>Save the file. Kiro will automatically connect to both MCP servers.</li>
-<li>Open the Command Palette (<code>Cmd+Shift+P</code>) and search for <strong>Kiro: Focus on MCP Servers View</strong>. Select it to open the MCP Servers panel in the bottom left of Kiro. Confirm both servers show a green connected status.</li>
+<li>Copy the token for VS Code's hidden <code>webex-messaging-token</code> prompt.</li>
+<li>Save <code>.vscode/mcp.json</code>. Open the Command Palette (<code>Ctrl+Shift+P</code>) and run <strong>MCP: List Servers</strong>. Start both Webex servers if needed. Enter each token when prompted, without the <code>Bearer</code> prefix.</li>
+<li>Confirm both servers are running and their tools appear under <strong>Configure Tools</strong> in Copilot Chat. Select <strong>Agent</strong> mode and keep tool approvals enabled for the exercises.</li>
 </ol>
 <div class="admonition important">
 <p class="admonition-title">Treat these tokens as secrets</p>
-<p>These tokens grant the agent access to Webex on your behalf. Never paste them into a chat prompt, a skill file, a screenshot, or a commit. They belong only in <code>mcp.json</code>.</p>
+<p>These tokens grant the agent access to Webex on your behalf. Never paste them into a chat prompt, a skill file, a screenshot, or a committed file. Enter them only in VS Code's hidden token prompts.</p>
 </div>
 <div class="admonition curious">
 <p class="admonition-title">Why a URL and not a command?</p>
-<p>These servers are addressed by <code>url</code> because Cisco hosts them remotely - the transport is <strong>Streamable HTTP</strong>. In <a href="../lab4_quality/">Lab 4</a> you will add a server addressed by <code>command</code> instead, which runs locally over <strong>stdio</strong>. See <a href="../reference/mcp-transports/">MCP Transports</a> for why each is used.</p>
+<p>These servers use <code>type: "http"</code> and a <code>url</code> because Cisco hosts them remotely; the transport is <strong>Streamable HTTP</strong>. In <a href="../lab4_quality/">Lab 4</a> you will add a server addressed by <code>command</code> instead, which runs locally over <strong>stdio</strong>. See <a href="../reference/mcp-transports/">MCP Transports</a> for why each is used.</p>
 </div>
 <h2 id="checkpoint">Checkpoint</h2>
 <p>You are ready for Lab 2 when:</p>
@@ -1466,7 +1482,7 @@
 <li>[x] All Webex Meeting tools are enabled</li>
 <li>[x] The 9 required Webex Messaging tools are enabled</li>
 <li>[x] You have MCP tokens generated for both the Meeting and Messaging servers</li>
-<li>[x] Both servers show green connected status in Kiro's MCP Servers panel</li>
+<li>[x] Both servers are running in VS Code and their tools are enabled in Copilot Chat</li>
 <li>[x] You can explain which organization policy controls the tools exposed to the client</li>
 </ul>
 <h2 id="troubleshooting">Troubleshooting</h2>
@@ -1495,8 +1511,8 @@
 <td>Review schema changes and reauthorize the server/tool baseline</td>
 </tr>
 <tr>
-<td>Server shows red/disconnected in Kiro</td>
-<td>Re-check the token was pasted in full, with no trailing spaces, and that the file is saved</td>
+<td>Server fails to start in VS Code</td>
+<td>Run <strong>MCP: List Servers</strong> → <strong>Show Output</strong>; check the token entered in the hidden prompt and confirm the workspace is trusted</td>
 </tr>
 </tbody>
 </table>

@@ -5,7 +5,7 @@
 
 ## Start with no conversation context
 
-Open a **new chat session** in Kiro. Do not tell the agent which tools to use.
+Open a **new local Copilot Chat session** in VS Code with **Agent** mode selected. Do not tell the agent which tools to use.
 
 !!! blank "Capstone prompt"
     <copy>Help me close out my most recent relevant meeting. First, list my recent meetings and let me choose one. Create a reviewed follow-up with decisions and evidence-supported action items. If meeting-quality data is available and shows a meaningful issue, also prepare an incident summary. Show me every draft before posting anything. Ask for approval before each side effect. Tell me which skill and data source you use at each stage.</copy>

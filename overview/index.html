@@ -1371,7 +1371,7 @@
 <p>Although the lab design and configuration examples could be used as a reference, for design related questions for your production enrionments please contact your representative at Cisco, or a Cisco partner.</p>
 <p>The Webex MCP servers, tool names, OAuth scopes, and client behavior shown in this guide reflect the versions validated for this event. Revalidate against the current Webex documentation before applying anything here to your own organization.</p>
 <h2 id="lab-access">Lab Access</h2>
-<p>Your pod is a self-contained Cisco dCloud Windows desktop with Webex App, a browser, and Visual Studio Code preconfigured. You do not need to install software or handle service credentials.</p>
+<p>Your pod is a self-contained Cisco dCloud Windows desktop with Webex App, a browser, and Visual Studio Code with GitHub Copilot Chat preconfigured. You do not need to install software; you will generate Webex tokens during the lab.</p>
 <p>From your workstation, open an RDP (Remote Desktop) session to the host named <strong>wkst1</strong> using the values provided by your proctor.</p>
 <div class="grid">
 <form id="info">
@@ -1415,7 +1415,8 @@
 <ul>
 <li>[x] A Webex account in the lab organization (provided by the lab team)</li>
 <li>[x] Access to the assigned Webex Control Hub organization</li>
-<li>[x] A dCloud workstation with Kiro and the lab workspace preloaded</li>
+<li>[x] A dCloud workstation with VS Code, GitHub Copilot Chat, and the lab workspace preloaded</li>
+<li>[x] The GitHub account assigned for Copilot access</li>
 <li>[x] The approved AI client configuration (supplied by the lab team)</li>
 <li>[x] Permission to authorize the Webex Agentic Apps requested in the lab</li>
 </ul>
@@ -1427,20 +1428,20 @@
 <li>Open the dCloud desktop and sign in with your Windows credentials.</li>
 <li>Open the browser and sign in to Webex with your assigned lab identity.</li>
 <li>Open Webex App and confirm the seeded meetings and spaces are visible.</li>
-<li>Open the preloaded Kiro workspace.</li>
-<li>Open the agent panel and confirm the model and both Webex MCP servers are ready.</li>
+<li>Open the preloaded lab workspace in VS Code and sign in to GitHub Copilot Chat with the account assigned for the lab.</li>
+<li>Open Copilot Chat, set <strong>Session Target: Local</strong>, select <strong>Agent</strong> mode and the lab's designated model. You will connect the Webex MCP servers in Lab 1.</li>
 </ol>
 <h2 id="lab-rules">Lab Rules</h2>
 <div class="admonition danger">
 <p class="admonition-title">Protect your credentials</p>
-<p>Do not paste tokens into chat prompts, screenshots, or Webex messages. Store them only in configuration files (e.g., <code>mcp.json</code>, <code>.env</code>).</p>
+<p>Do not paste tokens into chat prompts, screenshots, or Webex messages. Enter the official server tokens only in VS Code's hidden input prompts; keep the quality server token only in its local <code>.env</code> file.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Use only the lab environment</p>
 <p>Work only with the lab organization and seeded data provided. Do not connect to your production Webex organization.</p>
 </div>
 <ol>
-<li><strong>Review before approving.</strong> Kiro will ask you to approve each tool call — read what the agent plans to do before clicking Allow.</li>
+<li><strong>Review before approving.</strong> Keep Copilot Chat on manual tool approvals, review the tool name and inputs, and approve only the actions you intend.</li>
 <li><strong>Don't trust output blindly.</strong> AI-generated summaries and recommendations may be incomplete or incorrect. Verify before acting on them.</li>
 </ol>
 <h2 id="lab-flow-and-timing">Lab Flow and Timing</h2>

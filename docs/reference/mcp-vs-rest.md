@@ -9,7 +9,7 @@ A formal comparison of the two integration patterns used in this lab. If you tak
 | `REST API` | A conventional HTTP interface. You call a URL with a method, headers, and parameters, and get JSON back. Designed for developers writing code. |
 | `MCP` | **Model Context Protocol.** An open standard that lets an AI agent discover and call tools at runtime, without those tools being hardcoded into the agent. Designed for models. |
 | `MCP server` | A process that exposes one or more tools over MCP. It may wrap a REST API, a database, a filesystem, or anything else. |
-| `MCP client` | The component inside your AI application that connects to MCP servers, lists their tools, and invokes them. In this lab, the agent built into Kiro. |
+| `MCP client` | The component inside your AI application that connects to MCP servers, lists their tools, and invokes them. In this lab, GitHub Copilot Chat in VS Code. |
 | `Tool` | A single callable operation exposed by an MCP server, with a name, a description, and a typed input schema the model can read. |
 
 ## Side-by-side

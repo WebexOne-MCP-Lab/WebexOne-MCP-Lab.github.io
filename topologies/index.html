@@ -1258,7 +1258,7 @@
 <h2 id="logical-architecture">Logical architecture</h2>
 <p>Every tool the agent calls is reached over <strong>MCP</strong>. The difference is what sits behind each server: the two official servers are Cisco-hosted and governed by Control Hub, while the quality server is one you run yourself, and it translates your MCP call into a Webex REST API call.</p>
 <pre class="mermaid"><code>flowchart TD
-    A["You&lt;br/&gt;(dCloud Windows desktop)"] --&gt; B["Kiro IDE&lt;br/&gt;built-in AI agent"]
+    A["You&lt;br/&gt;(dCloud Windows desktop)"] --&gt; B["VS Code&lt;br/&gt;GitHub Copilot Chat Agent"]
 
     subgraph official ["Official Cisco-hosted MCP servers"]
         C["Webex Meetings MCP server"]
@@ -1302,8 +1302,8 @@
 <td>Enables Agentic Apps, controls access, and governs which tools are available</td>
 </tr>
 <tr>
-<td><code>AI agent (Kiro)</code></td>
-<td>Discovers MCP tools, plans the workflow, requests your approval, and renders results</td>
+<td><code>AI agent (Copilot Chat in VS Code)</code></td>
+<td>Discovers MCP tools, plans the workflow, requests your approval when required, and renders results</td>
 </tr>
 <tr>
 <td><code>Meetings MCP server</code></td>
@@ -1335,7 +1335,7 @@
 <tbody>
 <tr>
 <td><code>Virtual desktop</code></td>
-<td>One resettable Windows 11 dCloud desktop with browser, Webex App, and Kiro</td>
+<td>One resettable Windows 11 dCloud desktop with browser, Webex App, VS Code, and GitHub Copilot Chat</td>
 </tr>
 <tr>
 <td><code>Webex organization</code></td>

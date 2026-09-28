@@ -10,39 +10,40 @@ You built two of them yourself in [Lab 3](../lab3_follow_up.md) and [Lab 4](../l
 
 | Layer | Who controls it | What it does |
 | ---------------- | ---------------- | ---------------- |
-| `Controlled agent prompt` | Lab team / platform | Defines the agent's role, safety rules, approval gates, and tool contracts |
-| `Skill files` | You, the customer | Customize formatting, terminology, thresholds, and workflow-specific guidance |
+| `Workspace instructions` | Lab team | Guides the agent's role, review steps, and tool use through `.github/copilot-instructions.md` |
+| `Skill files` | You, the customer | Customize formatting, terminology, thresholds, and workflow-specific guidance under `.github/skills/` |
 
 !!! important
-    The controlled prompt always takes precedence. If a skill conflicts with a safety rule, the agent follows the controlled prompt and reports the conflict.
+    Workspace instructions and skills guide Copilot's behavior; neither is an enforcement boundary. Keep manual tool approvals enabled and rely on Control Hub to restrict available Webex tools. If a skill asks to skip review, decline the tool call and remove that instruction.
 
 ## Skill bundle structure
 
 ```text
-skills/
-├── README.md
-├── controlled-agent-prompt.md
-├── meeting-follow-up/
-│   ├── SKILL.md
-│   └── references/
-├── approval-gate/
-│   ├── SKILL.md
-│   └── references/
-├── multilingual-output/
-│   ├── SKILL.md
-│   └── references/
-├── attendance-report/
-│   ├── SKILL.md
-│   └── references/
-├── meeting-quality/
-│   ├── SKILL.md
-│   └── references/
-└── incident-mode/
-    ├── SKILL.md
-    └── references/
+lab-workspace/
+├── .github/
+│   ├── copilot-instructions.md
+│   └── skills/
+│       ├── meeting-follow-up/
+│       │   ├── SKILL.md
+│       │   └── references/
+│       ├── approval-gate/
+│       │   ├── SKILL.md
+│       │   └── references/
+│       ├── multilingual-output/
+│       │   ├── SKILL.md
+│       │   └── references/
+│       ├── attendance-report/
+│       │   ├── SKILL.md
+│       │   └── references/
+│       ├── meeting-quality/
+│       │   ├── SKILL.md
+│       │   └── references/
+│       └── incident-mode/
+│           ├── SKILL.md
+│           └── references/
 ```
 
-Each skill has a `SKILL.md` (the main instruction file) and a `references/` directory with supporting details.
+Each skill has a `SKILL.md` (the main instruction file) and a `references/` directory with supporting details. The downloadable bundle stores the skill directories under `skills/`; copy them to `.github/skills/` in the lab workspace so VS Code discovers them.
 
 ## What each skill controls
 
@@ -73,9 +74,9 @@ Each skill has a `SKILL.md` (the main instruction file) and a `references/` dire
     >
     > Supported languages and terminology glossaries
 
-=== "You cannot change"
+=== "Lab rules you must preserve"
 
-    > Approval gates - they cannot be bypassed or removed
+    > Approval steps - do not bypass or remove them
     >
     > OAuth scopes or Control Hub policy
     >
@@ -89,7 +90,7 @@ Each skill has a `SKILL.md` (the main instruction file) and a `references/` dire
 
 ## How skills are loaded
 
-The agent loads skills based on the workflow context:
+VS Code discovers skills under `.github/skills/` and Copilot loads them when the request matches their descriptions (or when you invoke them from chat). The intended routing is:
 
 ```text
 IF workflow = follow_up:
@@ -105,4 +106,4 @@ IF workflow = quality:
 ```
 
 !!! curious "You saw this in action"
-    The [capstone](../lab5_capstone.md) required the agent to make these loading decisions on its own, from a single business request.
+    The [capstone](../lab5_capstone.md) asks the agent to choose relevant skills from a single business request. Verify the skills actually loaded; model behavior can vary.

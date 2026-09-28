@@ -6,7 +6,7 @@ Every tool the agent calls is reached over **MCP**. The difference is what sits 
 
 ```mermaid
 flowchart TD
-    A["You<br/>(dCloud Windows desktop)"] --> B["Kiro IDE<br/>built-in AI agent"]
+    A["You<br/>(dCloud Windows desktop)"] --> B["VS Code<br/>GitHub Copilot Chat Agent"]
 
     subgraph official ["Official Cisco-hosted MCP servers"]
         C["Webex Meetings MCP server"]
@@ -42,7 +42,7 @@ flowchart TD
 | Component | What it does |
 | ---------------- | ---------------- |
 | `Control Hub` | Enables Agentic Apps, controls access, and governs which tools are available |
-| `AI agent (Kiro)` | Discovers MCP tools, plans the workflow, requests your approval, and renders results |
+| `AI agent (Copilot Chat in VS Code)` | Discovers MCP tools, plans the workflow, requests your approval when required, and renders results |
 | `Meetings MCP server` | Official, Cisco-hosted. Provides meeting lifecycle, transcript, summary, recording, and scheduling tools |
 | `Messaging MCP server` | Official, Cisco-hosted. Provides spaces, messages, memberships, webhooks, file, and thread tools |
 | `Meeting Qualities MCP server` | Custom, self-hosted. A small FastMCP server you run that wraps the Webex Meeting Qualities REST API and returns normalized telemetry |
@@ -54,7 +54,7 @@ Each attendee receives an isolated pod so that nothing you do can affect another
 
 | Component | Per-attendee resource |
 | ---------------- | ---------------- |
-| `Virtual desktop` | One resettable Windows 11 dCloud desktop with browser, Webex App, and Kiro |
+| `Virtual desktop` | One resettable Windows 11 dCloud desktop with browser, Webex App, VS Code, and GitHub Copilot Chat |
 | `Webex organization` | One isolated, non-production Webex test organization |
 | `Lab identities` | Five pre-created fictional users providing a host and attendees |
 | `Your identity` | One designated lab user used for Control Hub, Webex App, and MCP authorization |

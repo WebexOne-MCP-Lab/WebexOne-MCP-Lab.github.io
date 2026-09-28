@@ -40,8 +40,8 @@ Use this single account for all lab activities - Control Hub, developer.webex.co
 | Step | Where | What you do |
 | ---------------- | ---------------- | ---------------- |
 | `Lab 1` | [admin.webex.com](https://admin.webex.com/){:target="_blank"} | Sign in to configure Agentic Apps and tools |
-| `Lab 1` | [developer.webex.com](https://developer.webex.com/){:target="_blank"} | Generate the two Agentic App tokens for Kiro |
-| `Lab 2` | Kiro + Webex desktop app | Run tools and watch results appear |
+| `Lab 1` | [developer.webex.com](https://developer.webex.com/){:target="_blank"} | Generate the two Agentic App tokens for VS Code |
+| `Lab 2` | Copilot Chat in VS Code + Webex desktop app | Run tools and watch results appear |
 | `Lab 3-5` | Webex | Access seeded meetings, spaces, and transcripts |
 | `Lab 4` | [developer.webex.com](https://developer.webex.com/){:target="_blank"} | Generate a personal access token for the quality server |
 
@@ -51,8 +51,8 @@ You generate three tokens during this lab. They are **not** your login credentia
 
 | Token | Created in | Where it goes | Lifetime |
 | ---------------- | ---------------- | ---------------- | ---------------- |
-| `Webex Meeting Agentic App token` | Lab 1 | `.kiro/settings/mcp.json` | Lab session |
-| `Webex Messaging Agentic App token` | Lab 1 | `.kiro/settings/mcp.json` | Lab session |
+| `Webex Meeting Agentic App token` | Lab 1 | VS Code's hidden `webex-meeting-token` input for `.vscode/mcp.json` | Lab session |
+| `Webex Messaging Agentic App token` | Lab 1 | VS Code's hidden `webex-messaging-token` input for `.vscode/mcp.json` | Lab session |
 | `Personal access token` | Lab 4 | `quality-tool/.env` | 12 hours |
 
 !!! danger "Protect every token"

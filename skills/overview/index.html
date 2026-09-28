@@ -1296,45 +1296,46 @@
 </thead>
 <tbody>
 <tr>
-<td><code>Controlled agent prompt</code></td>
-<td>Lab team / platform</td>
-<td>Defines the agent's role, safety rules, approval gates, and tool contracts</td>
+<td><code>Workspace instructions</code></td>
+<td>Lab team</td>
+<td>Guides the agent's role, review steps, and tool use through <code>.github/copilot-instructions.md</code></td>
 </tr>
 <tr>
 <td><code>Skill files</code></td>
 <td>You, the customer</td>
-<td>Customize formatting, terminology, thresholds, and workflow-specific guidance</td>
+<td>Customize formatting, terminology, thresholds, and workflow-specific guidance under <code>.github/skills/</code></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The controlled prompt always takes precedence. If a skill conflicts with a safety rule, the agent follows the controlled prompt and reports the conflict.</p>
+<p>Workspace instructions and skills guide Copilot's behavior; neither is an enforcement boundary. Keep manual tool approvals enabled and rely on Control Hub to restrict available Webex tools. If a skill asks to skip review, decline the tool call and remove that instruction.</p>
 </div>
 <h2 id="skill-bundle-structure">Skill bundle structure</h2>
-<div class="highlight"><pre><span></span><code>skills/
-├── README.md
-├── controlled-agent-prompt.md
-├── meeting-follow-up/
-│   ├── SKILL.md
-│   └── references/
-├── approval-gate/
-│   ├── SKILL.md
-│   └── references/
-├── multilingual-output/
-│   ├── SKILL.md
-│   └── references/
-├── attendance-report/
-│   ├── SKILL.md
-│   └── references/
-├── meeting-quality/
-│   ├── SKILL.md
-│   └── references/
-└── incident-mode/
-    ├── SKILL.md
-    └── references/
+<div class="highlight"><pre><span></span><code>lab-workspace/
+├── .github/
+│   ├── copilot-instructions.md
+│   └── skills/
+│       ├── meeting-follow-up/
+│       │   ├── SKILL.md
+│       │   └── references/
+│       ├── approval-gate/
+│       │   ├── SKILL.md
+│       │   └── references/
+│       ├── multilingual-output/
+│       │   ├── SKILL.md
+│       │   └── references/
+│       ├── attendance-report/
+│       │   ├── SKILL.md
+│       │   └── references/
+│       ├── meeting-quality/
+│       │   ├── SKILL.md
+│       │   └── references/
+│       └── incident-mode/
+│           ├── SKILL.md
+│           └── references/
 </code></pre></div>
-<p>Each skill has a <code>SKILL.md</code> (the main instruction file) and a <code>references/</code> directory with supporting details.</p>
+<p>Each skill has a <code>SKILL.md</code> (the main instruction file) and a <code>references/</code> directory with supporting details. The downloadable bundle stores the skill directories under <code>skills/</code>; copy them to <code>.github/skills/</code> in the lab workspace so VS Code discovers them.</p>
 <h2 id="what-each-skill-controls">What each skill controls</h2>
 <table>
 <thead>
@@ -1378,7 +1379,7 @@
 </tbody>
 </table>
 <h2 id="what-you-can-and-cannot-change">What you can and cannot change</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">You can customize</label><label for="__tabbed_1_2">You cannot change</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">You can customize</label><label for="__tabbed_1_2">Lab rules you must preserve</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <blockquote>
@@ -1393,7 +1394,7 @@
 </div>
 <div class="tabbed-block">
 <blockquote>
-<p>Approval gates - they cannot be bypassed or removed</p>
+<p>Approval steps - do not bypass or remove them</p>
 <p>OAuth scopes or Control Hub policy</p>
 <p>Tool authentication or endpoint contracts</p>
 <p>Privacy rules and data restrictions</p>
@@ -1404,7 +1405,7 @@
 </div>
 </div>
 <h2 id="how-skills-are-loaded">How skills are loaded</h2>
-<p>The agent loads skills based on the workflow context:</p>
+<p>VS Code discovers skills under <code>.github/skills/</code> and Copilot loads them when the request matches their descriptions (or when you invoke them from chat). The intended routing is:</p>
 <div class="highlight"><pre><span></span><code>IF workflow = follow_up:
   load meeting-follow-up/SKILL.md
   load approval-gate/SKILL.md
@@ -1418,7 +1419,7 @@ IF workflow = quality:
 </code></pre></div>
 <div class="admonition curious">
 <p class="admonition-title">You saw this in action</p>
-<p>The <a href="../../lab5_capstone/">capstone</a> required the agent to make these loading decisions on its own, from a single business request.</p>
+<p>The <a href="../../lab5_capstone/">capstone</a> asks the agent to choose relevant skills from a single business request. Verify the skills actually loaded; model behavior can vary.</p>
 </div>
 
 

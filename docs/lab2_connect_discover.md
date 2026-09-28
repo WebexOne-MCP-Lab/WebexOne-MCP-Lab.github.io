@@ -5,8 +5,8 @@
 
 ## Section 1 - Verify your connection
 
-1. Open the supplied lab workspace in Kiro.
-2. Confirm both MCP servers show a green connected status in the **MCP Servers** panel (configured in Lab 1).
+1. Open the supplied lab workspace in VS Code and start a local GitHub Copilot Chat session in **Agent** mode.
+2. Run **MCP: List Servers** and confirm both Webex servers are running. In Copilot Chat, open **Configure Tools** and confirm their tools are enabled (configured in Lab 1).
 
 ## Section 2 - Discover tools
 
@@ -27,7 +27,7 @@
 
 ## Section 3 - Tool-selection challenge
 
-Before running each request below, predict which MCP server and tool the agent should use. Then run the request and compare your prediction with the actual tool call Kiro displays.
+Before running each request below, predict which MCP server and tool the agent should use. Then run the request and compare your prediction with the tool call shown in Copilot Chat.
 
 | Request | Your predicted server/tool |
 | ---------------- | ---------------- |
@@ -40,7 +40,7 @@ For each request, answer:
 - Did the agent choose the tool you expected?
 - What required inputs did the tool need?
 - Was the operation read-only or side-effecting?
-- Did Kiro request approval?
+- Did Copilot Chat request approval?
 
 !!! curious "Why this matters"
     Agents choose tools based on their names, descriptions, and schemas. Understanding that decision helps you diagnose incorrect tool selection and design better prompts.
@@ -51,10 +51,10 @@ Now that you know what tools are available, try them out and watch the results i
 
 ### Preparation
 
-6. Open the **Webex** desktop application on your lab workstation and sign in with your lab credentials. Keep it visible alongside Kiro so you can watch changes happen in real time.
+6. Open the **Webex** desktop application on your lab workstation and sign in with your lab credentials. Keep it visible alongside VS Code so you can watch changes happen in real time.
 
 !!! important "Tool approval"
-    When the agent tries to invoke a tool, Kiro will prompt you to approve the action before it executes. This is expected - review what the tool will do and click **Allow** to proceed. This is the human-in-the-loop safety model in action.
+    Keep Copilot Chat on manual permissions. When a tool call requires approval, expand its details, review the exact inputs, and approve it for this use only. If a write call runs without a prompt, check **Chat: Manage Tool Approval** before continuing the approval experiment.
 
 ### Try these tasks
 
@@ -70,11 +70,11 @@ Ask the agent to do each of the following. Watch the results appear in the Webex
 
 ## Section 5 - Approval experiment
 
-Compare how Kiro handles a read operation and a write operation:
+Compare how Copilot Chat handles a read operation and a write operation:
 
 1. Ask the agent to list your Webex spaces. Review the tool call and approval behavior.
 2. Ask the agent to post a second message in your warm-up space.
-3. When Kiro asks for approval, choose **Reject**.
+3. When Copilot Chat asks for approval, decline the tool call.
 4. Confirm no message appeared in Webex.
 5. Revise the message, run the request again, review the exact tool inputs, and approve it.
 6. Confirm only the approved message appears.
@@ -97,7 +97,7 @@ Compare how Kiro handles a read operation and a write operation:
 
 You are ready for Lab 3 when:
 
-- [x] Both MCP servers are connected (green status in Kiro)
+- [x] Both MCP servers are running and their tools are enabled in Copilot Chat
 - [x] You can list and describe the available MCP tools
 - [x] You created a Webex space and posted a message using the agent
 - [x] You can see the space and message in the Webex desktop app

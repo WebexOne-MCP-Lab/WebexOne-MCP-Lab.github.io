@@ -1477,7 +1477,7 @@
 <h3 id="38-create-the-skill-file">3.8 Create the skill file</h3>
 <div class="admonition blank">
 <p class="admonition-title">Prompt the agent</p>
-<p><copy>Based on the workflow we just completed, create a skill file called <code>meeting-follow-up/SKILL.md</code> that captures this entire follow-up process. The skill should: find a meeting by title or ID; retrieve the transcript/summary; extract decisions and action items with evidence; create a follow-up space and post the recap (with approval); schedule a follow-up meeting only when the required details are explicit. Include clear instructions the agent can follow. Require human approval before any write action. Format output as structured sections.</copy></p>
+<p><copy>Based on the workflow we just completed, create a VS Code Agent Skill at <code>.github/skills/meeting-follow-up/SKILL.md</code> that captures this entire follow-up process. Include YAML frontmatter with <code>name: meeting-follow-up</code> and a description of when to use it. The skill should: find a meeting by title or ID; retrieve the transcript/summary; extract decisions and action items with evidence; create a follow-up space and post the recap (with approval); schedule a follow-up meeting only when the required details are explicit. Require human approval before any write action. Format output as structured sections.</copy></p>
 </div>
 <ul>
 <li>Review the generated skill file.</li>
@@ -1491,12 +1491,12 @@
 <p><copy>Update the meeting-follow-up skill so follow-up spaces use the name "Customer Follow-Up — [meeting title]". Format action items as bullet points with bold owner names. Keep all approval and evidence requirements unchanged.</copy></p>
 </div>
 <ul>
-<li>Review the change in <code>meeting-follow-up/SKILL.md</code>.</li>
+<li>Review the change in <code>.github/skills/meeting-follow-up/SKILL.md</code>.</li>
 <li>Confirm the skill still requires evidence and human approval.</li>
 <li>This demonstrates the boundary between customizable presentation and non-negotiable safety behavior.</li>
 </ul>
 <h3 id="310-test-the-skill-on-a-new-meeting">3.10 Test the skill on a new meeting</h3>
-<p>Start a <strong>new chat session</strong> in Kiro so the agent has no prior context from the steps above.</p>
+<p>Start a <strong>new local Copilot Chat session</strong> in VS Code so the agent has no prior context from the steps above. Confirm the skill appears under <strong>Configure Skills</strong> (or type <code>/</code> in chat to find it).</p>
 <div class="admonition blank">
 <p class="admonition-title">Prompt the agent (new session)</p>
 <p><copy>Run the meeting-follow-up skill. List my recent meetings and let me pick which one to create a follow-up for.</copy></p>

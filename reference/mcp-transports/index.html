@@ -1282,18 +1282,20 @@
 
 
 <h1 id="mcp-transports-stdio-vs-streamable-http">MCP Transports: stdio vs. Streamable HTTP</h1>
-<p>By the end of this lab you have three MCP servers connected — and they do <strong>not</strong> all talk to Kiro the same way. Two use Streamable HTTP, one uses stdio. This page explains the difference and why each was chosen.</p>
+<p>By the end of this lab you have three MCP servers connected — and they do <strong>not</strong> all talk to VS Code the same way. Two use Streamable HTTP, one uses stdio. This page explains the difference and why each was chosen.</p>
 <h2 id="what-you-configured">What you configured</h2>
-<p>Look back at your <code>.kiro/settings/mcp.json</code>. The two official Webex servers are addressed by <strong>URL</strong>:</p>
+<p>Look back at your <code>.vscode/mcp.json</code>. The two official Webex servers are addressed by <strong>URL</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">"webex-meeting"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mcp.webexapis.com/mcp/webex-meeting"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"Authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer &lt;token&gt;"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="nt">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"Authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer ${input:webex-meeting-token}"</span><span class="w"> </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The custom quality server is addressed by <strong>command</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">"webex-meeting-qualities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uv"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--directory"</span><span class="p">,</span><span class="w"> </span><span class="s2">"/path/to/quality-tool"</span><span class="p">,</span><span class="w"> </span><span class="s2">"server.py"</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--directory"</span><span class="p">,</span><span class="w"> </span><span class="s2">"${workspaceFolder}/quality-tool"</span><span class="p">,</span><span class="w"> </span><span class="s2">"server.py"</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>That difference — <code>url</code> vs. <code>command</code> — is the transport.</p>
@@ -1302,15 +1304,15 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <blockquote>
-<p>Kiro <strong>launches the server as a child process</strong> on your machine.</p>
+<p>VS Code <strong>launches the server as a child process</strong> on your machine.</p>
 <p>Messages travel as JSON-RPC over the process's standard input and standard output. There is no network, no port, and no URL.</p>
-<p>When you close Kiro, the server process exits with it.</p>
+<p>When you stop the server or close VS Code, the subprocess exits.</p>
 </blockquote>
 </div>
 <div class="tabbed-block">
 <blockquote>
 <p>The server is <strong>already running somewhere else</strong>, reachable at an HTTPS endpoint.</p>
-<p>Kiro sends JSON-RPC requests as HTTP POSTs. The server can stream responses back over the same connection when a result arrives incrementally.</p>
+<p>VS Code sends JSON-RPC requests as HTTP POSTs. The server can stream responses back over the same connection when a result arrives incrementally.</p>
 <p>The server's lifecycle is completely independent of your editor.</p>
 </blockquote>
 </div>
@@ -1338,7 +1340,7 @@
 </tr>
 <tr>
 <td><strong>Who starts it</strong></td>
-<td>The MCP client (Kiro)</td>
+<td>The MCP client (VS Code)</td>
 <td>Operated independently</td>
 </tr>
 <tr>
@@ -1354,7 +1356,7 @@
 <tr>
 <td><strong>Secrets live in</strong></td>
 <td>A local file the server reads (<code>.env</code>)</td>
-<td>Request headers, plus server-side config</td>
+<td>VS Code's secure input storage; sent in request headers</td>
 </tr>
 <tr>
 <td><strong>Serves</strong></td>
@@ -1376,9 +1378,9 @@
 <h2 id="why-stdio-for-the-quality-server">Why stdio for the quality server</h2>
 <p>The quality server is a small script wrapping one REST endpoint. stdio was the right fit here for four reasons:</p>
 <ol>
-<li><strong>The credential never crosses a network.</strong> <code>WEBEX_DEVELOPER_TOKEN</code> is read from <code>quality-tool/.env</code> by a process running on your own machine. There is no endpoint for anyone else to call, so there is nothing to authenticate and no token to transmit.</li>
+<li><strong>The local MCP connection needs no network credential.</strong> <code>WEBEX_DEVELOPER_TOKEN</code> is read from <code>quality-tool/.env</code> by a process running on your own machine. The server sends it to the Webex Analytics REST API over HTTPS; it is not sent to an MCP endpoint or placed in the chat prompt.</li>
 <li><strong>No infrastructure.</strong> <code>uv run server.py</code> is the entire deployment. No host, no TLS certificate, no reverse proxy, no uptime concern.</li>
-<li><strong>Lifecycle is free.</strong> Kiro starts the server when you open the workspace and stops it when you quit. Nothing is left running.</li>
+<li><strong>Lifecycle is free.</strong> VS Code starts the server when you request it and stops the subprocess when the server or editor closes. Nothing is left listening on a network port.</li>
 <li><strong>It is single-user by nature.</strong> Your token, your meetings, your pod. There is no case where a second person should call <em>your</em> instance.</li>
 </ol>
 <div class="admonition curious">

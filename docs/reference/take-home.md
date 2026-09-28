@@ -8,7 +8,7 @@ At the end of the lab you take home a sanitized bundle containing:
 | ---------------- | ---------------- |
 | `Skill files` | The `skills/` directory with all SKILL.md files and references - your customized versions |
 | `Controlled prompt` | A read-only copy of `controlled-agent-prompt.md` for reference |
-| `MCP client config template` | Server entries and connection structure for all three MCP servers, with secrets removed |
+| `MCP client config template` | VS Code `.vscode/mcp.json` server entries for all three MCP servers, with token prompts instead of embedded secrets |
 | **`Custom MCP server source`** | The complete `quality-tool/` project - `server.py`, `pyproject.toml`, and `.env.example`. Yours to run, modify, and extend |
 | `Sample output schemas` | JSON structures for follow-up, quality, and attendance outputs |
 | `Caveat sheet` | Authorization, quality-data availability, scheduling, privacy, and rate limits |
@@ -24,7 +24,7 @@ The bundle is portable, but to use it in your environment you must supply:
 
 - Your own Webex organization
 - A Webex developer token for the quality server, plus authorization for the official MCP servers
-- Your own LLM model endpoint and credentials
+- GitHub Copilot access (or another supported agent and model) in VS Code
 - A host to run the custom Meeting Qualities MCP server (a laptop is fine to start)
 
 ## What is NOT included
@@ -42,8 +42,8 @@ The bundle is portable, but to use it in your environment you must supply:
 
 1. **Set up your Webex org** - enable Agentic Apps in Control Hub.
 2. **Run the quality MCP server** - `cd quality-tool && uv sync`, set `WEBEX_DEVELOPER_TOKEN` in `.env`, then `uv run server.py`.
-3. **Configure the AI client** - use the config template and register all three MCP servers.
-4. **Load the skills** - place the `skills/` directory in your workspace.
+3. **Configure VS Code** - put the MCP template in `.vscode/mcp.json`, start the servers, and enter your own tokens when prompted.
+4. **Load the skills** - copy each skill directory from `skills/` into your workspace's `.github/skills/` directory; place the reviewed lab instructions in `.github/copilot-instructions.md`. Verify discovery in Copilot Chat before testing.
 5. **Customize** - modify skill files to match your organization's terminology, thresholds, and workflow.
 6. **Test** - run both workflows in a non-production environment first.
 

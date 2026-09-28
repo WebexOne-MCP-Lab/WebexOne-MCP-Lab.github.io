@@ -39,7 +39,7 @@ Each skill directory contains a `SKILL.md` with Anthropic-compatible YAML frontm
 
 ## Loading model
 
-The host client or agent framework must load skills by workflow context. The directory-based layout follows the Anthropic Agent Skills structure. The final lab implementation must map these directories to the selected VS Code/OpenCode instruction mechanism.
+For GitHub Copilot Chat in VS Code, copy each skill directory into the lab workspace's `.github/skills/` directory (for example `.github/skills/meeting-follow-up/SKILL.md`). VS Code discovers these skills by their `name` and `description` frontmatter; verify them in **Configure Skills**. Keep `controlled-agent-prompt.md` separate from skill directories and have the lab team review its contents before placing them in workspace `.github/copilot-instructions.md`. Prompt instructions guide the agent; Control Hub policy and manual tool approvals provide the enforceable controls.
 
 - Follow-up: load `meeting-follow-up/SKILL.md` and `approval-gate/SKILL.md`; add multilingual and attendance skills when requested.
 - Quality: load `meeting-quality/SKILL.md` and `approval-gate/SKILL.md`; add incident mode when requested.

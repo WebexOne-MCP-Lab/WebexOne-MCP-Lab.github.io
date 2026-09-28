@@ -1291,7 +1291,7 @@
 </tr>
 <tr>
 <td><code>MCP client config template</code></td>
-<td>Server entries and connection structure for all three MCP servers, with secrets removed</td>
+<td>VS Code <code>.vscode/mcp.json</code> server entries for all three MCP servers, with token prompts instead of embedded secrets</td>
 </tr>
 <tr>
 <td><strong><code>Custom MCP server source</code></strong></td>
@@ -1324,7 +1324,7 @@
 <ul>
 <li>Your own Webex organization</li>
 <li>A Webex developer token for the quality server, plus authorization for the official MCP servers</li>
-<li>Your own LLM model endpoint and credentials</li>
+<li>GitHub Copilot access (or another supported agent and model) in VS Code</li>
 <li>A host to run the custom Meeting Qualities MCP server (a laptop is fine to start)</li>
 </ul>
 <h2 id="what-is-not-included">What is NOT included</h2>
@@ -1343,8 +1343,8 @@
 <ol>
 <li><strong>Set up your Webex org</strong> - enable Agentic Apps in Control Hub.</li>
 <li><strong>Run the quality MCP server</strong> - <code>cd quality-tool &amp;&amp; uv sync</code>, set <code>WEBEX_DEVELOPER_TOKEN</code> in <code>.env</code>, then <code>uv run server.py</code>.</li>
-<li><strong>Configure the AI client</strong> - use the config template and register all three MCP servers.</li>
-<li><strong>Load the skills</strong> - place the <code>skills/</code> directory in your workspace.</li>
+<li><strong>Configure VS Code</strong> - put the MCP template in <code>.vscode/mcp.json</code>, start the servers, and enter your own tokens when prompted.</li>
+<li><strong>Load the skills</strong> - copy each skill directory from <code>skills/</code> into your workspace's <code>.github/skills/</code> directory; place the reviewed lab instructions in <code>.github/copilot-instructions.md</code>. Verify discovery in Copilot Chat before testing.</li>
 <li><strong>Customize</strong> - modify skill files to match your organization's terminology, thresholds, and workflow.</li>
 <li><strong>Test</strong> - run both workflows in a non-production environment first.</li>
 </ol>

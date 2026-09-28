@@ -1470,15 +1470,16 @@ uv<span class="w"> </span>run<span class="w"> </span>server.py
 </code></pre></div>
 </li>
 <li>
-<p>Register the server in Kiro's <code>.kiro/settings/mcp.json</code>, alongside the two official servers:</p>
+<p>Add the server inside the <code>servers</code> object of your workspace's <code>.vscode/mcp.json</code>, alongside the two official servers. On the lab's Windows desktop, <code>${workspaceFolder}</code> resolves to the open workspace:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">"webex-meeting-qualities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uv"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--directory"</span><span class="p">,</span><span class="w"> </span><span class="s2">"/absolute/path/to/quality-tool"</span><span class="p">,</span><span class="w"> </span><span class="s2">"server.py"</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--directory"</span><span class="p">,</span><span class="w"> </span><span class="s2">"${workspaceFolder}/quality-tool"</span><span class="p">,</span><span class="w"> </span><span class="s2">"server.py"</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
 </li>
 <li>
-<p>Save the file and confirm the server shows green in Kiro's <strong>MCP Servers</strong> panel. You should now see a third tool available: <code>get_meeting_qualities</code>.</p>
+<p>Save the file, run <strong>MCP: List Servers</strong>, and start <code>webex-meeting-qualities</code>. Confirm it is running and <code>get_meeting_qualities</code> appears under <strong>Configure Tools</strong> in Copilot Chat.</p>
 </li>
 </ol>
 <div class="admonition curious">
@@ -1487,7 +1488,7 @@ uv<span class="w"> </span>run<span class="w"> </span>server.py
 </div>
 <div class="admonition curious">
 <p class="admonition-title">Notice the different transport</p>
-<p>Unlike the Webex servers, this one has no <code>url</code> - Kiro launches it as a local subprocess over <strong>stdio</strong>. That is what keeps the token off the network entirely. See <a href="../reference/mcp-transports/">MCP Transports</a>.</p>
+<p>Unlike the Webex servers, this one has no <code>url</code> - VS Code launches it as a local subprocess over <strong>stdio</strong>. The token stays in the local <code>.env</code> file and is not sent to an MCP endpoint. The server still sends it to the Webex Analytics API over HTTPS when it calls that API. See <a href="../reference/mcp-transports/">MCP Transports</a>.</p>
 </div>
 <h3 id="43-know-the-apis-limits">4.3 Know the API's limits</h3>
 <p>The server inherits the constraints of the underlying API. These matter during the exercise:</p>
@@ -1631,13 +1632,13 @@ uv<span class="w"> </span>run<span class="w"> </span>server.py
 <h3 id="413-build-the-skill-file">4.13 Build the skill file</h3>
 <div class="admonition blank">
 <p class="admonition-title">Prompt the agent</p>
-<p><copy>Create a <code>meeting-quality/SKILL.md</code> that captures the full troubleshooting workflow we just completed. Add instructions for: finding a meeting via the Meetings MCP server; calling get_meeting_qualities; analyzing metrics (separate observations from hypotheses); respecting data_gaps and never treating an unmeasured value as zero; generating data-linked troubleshooting checks; drafting an incident summary (no markdown tables, always attribute data sources); creating an Incident Mode space (with approval); posting updates as thread replies; and handling authentication, invalid meeting IDs, empty data, and rate limits without fabricating results. Require human approval before creating spaces or posting messages.</copy></p>
+<p><copy>Create a VS Code Agent Skill at <code>.github/skills/meeting-quality/SKILL.md</code> with YAML frontmatter (<code>name: meeting-quality</code> and a description of when to use it). Capture the troubleshooting workflow we just completed: find a meeting via the Meetings MCP server; call get_meeting_qualities; analyze metrics (separate observations from hypotheses); respect data_gaps and never treat an unmeasured value as zero; generate data-linked troubleshooting checks; draft an incident summary (no markdown tables, always attribute data sources); create an Incident Mode space (with approval); post updates as thread replies; and handle authentication, invalid meeting IDs, empty data, and rate limits without fabricating results. Require human approval before creating spaces or posting messages.</copy></p>
 </div>
 <ul>
 <li>Review the generated skill file. Does it capture everything?</li>
 </ul>
 <h3 id="414-test-the-skill-on-a-new-meeting">4.14 Test the skill on a new meeting</h3>
-<p>Start a <strong>new chat session</strong> in Kiro so the agent has no prior context.</p>
+<p>Start a <strong>new local Copilot Chat session</strong> in VS Code so the agent has no prior context. Confirm the skill appears under <strong>Configure Skills</strong>.</p>
 <div class="admonition blank">
 <p class="admonition-title">Prompt the agent (new session)</p>
 <p><copy>Run the meeting-quality skill. List my recent meetings and let me pick which one to troubleshoot.</copy></p>
@@ -1655,7 +1656,7 @@ uv<span class="w"> </span>run<span class="w"> </span>server.py
 <h2 id="checkpoint">Checkpoint</h2>
 <p>You are ready for Lab 5 when:</p>
 <ul>
-<li>[x] The custom quality MCP server is connected and green in Kiro</li>
+<li>[x] The custom quality MCP server is running in VS Code and its tool is enabled in Copilot Chat</li>
 <li>[x] The agent retrieved and analyzed quality data for a meeting</li>
 <li>[x] Observations were separated from hypotheses with confidence levels</li>
 <li>[x] Unsupported claims were identified and removed</li>

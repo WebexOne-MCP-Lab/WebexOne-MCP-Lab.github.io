@@ -6,7 +6,7 @@ Use this checklist to confirm you have completed all the core lab exercises.
 
 - [ ] I can explain MCP versus REST API integration
 - [ ] I enabled the required official Agentic Apps in Control Hub
-- [ ] I generated MCP tokens and connected both servers in Kiro
+- [ ] I generated MCP tokens and connected both servers in VS Code
 - [ ] I listed tools and inspected their schemas
 - [ ] I predicted and verified which tool the agent selected
 - [ ] I rejected, revised, and approved a write operation

@@ -41,7 +41,7 @@ The Webex MCP servers, tool names, OAuth scopes, and client behavior shown in th
 
 ## Lab Access
 
-Your pod is a self-contained Cisco dCloud Windows desktop with Webex App, a browser, and Visual Studio Code preconfigured. You do not need to install software or handle service credentials.
+Your pod is a self-contained Cisco dCloud Windows desktop with Webex App, a browser, and Visual Studio Code with GitHub Copilot Chat preconfigured. You do not need to install software; you will generate Webex tokens during the lab.
 
 From your workstation, open an RDP (Remote Desktop) session to the host named **wkst1** using the values provided by your proctor.
 
@@ -94,7 +94,8 @@ From your workstation, open an RDP (Remote Desktop) session to the host named **
 
 - [x] A Webex account in the lab organization (provided by the lab team)
 - [x] Access to the assigned Webex Control Hub organization
-- [x] A dCloud workstation with Kiro and the lab workspace preloaded
+- [x] A dCloud workstation with VS Code, GitHub Copilot Chat, and the lab workspace preloaded
+- [x] The GitHub account assigned for Copilot access
 - [x] The approved AI client configuration (supplied by the lab team)
 - [x] Permission to authorize the Webex Agentic Apps requested in the lab
 
@@ -109,18 +110,18 @@ No prior MCP experience is required - the lab will teach you.
 1. Open the dCloud desktop and sign in with your Windows credentials.
 2. Open the browser and sign in to Webex with your assigned lab identity.
 3. Open Webex App and confirm the seeded meetings and spaces are visible.
-4. Open the preloaded Kiro workspace.
-5. Open the agent panel and confirm the model and both Webex MCP servers are ready.
+4. Open the preloaded lab workspace in VS Code and sign in to GitHub Copilot Chat with the account assigned for the lab.
+5. Open Copilot Chat, set **Session Target: Local**, select **Agent** mode and the lab's designated model. You will connect the Webex MCP servers in Lab 1.
 
 ## Lab Rules
 
 !!! danger "Protect your credentials"
-    Do not paste tokens into chat prompts, screenshots, or Webex messages. Store them only in configuration files (e.g., `mcp.json`, `.env`).
+    Do not paste tokens into chat prompts, screenshots, or Webex messages. Enter the official server tokens only in VS Code's hidden input prompts; keep the quality server token only in its local `.env` file.
 
 !!! warning "Use only the lab environment"
     Work only with the lab organization and seeded data provided. Do not connect to your production Webex organization.
 
-1. **Review before approving.** Kiro will ask you to approve each tool call — read what the agent plans to do before clicking Allow.
+1. **Review before approving.** Keep Copilot Chat on manual tool approvals, review the tool name and inputs, and approve only the actions you intend.
 2. **Don't trust output blindly.** AI-generated summaries and recommendations may be incomplete or incorrect. Verify before acting on them.
 
 ## Lab Flow and Timing
