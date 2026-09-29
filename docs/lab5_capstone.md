@@ -8,7 +8,7 @@
 Open a **new local Copilot Chat session** in VS Code with **Agent** mode selected. Do not tell the agent which tools to use.
 
 !!! blank "Capstone prompt"
-    <copy>Help me close out my most recent relevant meeting. First, list my recent meetings and let me choose one. Create a reviewed follow-up with decisions and evidence-supported action items. If meeting-quality data is available and shows a meaningful issue, also prepare an incident summary. Show me every draft before posting anything. Ask for approval before each side effect. Tell me which skill and data source you use at each stage.</copy>
+    <copy>Help me close out "Wayfinder Mission - New Images Review" from the October 5–7, 2026 lab period. Find the meeting by its exact title, including all states and UTC dates. Use its transcript to draft a follow-up with evidence-supported decisions and actions, and its meeting-quality data to prepare an incident update for the observed media issue. Use the existing incident space from Lab 4 if you find it; do not create a duplicate. Show every draft and exact recipient before a write. Ask for approval before each side effect. Tell me which skill and data source you use at each stage.</copy>
 
 ## Observe the agent's plan
 
@@ -18,7 +18,7 @@ Before approving any tool call, confirm the agent:
 2. Uses the `meeting-follow-up` skill for transcript analysis and recap generation.
 3. Uses the `meeting-quality` skill and the quality MCP server only when quality analysis is requested and data is available.
 4. Separates metadata from the official MCP servers from telemetry the quality server fetched over REST.
-5. Shows drafts before creating spaces, messages, memberships, or meetings.
+5. Shows drafts before creating or reusing spaces, posting messages, adding members, or scheduling meetings.
 6. Requests approval for each side effect.
 
 !!! curious "This is the real test"
@@ -35,10 +35,10 @@ Confirm the agent updates presentation without changing source facts or bypassin
 
 ## Complete and verify
 
-Approve the final actions, then verify the results in the Webex desktop app:
+Approve the final actions, then verify the results in Webex App. If the quality API enforces its five-minute per-meeting limit after Lab 4, let that window pass before one fresh call; do not loop retries or pretend an old summary is fresh telemetry:
 
 - The follow-up space contains the approved recap.
-- Any incident space contains evidence, hypotheses, recommended checks, and data gaps.
+- The existing incident space contains the approved update, or a newly approved incident space contains evidence, hypotheses, recommended checks, and data gaps.
 - No unsupported claim was posted.
 - The agent did not expose tokens or credentials.
 

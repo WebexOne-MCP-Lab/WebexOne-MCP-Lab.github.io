@@ -1,109 +1,46 @@
 # Skill File Overview
 
-## What are skill files?
+## What is already in this workspace?
 
-Skill files are modular instruction sets that customize the agent's behavior for specific workflows. They control **how** the agent presents, formats, and organizes its output - without changing the safety-critical control logic.
+The prepared **LAB-11161** workspace includes six agent skills under `.github/skills/`. A skill is a reusable set of workflow instructions. It helps the agent choose steps and output formats, while Control Hub policy determines which Webex tools are available and you approve side effects.
 
-You built two of them yourself in [Lab 3](../lab3_follow_up.md) and [Lab 4](../lab4_quality.md).
+![Preloaded skills in the LAB-11161 workspace](../images/preloaded-skills-and-quality-tool.png)
 
-## Two-layer design
+| Skill | When it helps |
+| --- | --- |
+| `meeting-follow-up` | Turn a completed meeting transcript into a reviewed recap with evidence-backed actions |
+| `meeting-quality` | Analyze per-participant quality telemetry and separate observations from hypotheses |
+| `approval-gate` | Preview a Webex write action and request explicit approval |
+| `incident-mode` | Coordinate a restricted quality incident space and updates |
+| `attendance-report` | Report attendance without claiming unsupported engagement |
+| `multilingual-output` | Translate a reviewed output while preserving names, dates, and evidence |
 
-| Layer | Who controls it | What it does |
-| ---------------- | ---------------- | ---------------- |
-| `Workspace instructions` | Lab team | Guides the agent's role, review steps, and tool use through `.github/copilot-instructions.md` |
-| `Skill files` | You, the customer | Customize formatting, terminology, thresholds, and workflow-specific guidance under `.github/skills/` |
+In **Lab 3** you perform the follow-up workflow manually, inspect `meeting-follow-up`, and customize its format. In **Lab 4** you use the quality server and inspect `meeting-quality` and `incident-mode`. The **Lab 5** capstone asks the agent to select the relevant skills from one business request.
 
-!!! important
-    Workspace instructions and skills guide Copilot's behavior; neither is an enforcement boundary. Keep manual tool approvals enabled and rely on Control Hub to restrict available Webex tools. If a skill asks to skip review, decline the tool call and remove that instruction.
+## How skills are arranged
 
-## Skill bundle structure
+`AGENTS.md` at the workspace root provides general lab instructions. Each skill directory contains a `SKILL.md` with a name and description. Some skills link to a `references/` directory for the detailed workflow or output format.
 
 ```text
-lab-workspace/
+LAB-11161/
+├── AGENTS.md
 ├── .github/
-│   ├── copilot-instructions.md
 │   └── skills/
-│       ├── meeting-follow-up/
-│       │   ├── SKILL.md
-│       │   └── references/
 │       ├── approval-gate/
-│       │   ├── SKILL.md
-│       │   └── references/
-│       ├── multilingual-output/
-│       │   ├── SKILL.md
-│       │   └── references/
 │       ├── attendance-report/
-│       │   ├── SKILL.md
-│       │   └── references/
+│       ├── incident-mode/
+│       ├── meeting-follow-up/
 │       ├── meeting-quality/
-│       │   ├── SKILL.md
-│       │   └── references/
-│       └── incident-mode/
-│           ├── SKILL.md
-│           └── references/
+│       └── multilingual-output/
+├── .vscode/mcp.json
+└── src/quality-tool/
 ```
 
-Each skill has a `SKILL.md` (the main instruction file) and a `references/` directory with supporting details. The downloadable bundle stores the skill directories under `skills/`; copy them to `.github/skills/` in the lab workspace so VS Code discovers them.
+Open **Configure Skills** in Copilot Chat, or type `/` in the chat input, to see the discovered skills. The agent may load a skill when your request matches its description. Ask it which skill it used and inspect the tool calls; a good final answer alone does not prove the intended skill or data source was used.
 
-## What each skill controls
+## What can you customize?
 
-| Skill file | Loaded for | Customizable examples |
-| ---------------- | ---------------- | ---------------- |
-| `meeting-follow-up/SKILL.md` | Transcript-to-follow-up workflow | Summary format, decision categories, action-item labels, space naming |
-| `approval-gate/SKILL.md` | Before any write action | Approver role, approval wording, preview fields, expiration period |
-| `multilingual-output/SKILL.md` | Translation and publication | Supported languages, terminology glossary, bilingual layout, confidence labels |
-| `attendance-report/SKILL.md` | Attendance and participation output | Report columns, neutral labels, CSV/Markdown format, recipient restrictions |
-| `meeting-quality/SKILL.md` | Quality analysis | Thresholds, evidence format, troubleshooting checklist, severity mapping |
-| `incident-mode/SKILL.md` | Quality incident workflow | Incident-space naming, responder roles, update format, closure template |
+You can change section names, action-item labels, space naming, report formatting, terminology, and troubleshooting checks. Keep transcript evidence, missing-data handling, private-data limits, and approval before Webex writes.
 
-## What you can and cannot change
-
-=== "You can customize"
-
-    > Section names and ordering
-    >
-    > Action-item labels and categories
-    >
-    > Space naming conventions
-    >
-    > Report columns and output format
-    >
-    > Severity labels and thresholds
-    >
-    > Troubleshooting checklists
-    >
-    > Supported languages and terminology glossaries
-
-=== "Lab rules you must preserve"
-
-    > Approval steps - do not bypass or remove them
-    >
-    > OAuth scopes or Control Hub policy
-    >
-    > Tool authentication or endpoint contracts
-    >
-    > Privacy rules and data restrictions
-    >
-    > Evidence requirements
-    >
-    > The requirement to separate observations from hypotheses
-
-## How skills are loaded
-
-VS Code discovers skills under `.github/skills/` and Copilot loads them when the request matches their descriptions (or when you invoke them from chat). The intended routing is:
-
-```text
-IF workflow = follow_up:
-  load meeting-follow-up/SKILL.md
-  load approval-gate/SKILL.md
-  load multilingual-output/SKILL.md when translation is requested
-  load attendance-report/SKILL.md when a report is requested
-
-IF workflow = quality:
-  load meeting-quality/SKILL.md
-  load approval-gate/SKILL.md
-  load incident-mode/SKILL.md when Incident Mode is requested
-```
-
-!!! curious "You saw this in action"
-    The [capstone](../lab5_capstone.md) asks the agent to choose relevant skills from a single business request. Verify the skills actually loaded; model behavior can vary.
+!!! important "Skills guide behavior"
+    A skill file is not an enforcement boundary. Control Hub can disable Webex tools, and VS Code asks you to review tool calls. If a skill or response proposes an unreviewed write, stop and correct it.

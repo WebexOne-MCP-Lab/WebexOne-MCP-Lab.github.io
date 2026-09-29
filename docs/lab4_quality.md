@@ -1,12 +1,12 @@
-# Lab 4 - Build the Meeting Quality Assistant
+# Lab 4 - Use the Meeting Quality Assistant
 
 !!! note "Time: 95-135 min"
-    Connect a custom MCP server that wraps the Webex Meeting Qualities REST API, use it to troubleshoot a real meeting, then package the workflow into a reusable skill file.
+    Start the prepared custom MCP server that wraps the Webex Meeting Qualities REST API, use it to troubleshoot a seeded meeting, then inspect the reusable skill already in your workspace.
 
 !!! important "Architecture note"
     The official Webex Meetings MCP server provides meeting lifecycle and intelligence tools, but it does **not** expose media-quality telemetry. Quality data comes from a separate REST API.
 
-    In this lab that API is wrapped by a **custom MCP server the lab provides** ([`quality-tool/server.py`]({{config.extra.quality_tool_url}}){:target="_blank"}). Your agent speaks MCP to it, and it speaks REST to Webex on your behalf. This is the pattern you will use whenever an agent needs data from a non-MCP source. See [MCP vs. REST API](reference/mcp-vs-rest.md).
+    In this lab that API is wrapped by a **custom MCP server the lab provides** at `src/quality-tool/server.py` ([source]({{config.extra.quality_tool_url}}){:target="_blank"}). Your agent speaks MCP to it, and it speaks REST to Webex on your behalf. This is the pattern you will use whenever an agent needs data from a non-MCP source. See [MCP vs. REST API](reference/mcp-vs-rest.md).
 
 ---
 
@@ -16,47 +16,36 @@
 
 The Meeting Qualities API requires the `analytics:read_all` scope and an org admin account. The simplest way to get a token with this scope is a personal access token.
 
-1. Go to [developer.webex.com](https://developer.webex.com/){:target="_blank"} and sign in with your lab credentials.
+1. Go to [developer.webex.com](https://developer.webex.com/){:target="_blank"} and sign in with the **Webex user** from **Session_Info.txt** on the pod desktop.
 2. Click your **avatar** → **My Personal Access Token**.
 3. Copy the token. It is valid for 12 hours and includes all scopes for your account.
 
 !!! important "Personal access tokens"
     Personal access tokens grant full access to your account. In production you would use a scoped OAuth integration instead. This is a lab shortcut. Never commit a token to version control.
 
-### 4.2 Configure and start the server
+### 4.2 Inspect and start the prepared server
 
-4. In your lab workspace, open the `quality-tool/` folder.
-5. Copy `.env.example` to `.env` and paste your token:
+The **LAB-11161** workspace already has `src/quality-tool/server.py`, its Python environment, and a `webex-meeting-qualities` entry in `.vscode/mcp.json`. You do **not** need to create a `.env` file, run `uv sync`, run `uv run server.py` in a terminal, or add an MCP entry. VS Code starts the server and asks for the token.
 
-    ```text
-    WEBEX_DEVELOPER_TOKEN=paste_your_token_here
-    ```
+1. In VS Code Explorer, expand **src → quality-tool**. Locate `server.py`. Expand **.vscode** and open `mcp.json` to see the preconfigured quality server. The screenshot also shows the preloaded skills you will inspect later. An older pilot image includes a `.env` file; your lab steps do not use one.
 
-6. Install dependencies and confirm the server runs:
+   ![Prepared quality-tool folder and preloaded skills in VS Code Explorer](images/preloaded-skills-and-quality-tool.png)
 
-    ```bash
-    cd quality-tool
-    uv sync
-    uv run server.py
-    ```
+2. Press **Ctrl+Shift+P** to open the Command Palette, type `MCP: List Servers`, and select it.
 
-7. Add the server inside the `servers` object of your workspace's `.vscode/mcp.json`, alongside the two official servers. On the lab's Windows desktop, `${workspaceFolder}` resolves to the open workspace:
+   ![MCP List Servers command in VS Code](images/mcp-list-servers-command.png)
 
-    ```json
-    "webex-meeting-qualities": {
-      "type": "stdio",
-      "command": "uv",
-      "args": ["run", "--directory", "${workspaceFolder}/quality-tool", "server.py"]
-    }
-    ```
+3. Select **webex-meeting-qualities** from the server list. If it is stopped, choose **Start Server**. Paste the Lab 4 personal access token into VS Code's **hidden Webex Meeting Qualities developer token** prompt and press Enter. Do not include `Bearer`. If it is already running, do not enter the token again.
 
-8. Save the file, run **MCP: List Servers**, and start `webex-meeting-qualities`. Confirm it is running and `get_meeting_qualities` appears under **Configure Tools** in Copilot Chat.
+   ![MCP server list showing the quality server](images/mcp-server-list.png)
 
-!!! curious "Where does the token live?"
-    Only in `quality-tool/.env`, on the machine running the server. The agent never sees it, the model never sees it, and it is never sent in a prompt. That isolation is the main reason to wrap a REST API in an MCP server rather than letting the agent call it directly.
+4. From that server's menu select **Show Output**, or open **View → Output** and choose `MCP: webex-meeting-qualities`. Confirm **Connection state: Running**. In Copilot Chat, select the **Configure Tools** slider beside the model and confirm `get_meeting_qualities` is enabled.
+
+!!! curious "Where the token goes"
+    VS Code stores the hidden input and passes it to the local quality-server process as `WEBEX_DEVELOPER_TOKEN`. It is not placed in a chat prompt or a workspace `.env` file. The server uses it when calling the Webex Meeting Qualities REST API over HTTPS. Treat the token as a secret even though this setup avoids writing it into the workspace.
 
 !!! curious "Notice the different transport"
-    Unlike the Webex servers, this one has no `url` - VS Code launches it as a local subprocess over **stdio**. The token stays in the local `.env` file and is not sent to an MCP endpoint. The server still sends it to the Webex Analytics API over HTTPS when it calls that API. See [MCP Transports](reference/mcp-transports.md).
+    The official Webex MCP servers are remote `http` URLs. VS Code launches this quality server locally using `uv` and the `stdio` transport. Inspect the two forms in the prepared `.vscode/mcp.json` and read [MCP Transports](reference/mcp-transports.md) for the tradeoffs.
 
 ### 4.3 Know the API's limits
 
@@ -80,20 +69,17 @@ The server inherits the constraints of the underlying API. These matter during t
 ### 4.4 Find the target meeting
 
 !!! blank "Prompt the agent"
-    <copy>Find a meeting with "LAB-QUALITY" in the title. Show me the title, date, and participants.</copy>
+    <copy>Find "Wayfinder Mission - New Images Review" from the October 5–7, 2026 lab period. Include all meeting states and UTC dates. Show its exact title, date, participants, and meeting ID from the Webex Meetings MCP server.</copy>
 
-- Confirm the agent found the correct seeded quality meeting.
+- Confirm it found **New Images Review**, rather than **Daily Brief**. The former has the intentionally degraded media stream.
 
 ### 4.5 Get quality data
 
 !!! blank "Prompt the agent"
-    <copy>Call get_meeting_qualities for that meeting. Show me the quality metrics for each participant, and tell me which tool returned the meeting info versus the quality data.</copy>
+    <copy>Call get_meeting_qualities once for that meeting. Summarize the quality metrics for each participant and tell me which tool supplied the meeting details versus the quality data. Do not dump every raw sample into the chat.</copy>
 
 - The agent should resolve the meeting ID from the Meetings MCP server, then pass it to `get_meeting_qualities`.
 - Confirm it returns per-participant quality data.
-
-!!! curious "Read the data_gaps field"
-    The server returns an explicit `data_gaps` list. Webex reports some metrics as empty arrays and others as `-1` placeholders meaning "not measured." The server flags both so the agent cannot mistake a missing measurement for a real value of zero.
 
 ### 4.6 Analyze the data
 
@@ -104,6 +90,9 @@ The server inherits the constraints of the underlying API. These matter during t
 - Are confidence levels reasonable?
 - Does it acknowledge missing or incomplete data?
 
+!!! curious "Read the data_gaps field"
+    The server returns an explicit `data_gaps` list. Webex reports some metrics as empty arrays and others as `-1` placeholders meaning "not measured." The server flags both so the agent cannot mistake a missing measurement for a real value of zero.
+
 ### 4.7 Generate recommended checks
 
 !!! blank "Prompt the agent"
@@ -111,21 +100,7 @@ The server inherits the constraints of the underlying API. These matter during t
 
 - Good recommendations are grounded in the data, not generic checklists.
 
-### 4.8 Evidence classification challenge
-
-Classify each statement as an **observation**, **hypothesis**, or **unsupported claim** before asking the agent:
-
-1. "Participant A had 12% packet loss between 10:14 and 10:18."
-2. "Participant A's Wi-Fi caused the packet loss."
-3. "The meeting server was overloaded."
-4. "Participant B's audio receive stream had higher jitter than their audio send stream."
-
-!!! blank "Prompt the agent"
-    <copy>Classify these four statements as observation, hypothesis, or unsupported claim. Cite the quality data fields that support each classification. If the data does not support a statement, say so clearly.</copy>
-
-Compare the agent's answer with yours. Revise any conclusion that is presented with more certainty than the evidence supports.
-
-### 4.9 Practice failure handling
+### 4.8 Practice failure handling
 
 Test the server with an invalid meeting ID:
 
@@ -142,7 +117,7 @@ The agent should:
 !!! curious "The server never raises"
     `get_meeting_qualities` always returns the same shape with an `error` string set, rather than throwing. That gives the agent something structured to reason about instead of a stack trace.
 
-### 4.10 Review the incident summary
+### 4.9 Review the incident summary
 
 !!! blank "Prompt the agent"
     <copy>Draft a complete incident summary I can share with my network team. Include: meeting title and date; affected participants; timeline of degradation; key metrics with values; observations vs. hypotheses; recommended checks; data gaps; and which data came from MCP versus the quality server. Formatting rules for the Webex message: Do NOT use markdown tables, Webex does not render them properly. Use bullet lists and bold labels instead. Use headings to separate sections. Show me the draft - do not post it yet.</copy>
@@ -150,48 +125,42 @@ The agent should:
 - Review the draft. Would you send this to your network team?
 - Ask for edits if needed.
 
-### 4.11 Create an Incident Mode space
+### 4.10 Create an Incident Mode space
+
+Before pasting the prompt, read the exact `Domain` value in **Session_Info.txt** on your pod desktop. Replace `[Estelle email]` with `esteele@<your pod domain>` and `[Kyle email]` with `kmelby@<your pod domain>`. Do not leave the placeholders in the prompt.
 
 !!! blank "Prompt the agent"
-    <copy>The summary looks good. Create a Webex space called "INCIDENT — [meeting title] — [date]" and post the incident summary.</copy>
+    <copy>The summary looks good. Show me a restricted Webex space named "INCIDENT — Wayfinder Mission - New Images Review — [date]" and its member list before creating it. Add [Estelle email] and [Kyle email] as the incident responders. After I approve each write, create the space, add those members, and post the reviewed incident summary.</copy>
 
-- The agent should ask for your approval before creating the space.
-- Approve, then switch to Webex to confirm the space and message.
+- Review the exact responder emails and domain before approval. Do not copy a domain from someone else’s pod.
+- Approve the space, two memberships, and message as separate write actions. Then switch to Webex App to confirm the restricted space, members, and summary.
 
 !!! important "Privacy"
     Do not expose full participant quality records to a broad space by default. Use aggregated findings and a restricted responder space unless your organization explicitly permits detailed sharing.
 
-### 4.12 Post a follow-up update
+### 4.11 Post a follow-up update
 
 !!! blank "Prompt the agent"
-    <copy>Post a reply in the incident space: "Checking VPN split-tunnel configuration for affected participants. Will report back with findings."</copy>
+    <copy>Post a reply in the incident space: "Investigating the outbound packet loss observed for the affected participant. Checking the local network path and will report back with findings."</copy>
 
 - Confirm the reply appears as a thread reply in Webex, not a new top-level message.
 
 ---
 
-## Phase 3 - Complete the skill
+## Phase 3 - Review the preloaded quality skill
 
-### 4.13 Build the skill file
+### 4.12 Inspect the reusable workflow
 
-!!! blank "Prompt the agent"
-    <copy>Create a VS Code Agent Skill at `.github/skills/meeting-quality/SKILL.md` with YAML frontmatter (`name: meeting-quality` and a description of when to use it). Capture the troubleshooting workflow we just completed: find a meeting via the Meetings MCP server; call get_meeting_qualities; analyze metrics (separate observations from hypotheses); respect data_gaps and never treat an unmeasured value as zero; generate data-linked troubleshooting checks; draft an incident summary (no markdown tables, always attribute data sources); create an Incident Mode space (with approval); post updates as thread replies; and handle authentication, invalid meeting IDs, empty data, and rate limits without fabricating results. Require human approval before creating spaces or posting messages.</copy>
+The workspace already contains `.github/skills/meeting-quality/SKILL.md` and `.github/skills/incident-mode/SKILL.md`. In VS Code Explorer, open both. Find where the skills require meeting ID lookup, evidence-backed metrics, separate observations and hypotheses, `data_gaps`, restricted membership, and approval before writes.
 
-- Review the generated skill file. Does it capture everything?
+!!! blank "Ask the agent to explain skill creation"
+    <copy>Review the existing meeting-quality and incident-mode skills in this workspace. Map their instructions to the workflow I just completed. Explain how an agent could create a similar new skill from a repeated tool workflow if the skill did not already exist. Do not overwrite these files or call Webex tools.</copy>
 
-### 4.14 Test the skill on a new meeting
-
-Start a **new local Copilot Chat session** in VS Code so the agent has no prior context. Confirm the skill appears under **Configure Skills**.
-
-!!! blank "Prompt the agent (new session)"
-    <copy>Run the meeting-quality skill. List my recent meetings and let me pick which one to troubleshoot.</copy>
-
-- Pick a different meeting if available.
-- Walk through the approval steps as prompted.
-- Confirm the incident space and summary are created successfully.
+- You are reviewing an existing reusable artifact rather than recreating it. The capstone will exercise both skills together.
+- Confirm the skill treats the quality API as a separate data source and never turns unmeasured values into zero.
 
 !!! webex "What this proves"
-    You extended the agent with a capability MCP does not cover, kept the credential server-side, and packaged the full workflow into a reusable artifact. This is the same pattern for integrating any API into an agent workflow.
+    A local MCP server can expose a REST API to an agent, while a skill captures the repeatable reasoning and review steps around that tool. The token remains outside the chat, and Webex write actions still require your approval.
 
 ---
 
@@ -202,9 +171,8 @@ You are ready for Lab 5 when:
 - [x] The custom quality MCP server is running in VS Code and its tool is enabled in Copilot Chat
 - [x] The agent retrieved and analyzed quality data for a meeting
 - [x] Observations were separated from hypotheses with confidence levels
-- [x] Unsupported claims were identified and removed
+- [x] Unsupported claims were removed from the reviewed incident summary
 - [x] The server handled an invalid request without the agent fabricating data
 - [x] The agent clearly attributed metadata to MCP and telemetry to the quality server
 - [x] An incident space was created only after your approval
-- [x] The complete workflow was captured in a reusable skill file
-- [x] The skill was tested in a fresh session
+- [x] You inspected the preloaded quality and incident-mode skills and mapped them to this workflow

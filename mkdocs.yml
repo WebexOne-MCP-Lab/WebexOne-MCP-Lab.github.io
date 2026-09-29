@@ -43,7 +43,6 @@ extra_css:
   - stylesheets/extra.css
 extra_javascript:
   - template_assets/js/newLoad.js
-  - template_assets/js/setInfo.js
 plugins:
   - search
   - macros
@@ -91,10 +90,10 @@ nav:
   - Welcome: welcome.md
   - Lab:
       - Overview: overview.md
-      - Lab 1 - Provision Webex MCP in Control Hub: lab1_control_hub.md
+      - Lab 1 - Enable Webex MCP in Control Hub: lab1_control_hub.md
       - Lab 2 - Connect the AI Client and Discover Tools: lab2_connect_discover.md
-      - Lab 3 - Build the Meeting Follow-Up Assistant: lab3_follow_up.md
-      - Lab 4 - Build the Meeting Quality Assistant: lab4_quality.md
+      - Lab 3 - Use and Customize the Meeting Follow-Up Assistant: lab3_follow_up.md
+      - Lab 4 - Use the Meeting Quality Assistant: lab4_quality.md
       - Lab 5 - Cross-Workflow Capstone: lab5_capstone.md
       - Conclusion: conclusion.md
   - Skill Customization:
@@ -102,7 +101,7 @@ nav:
       - Customization Exercise: skills/customization-exercise.md
   - Topologies: topologies.md
   - Reference:
-      - Lab Credentials: reference/credentials.md
+      - Lab Accounts and Tokens: reference/credentials.md
       - Take-Home Bundle: reference/take-home.md
       - MCP vs REST API: reference/mcp-vs-rest.md
       - MCP Transports: reference/mcp-transports.md

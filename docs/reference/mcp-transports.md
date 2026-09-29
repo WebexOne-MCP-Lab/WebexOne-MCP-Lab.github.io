@@ -2,9 +2,9 @@
 
 By the end of this lab you have three MCP servers connected — and they do **not** all talk to VS Code the same way. Two use Streamable HTTP, one uses stdio. This page explains the difference and why each was chosen.
 
-## What you configured
+## What the prepared pod configures
 
-Look back at your `.vscode/mcp.json`. The two official Webex servers are addressed by **URL**:
+Look at the prepared `.vscode/mcp.json` in LAB-11161. The two official Webex servers are addressed by **URL**:
 
 ```json
 "webex-meeting": {
@@ -20,7 +20,8 @@ The custom quality server is addressed by **command**:
 "webex-meeting-qualities": {
   "type": "stdio",
   "command": "uv",
-  "args": ["run", "--directory", "${workspaceFolder}/quality-tool", "server.py"]
+  "args": ["run", "--directory", "${workspaceFolder}/src/quality-tool", "server.py"],
+  "env": { "WEBEX_DEVELOPER_TOKEN": "${input:webex-quality-token}" }
 }
 ```
 
@@ -53,7 +54,7 @@ That difference — `url` vs. `command` — is the transport.
 | **Who starts it** | The MCP client (VS Code) | Operated independently |
 | **Network exposure** | None | Requires a reachable HTTPS endpoint |
 | **Authentication** | Inherits your local user; no auth layer needed | Must authenticate every caller (here, a bearer token) |
-| **Secrets live in** | A local file the server reads (`.env`) | VS Code's secure input storage; sent in request headers |
+| **Secrets live in** | VS Code hidden input, passed to the local process as an environment variable | VS Code hidden input, sent in request headers |
 | **Serves** | Exactly one user | Many users concurrently |
 | **Setup cost** | Install dependencies, done | Hosting, TLS, auth, monitoring, scaling |
 | **Good for** | Local tools, developer utilities, prototypes | Shared services, centrally governed capabilities |
@@ -62,8 +63,8 @@ That difference — `url` vs. `command` — is the transport.
 
 The quality server is a small script wrapping one REST endpoint. stdio was the right fit here for four reasons:
 
-1. **The local MCP connection needs no network credential.** `WEBEX_DEVELOPER_TOKEN` is read from `quality-tool/.env` by a process running on your own machine. The server sends it to the Webex Analytics REST API over HTTPS; it is not sent to an MCP endpoint or placed in the chat prompt.
-2. **No infrastructure.** `uv run server.py` is the entire deployment. No host, no TLS certificate, no reverse proxy, no uptime concern.
+1. **The local MCP connection needs no network credential.** VS Code passes `WEBEX_DEVELOPER_TOKEN` to the local process from a hidden input. The server sends it to the Webex Analytics REST API over HTTPS; it is not sent to an MCP endpoint or placed in the chat prompt.
+2. **No infrastructure.** VS Code starts the prepared `uv` command locally. No shared host, TLS certificate, reverse proxy, or uptime service is needed.
 3. **Lifecycle is free.** VS Code starts the server when you request it and stops the subprocess when the server or editor closes. Nothing is left listening on a network port.
 4. **It is single-user by nature.** Your token, your meetings, your pod. There is no case where a second person should call *your* instance.
 

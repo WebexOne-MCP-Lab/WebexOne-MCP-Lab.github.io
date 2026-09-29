@@ -12,8 +12,6 @@ function showCopyToast() {
 }
 
 function loadem() {
-    Object.keys(sessionStorage).forEach(key => { Array.from(document.getElementsByClassName(key)).forEach((index) => { index.innerHTML = sessionStorage.getItem(key) }) });
-
     [].forEach.call(document.getElementsByTagName("copy"), function (el) {
         if (el._copyBound) return;
         el._copyBound = true;
@@ -42,9 +40,4 @@ loadem();
 // Re-run on MkDocs client-side navigation (instant loading / SPA)
 if (typeof document$ !== "undefined") {
     document$.subscribe(function () { loadem(); });
-}
-function setValues() {
-    document.querySelector("#info").querySelectorAll("input").forEach((input) => { sessionStorage.setItem(input.name, input.value) });
-    event.preventDefault()
-    loadem()
 }

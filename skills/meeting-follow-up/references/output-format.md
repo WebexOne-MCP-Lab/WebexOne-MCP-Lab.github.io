@@ -12,6 +12,6 @@
 
 ## Formatting notes
 
-- Use markdown tables for action items when posting to a Webex space.
+- Use bullet lists for action items when posting to a Webex space. Put each owner name in bold; Webex does not render Markdown tables reliably.
 - Mark unassigned owners as `unassigned` and missing dates as `not specified`.
 - Include evidence timestamps beside each decision and action item.

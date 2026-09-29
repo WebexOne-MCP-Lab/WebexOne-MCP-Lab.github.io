@@ -1,6 +1,6 @@
 # MCP vs. REST API
 
-A formal comparison of the two integration patterns used in this lab. If you take one thing away: **MCP does not replace REST — it wraps it.**
+A comparison of the two integration patterns used in this lab. The prepared quality MCP server calls the Webex REST API behind the scenes.
 
 ## Definitions
 
@@ -28,7 +28,7 @@ A formal comparison of the two integration patterns used in this lab. If you tak
 
 ```mermaid
 flowchart LR
-    A["AI agent<br/>(MCP client)"] -- "MCP<br/>get_meeting_qualities()" --> B["Custom MCP server<br/>quality-tool/server.py"]
+    A["AI agent<br/>(MCP client)"] -- "MCP<br/>get_meeting_qualities()" --> B["Custom MCP server<br/>src/quality-tool/server.py"]
     B -- "HTTPS REST<br/>GET /v1/meeting/qualities" --> C["Webex Analytics API"]
 ```
 
@@ -48,7 +48,7 @@ The same component is an MCP **server** on its left edge and a REST **client** o
 | ---------------- | ---------------- | ---------------- | ---------------- |
 | Webex Meetings MCP | Cisco | Control Hub | No |
 | Webex Messaging MCP | Cisco | Control Hub | No |
-| Meeting Qualities MCP | You | Your own deployment and credential | **Yes** - see [`quality-tool/server.py`]({{config.extra.quality_tool_url}}) |
+| Meeting Qualities MCP | VS Code in your prepared pod | Your pod credential and local process | **No in this lab** - inspect [`quality-tool/server.py`]({{config.extra.quality_tool_url}}) |
 
 !!! important "Why this matters operationally"
     Control Hub can only govern the official Cisco servers. Your custom MCP server is governed by *you* — its scope, its credential, and its read-only behavior are your responsibility. That is the tradeoff for being able to wrap any API you like.

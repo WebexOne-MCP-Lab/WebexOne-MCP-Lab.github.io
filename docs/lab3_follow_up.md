@@ -1,7 +1,7 @@
-# Lab 3 - Build the Meeting Follow-Up Assistant
+# Lab 3 - Use and Customize the Meeting Follow-Up Assistant
 
 !!! note "Time: 55-95 min"
-    Walk through a complete meeting follow-up workflow by prompting the agent step-by-step, then package the workflow into a reusable skill file.
+    Walk through a complete meeting follow-up workflow step by step, then inspect and customize the reusable skill already in your workspace.
 
 ## Workflow overview
 
@@ -16,7 +16,7 @@ flowchart TD
     F -- "Approve" --> G["Create follow-up space"]
     G --> H["Post recap"]
     H --> I["Optionally schedule follow-up"]
-    I --> J["Package as reusable skill"]
+    I --> J["Inspect and customize preloaded skill"]
 ```
 
 ---
@@ -28,9 +28,9 @@ In this phase you will prompt the agent to complete each step of a meeting follo
 ### 3.1 Find the meeting
 
 !!! blank "Prompt the agent"
-    <copy>Find my recent meeting with "LAB-FOLLOWUP" in the title. Show me the title, date, and participants.</copy>
+    <copy>Find the meeting titled "Wayfinder Mission - Daily Brief" from the October 5–7, 2026 lab period. Include all meeting states and UTC dates. Show its exact title, date, participants, and meeting ID from the Webex Meetings MCP server.</copy>
 
-- If multiple meetings match, the agent should show candidates and ask you to pick one.
+- If multiple meetings match, compare the exact title and recording date. Choose the **Daily Brief** with a transcript; do not use the separate **New Images Review** yet.
 
 ### 3.2 Retrieve the transcript or summary
 
@@ -73,61 +73,52 @@ Choose one extracted action item whose owner, due date, or intent is unclear.
 ### 3.6 Create the follow-up space and post
 
 !!! blank "Prompt the agent"
-    <copy>The draft looks good. Create a Webex space called "LAB Follow-up — [meeting title]" and post that message.</copy>
+    <copy>The draft looks good. Show me the exact space name "Wayfinder Mission - Daily Brief — Follow-Up", the recap, and the email addresses of the meeting participants you would add. Use participant details returned by Webex; do not guess an email. After I approve each action, create the space, add the other meeting participant, and post the reviewed recap.</copy>
 
-- The agent should ask for your approval before creating the space and posting.
-- Review the proposed action: space name, message content.
-- Approve when ready.
-- Switch to the **Webex desktop app** and confirm the space was created with the correct message.
+- Check the proposed space name, recap, and membership list before approving. If Webex returned only names, use **aperez@<your pod domain>** for Anita, using the exact `Domain` line in **Session_Info.txt**. Confirm the account in the tool preview before adding it.
+- Approve space creation, membership addition, and posting as separate write actions. Do not add a participant whose address you cannot verify.
+- Switch to **Webex App** and confirm the new space, members, and message.
 
 ### 3.7 Schedule a follow-up meeting
 
 !!! blank "Prompt the agent"
-    <copy>Was a follow-up meeting mentioned in the transcript? If so, what date, time, timezone, and attendees were specified? If all details are explicit, propose scheduling it. If anything is ambiguous, ask me to clarify.</copy>
+    <copy>Check the Daily Brief transcript for a follow-up meeting. State the date, time, timezone, duration, and attendees that are explicitly supported. The intended future slot for this lab is Monday, October 12, 2026 at 14:00 UTC with Charles and Anita. If the transcript differs, the date has passed, or the duration is missing, ask me to confirm the missing detail before proposing a meeting. Show the final invitation for approval before scheduling.</copy>
 
-- The agent should **not** invent a time from vague phrases like "next week."
-- If details are missing, it should ask you - not guess.
+- Do not turn a vague phrase such as “next Monday” into a date without checking the calendar and current year.
+- An older seeded recording may mention **October 7**. That date is already the lab day; do **not** schedule it. Tell a proctor so the recording can be refreshed.
+- After approving a valid meeting, open **Webex App → Meetings** and confirm the scheduled meeting appears in the calendar with the correct time and invitees.
 
 ---
 
-## Phase 2 - Build a reusable skill
+## Phase 2 - Learn from a preloaded reusable skill
 
-Now that you have completed the workflow manually, turn it into a reusable skill file that the agent can follow automatically for future meetings.
+The **LAB-11161** workspace already contains `.github/skills/meeting-follow-up/SKILL.md`. You did the workflow manually first so you can recognize what this reusable instruction captures. A skill guides agent behavior; Control Hub tool policy and your approval of writes still apply.
 
-### 3.8 Create the skill file
+### 3.8 Inspect the skill that was used
 
-!!! blank "Prompt the agent"
-    <copy>Based on the workflow we just completed, create a VS Code Agent Skill at `.github/skills/meeting-follow-up/SKILL.md` that captures this entire follow-up process. Include YAML frontmatter with `name: meeting-follow-up` and a description of when to use it. The skill should: find a meeting by title or ID; retrieve the transcript/summary; extract decisions and action items with evidence; create a follow-up space and post the recap (with approval); schedule a follow-up meeting only when the required details are explicit. Require human approval before any write action. Format output as structured sections.</copy>
+1. In VS Code Explorer, expand **.github → skills → meeting-follow-up** and open `SKILL.md` plus its linked `references/workflow.md`.
+2. Find the steps for meeting discovery, transcript evidence, ambiguous action items, draft review, membership, and approval.
 
-- Review the generated skill file.
-- Does it capture the workflow you just did?
-- Does it include the approval gate?
+!!! blank "Ask the agent to connect the work to the skill"
+    <copy>Review the existing meeting-follow-up skill in this workspace. Map the steps I just completed to its instructions. Explain how I could turn another repeated tool workflow into a new skill. Do not overwrite this skill.</copy>
 
-### 3.9 Refine the skill
-
-Customize one visible behavior without weakening its safety rules.
+### 3.9 Customize one visible behavior
 
 !!! blank "Prompt the agent"
-    <copy>Update the meeting-follow-up skill so follow-up spaces use the name "Customer Follow-Up — [meeting title]". Format action items as bullet points with bold owner names. Keep all approval and evidence requirements unchanged.</copy>
+    <copy>Update the existing meeting-follow-up skill so its default space title is "Follow-Up — [meeting title]" and action items use bullets with bold owner names. Keep transcript evidence, data-gap handling, and approval before every write action. Do not create a new skill directory.</copy>
 
-- Review the change in `.github/skills/meeting-follow-up/SKILL.md`.
-- Confirm the skill still requires evidence and human approval.
-- This demonstrates the boundary between customizable presentation and non-negotiable safety behavior.
+- Review the changed `SKILL.md` and any referenced formatting file. Confirm it no longer asks for Markdown tables in Webex messages.
+- This changes presentation while preserving the workflow's evidence and approval rules.
 
-### 3.10 Test the skill on a new meeting
+### 3.10 See the skill work without earlier chat context
 
-Start a **new local Copilot Chat session** in VS Code so the agent has no prior context from the steps above. Confirm the skill appears under **Configure Skills** (or type `/` in chat to find it).
+Start a **new Local Agent chat** in VS Code. Check **Configure Skills** (or type `/` in chat) for `meeting-follow-up`.
 
 !!! blank "Prompt the agent (new session)"
-    <copy>Run the meeting-follow-up skill. List my recent meetings and let me pick which one to create a follow-up for.</copy>
+    <copy>Use the meeting-follow-up skill for "Wayfinder Mission - Daily Brief". Find the meeting and draft a new recap using the skill's current format. Stop before creating a space, adding members, scheduling, or posting anything.</copy>
 
-- The agent should use the skill file to guide its workflow - not rely on previous conversation history.
-- Pick a **different** meeting than the one you used above.
-- Walk through the approval steps as prompted.
-- Confirm the follow-up space and recap are created successfully.
-
-!!! webex "What this proves"
-    The skill works as a standalone, reusable workflow. The agent discovers the meeting, extracts content, drafts a recap, gets your approval, and posts - all guided by the skill file, not your step-by-step prompts.
+- Check that the new draft follows your updated naming and bullet format without relying on the prior conversation.
+- This is a draft-only check; it avoids creating a duplicate follow-up space. You will use both skills together in Lab 5.
 
 ---
 
@@ -138,7 +129,7 @@ You are ready for Lab 4 when:
 - [x] You interactively completed a full meeting follow-up workflow
 - [x] You corrected an ambiguous or unsupported extraction
 - [x] The agent created a follow-up space with a reviewed recap (with your approval)
-- [x] You built a reusable skill file that captures the workflow
+- [x] You inspected the preloaded skill and connected it to the workflow you completed
 - [x] You customized the skill without weakening its safety rules
-- [x] The skill was tested and produced a consistent result
+- [x] You checked the edited skill in a fresh chat without creating duplicate Webex content
 - [x] No transcript or credentials were exposed unnecessarily

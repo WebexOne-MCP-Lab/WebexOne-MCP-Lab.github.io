@@ -1,59 +1,20 @@
-# Lab Credentials
+# Lab Accounts and Tokens
 
-Use this single account for all lab activities - Control Hub, developer.webex.com, token generation, and Webex meetings and spaces.
+## Find your lab sign-in details
 
-## Your account
+On the **wkst1** dCloud desktop, open **Session_Info.txt**. The file lists the credentials for this pod's Control Hub administrator and Webex App user. Use the account named for each step; the two sign-ins may be different. The Expo session ID identifies your pod if you need a proctor's help.
 
-<div class="grid" markdown>
+Keep this guide open in the pod's browser. Do not enter passwords into this website or copy them into Copilot Chat.
 
-<form id="info">
-<label for="info">Enter the values provided by your proctor</label><br>
+| Where | Which account or token |
+| --- | --- |
+| Control Hub in Lab 1 | Control Hub account from `Session_Info.txt` |
+| Webex App and developer.webex.com | Webex account from `Session_Info.txt` |
+| Official Meetings and Messaging MCP servers | Separate Agentic App tokens generated in Lab 1 |
+| Custom quality MCP server | Personal access token generated in Lab 4 |
 
-  <label for="WbxUser">Webex Email:</label>
-  <input type="text" id="WbxUser" name="WbxUser"><br>
+## Tokens are different from passwords
 
-  <label for="WbxPW">Webex Password:</label>
-  <input type="text" id="WbxPW" name="WbxPW"><br>
+The two Agentic App tokens authorize the official Webex MCP servers. The personal access token authorizes the local quality server to call the Webex Meeting Qualities REST API. Enter tokens only in the **hidden VS Code prompts** when starting the corresponding server. Do not paste them into prompts, skill files, screenshots, or Webex messages.
 
-  <label for="Pod">Pod ID:</label>
-  <input type="text" id="Pod" name="Pod"><br>
-  <br>
-  <button onclick="setValues()">Update Lab Guide</button>
-</form>
-
-> Webex Email: <copy><w class="WbxUser">Provided by proctor</w></copy>
->
-> Webex Password: <copy><w class="WbxPW">Provided by proctor</w></copy>
->
-> Pod ID: <copy><w class="Pod">Provided by proctor</w></copy>
-
-</div>
-
-!!! important "Lab use only"
-    These credentials are valid only for the duration of this lab session. The account and all associated data will be deactivated after the event.
-
-!!! note
-    Values you enter above are stored only in your own browser session and are used to personalize the instructions throughout this guide. They are never sent anywhere.
-
-## Where you will use these credentials
-
-| Step | Where | What you do |
-| ---------------- | ---------------- | ---------------- |
-| `Lab 1` | [admin.webex.com](https://admin.webex.com/){:target="_blank"} | Sign in to configure Agentic Apps and tools |
-| `Lab 1` | [developer.webex.com](https://developer.webex.com/){:target="_blank"} | Generate the two Agentic App tokens for VS Code |
-| `Lab 2` | Copilot Chat in VS Code + Webex desktop app | Run tools and watch results appear |
-| `Lab 3-5` | Webex | Access seeded meetings, spaces, and transcripts |
-| `Lab 4` | [developer.webex.com](https://developer.webex.com/){:target="_blank"} | Generate a personal access token for the quality server |
-
-## Tokens you will generate
-
-You generate three tokens during this lab. They are **not** your login credentials - they authorize specific applications to act on your behalf.
-
-| Token | Created in | Where it goes | Lifetime |
-| ---------------- | ---------------- | ---------------- | ---------------- |
-| `Webex Meeting Agentic App token` | Lab 1 | VS Code's hidden `webex-meeting-token` input for `.vscode/mcp.json` | Lab session |
-| `Webex Messaging Agentic App token` | Lab 1 | VS Code's hidden `webex-messaging-token` input for `.vscode/mcp.json` | Lab session |
-| `Personal access token` | Lab 4 | `quality-tool/.env` | 12 hours |
-
-!!! danger "Protect every token"
-    Do not paste tokens into prompts, source files, screenshots, Git repositories, or Webex messages. The personal access token in particular grants full access to your account.
+If a token expires or a server fails to start, return to the token step in [Lab 1](../lab1_control_hub.md) or [Lab 4](../lab4_quality.md), then start that server again.

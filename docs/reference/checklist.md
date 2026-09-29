@@ -10,24 +10,24 @@ Use this checklist to confirm you have completed all the core lab exercises.
 - [ ] I listed tools and inspected their schemas
 - [ ] I predicted and verified which tool the agent selected
 - [ ] I rejected, revised, and approved a write operation
-- [ ] I located the seeded follow-up meeting
+- [ ] I located both Wayfinder meetings
 - [ ] I generated structured decisions and action items with evidence
 - [ ] I corrected an ambiguous or unsupported extraction
 - [ ] I created and verified the follow-up space
-- [ ] I built and tested a reusable `meeting-follow-up` skill
+- [ ] I inspected and customized the preloaded `meeting-follow-up` skill
 - [ ] I connected the custom quality MCP server
 - [ ] I separated observations from hypotheses with confidence levels
 - [ ] I handled an API failure without the agent fabricating data
 - [ ] I activated Incident Mode only after approval
-- [ ] I built and tested a reusable `meeting-quality` skill
+- [ ] I inspected the preloaded `meeting-quality` and `incident-mode` skills
 - [ ] I completed the cross-workflow capstone from a single request
-- [ ] I exported or received the reusable skill files
+- [ ] I know the take-home skills will be posted in the session Webex space
 
 ## Skill customization
 
 - [ ] I modified a skill file and saw the change in the agent's output
-- [ ] I attempted to bypass the approval gate via a skill and confirmed it was rejected
-- [ ] I removed the test instruction and saved my customized skill files
+- [ ] I confirmed the skills retain evidence and approval rules
+- [ ] I saved my customization without adding an approval bypass
 
 ## Advanced exercises
 

@@ -1,20 +1,11 @@
-# Lab 1 - Provision Webex MCP in Control Hub
+# Lab 1 - Enable Webex MCP in Control Hub
 
 !!! note "Time: 10-30 min"
-    Enable the official Webex Meetings and Messaging MCP servers, apply governance controls, then generate the tokens that let VS Code connect to them.
+    Allow the official Webex Meetings and Messaging Agentic Apps, choose their tools, then generate tokens and start their preconfigured VS Code connections.
 
 ## Section 1 - Enable the Agentic Apps
 
-Sign in to Control Hub with your lab account:
-
-| <!-- -->         | <!-- -->         |
-| ---------------- | ---------------- |
-| `URL`            | [https://admin.webex.com](https://admin.webex.com){:target="_blank"} |
-| `Email`          | <copy><w class="WbxUser">See Lab Credentials</w></copy> |
-| `Password`       | <copy><w class="WbxPW">See Lab Credentials</w></copy> |
-
-!!! blank "Your credentials"
-    All values for this lab live on the [Lab Credentials](reference/credentials.md) page.
+Sign in at [admin.webex.com](https://admin.webex.com/){:target="_blank"} with the **Control Hub administrator** email and password in **Session_Info.txt** on the pod desktop. The Webex App user may have different credentials.
 
 ### Enable the Webex Meeting app
 
@@ -55,66 +46,42 @@ Sign in to Control Hub with your lab account:
 
     This is the single strongest control you have: a tool that is not enabled here **cannot** be invoked, no matter what a prompt or skill file asks for.
 
-## Section 2 - Configure VS Code and generate MCP tokens
+## Section 2 - Generate tokens and start the prepared MCP servers
 
-In the lab workspace, sign in to GitHub Copilot Chat with the GitHub account assigned by the lab team. Set the chat **Session Target** to **Local**, select **Agent** mode, and choose the model designated for this lab. The Local target is required here because VS Code's secure `${input:...}` token prompts are not forwarded to the separate Copilot Agent Host.
+Control Hub decides which apps and tools your organization allows. The tokens in this section let **your lab account** authenticate to those allowed servers. You need one token for Meetings and another for Messaging; allowing an app in Control Hub does not sign your VS Code client in automatically.
 
-### Add the MCP configuration
+The lab already provides `.vscode/mcp.json` in **LAB-11161**. You will inspect and start its server entries, not create the file.
 
-1. In VS Code, open the supplied lab workspace. Create or open `.vscode/mcp.json` at its root and add this configuration. Keep the `inputs` entries: VS Code will ask for the tokens when each server starts and store them securely.
+### Generate the two Agentic App tokens
 
-    ```json
-    {
-      "inputs": [
-        {
-          "type": "promptString",
-          "id": "webex-meeting-token",
-          "description": "Webex Meeting Agentic App token",
-          "password": true
-        },
-        {
-          "type": "promptString",
-          "id": "webex-messaging-token",
-          "description": "Webex Messaging Agentic App token",
-          "password": true
-        }
-      ],
-      "servers": {
-        "webex-meeting": {
-          "type": "http",
-          "url": "https://mcp.webexapis.com/mcp/webex-meeting",
-          "headers": {
-            "Authorization": "Bearer ${input:webex-meeting-token}"
-          }
-        },
-        "webex-messaging": {
-          "type": "http",
-          "url": "https://mcp.webexapis.com/mcp/webex-messaging",
-          "headers": {
-            "Authorization": "Bearer ${input:webex-messaging-token}"
-          }
-        }
-      }
-    }
-    ```
+1. In the pod browser, open [developer.webex.com](https://developer.webex.com/){:target="_blank"} and sign in with the **Webex user** from **Session_Info.txt**.
+2. Click your avatar (top right) → **Webex Agentic App token** → **Generate now**.
+3. Select **Webex Meeting** MCP server, name the token (for example `Lab Meeting Token`), and select **Create token**. Copy it when shown.
+4. Return to **Generate now**, select **Webex Messaging** MCP server, name it (for example `Lab Messaging Token`), and create and copy that token. Keep each token associated with its server.
 
-### Generate the tokens
+### Start each server and enter its token
 
-2. Open [developer.webex.com](https://developer.webex.com/){:target="_blank"} and sign in with your lab credentials.
-3. Click your **avatar** (top right) → **Webex Agentic App token**.
-4. Under **Generate token**, click **Generate now**.
-5. Select the **Webex Meeting** MCP server, give the token a name (for example `Lab Meeting Token`), and click **Create token**.
-6. Copy the token; you will enter it in VS Code's hidden input prompt for `webex-meeting-token`.
-7. Generate a second token for the **Webex Messaging** MCP server (for example `Lab Messaging Token`).
-8. Copy the token for VS Code's hidden `webex-messaging-token` prompt.
-9. Save `.vscode/mcp.json`. Open the Command Palette (`Ctrl+Shift+P`) and run **MCP: List Servers**. Start both Webex servers if needed. Enter each token when prompted, without the `Bearer` prefix.
-10. Confirm both servers are running and their tools appear under **Configure Tools** in Copilot Chat. Select **Agent** mode and keep tool approvals enabled for the exercises.
+5. Open VS Code with **LAB-11161** shown in Explorer. Press **Ctrl+Shift+P** to open the Command Palette, type `MCP: List Servers`, and select that command.
+6. Select **webex-meeting**, then **Start Server** if it is not running. When VS Code opens the hidden **Webex Meeting Agentic App token** input, paste the Meeting token **without** `Bearer` and press Enter.
+7. Run **MCP: List Servers** again. Select **webex-messaging** → **Start Server**, then enter the **Messaging** token in its own hidden prompt.
+8. For each server, select **Show Output** from its server menu (or open **View → Output** and choose `MCP: webex-meeting` or `MCP: webex-messaging` in the Output dropdown). Look for **Connection state: Running** and discovered tools. The Meeting server should show 8 tools and Messaging should show 9 with this lab's Control Hub policy.
 
-!!! important "Treat these tokens as secrets"
-    These tokens grant the agent access to Webex on your behalf. Never paste them into a chat prompt, a skill file, a screenshot, or a committed file. Enter them only in VS Code's hidden token prompts.
+![Meetings MCP server output showing Running and eight discovered tools](images/mcp-meeting-running.png)
 
-!!! curious "Why a URL and not a command?"
-    These servers use `type: "http"` and a `url` because Cisco hosts them remotely; the transport is **Streamable HTTP**. In [Lab 4](lab4_quality.md) you will add a server addressed by `command` instead, which runs locally over **stdio**. See [MCP Transports](reference/mcp-transports.md) for why each is used.
+![Messaging MCP server output showing Running and nine discovered tools](images/mcp-messaging-running.png)
+
+### Open Agent mode and inspect the tools
+
+9. Open the **Chat** panel on the right side of VS Code. At the bottom of the chat input, select **Agent** if another mode is shown, choose **GPT-6 Luna (lab)** as the model, and confirm **Local** appears below the input. Agent mode is the mode that can choose and call MCP tools. The Local session is needed for this pod's interactive token prompts.
+10. Select the **slider icon** beside the model name. Its tooltip is **Configure Tools**. Confirm tools from `webex-meeting` and `webex-messaging` are enabled. Keep tool approvals on; review the target and inputs before approving a write action.
+
+![Configure Tools button beside Agent and the lab model](images/configure-tools-button.png)
+
+!!! important "Keep tokens in the hidden prompts"
+    Tokens grant access to Webex on your behalf. Never paste them into Copilot Chat, a skill file, a screenshot, or a committed file. If a server was already running, you do not need to enter its token again.
+
+!!! curious "Two server transports"
+    The official servers are hosted by Cisco and appear as `type: "http"` URLs in the prepared `.vscode/mcp.json`. In Lab 4, VS Code starts a local quality server over `stdio`. See [MCP Transports](reference/mcp-transports.md) for the difference.
 
 ## Checkpoint
 
@@ -123,7 +90,7 @@ You are ready for Lab 2 when:
 - [x] Both official servers are allowed for your lab account
 - [x] All Webex Meeting tools are enabled
 - [x] The 9 required Webex Messaging tools are enabled
-- [x] You have MCP tokens generated for both the Meeting and Messaging servers
+- [x] You generated separate MCP tokens for the Meeting and Messaging servers
 - [x] Both servers are running in VS Code and their tools are enabled in Copilot Chat
 - [x] You can explain which organization policy controls the tools exposed to the client
 
@@ -135,4 +102,4 @@ You are ready for Lab 2 when:
 | App is visible but tools are absent | Check capability-level tool settings and refresh the client |
 | Authorization fails | Confirm you are in the allowed population and reauthorize |
 | A tool disappeared after an update | Review schema changes and reauthorize the server/tool baseline |
-| Server fails to start in VS Code | Run **MCP: List Servers** → **Show Output**; check the token entered in the hidden prompt and confirm the workspace is trusted |
+| Server fails to start in VS Code | Run **MCP: List Servers** → select the server → **Show Output**; confirm its token was entered in the hidden prompt. Ask a proctor if the prepared workspace is not open |

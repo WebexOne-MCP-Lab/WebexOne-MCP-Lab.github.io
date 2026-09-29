@@ -17,5 +17,6 @@
 | Webex Markdown looks wrong | Unsupported Markdown or line-break encoding | Use supported Markdown only and verify by reading the message back |
 | File upload fails | Size/type restriction, scanning delay, or private URL | Use approved file types, keep files small, and handle retry |
 | Agent posts without approval | Approval state is not enforced in the workflow | Make approval a mandatory state transition |
-| LLM rate limit reached | Shared token or burst traffic | Use smaller prompts, stagger calls, use backup tokens |
+| Agent repeatedly compacts or loses the task | Context window is crowded by conversation history, tool schemas, or files | Start a new Agent chat for a new task, or use `/compact` and then type `continue` for the current task; preserve important facts in your next prompt |
+| OpenAI `rate_limit_exceeded` (429) | Organization or project token/request burst | Wait at least the returned `Retry-After`, then retry once. If a write tool may already have succeeded, inspect Webex before repeating it; ask a proctor if the limit recurs |
 | Attendance report overclaims engagement | Attendance data treated as participation | Label only source-supported facts; omit unsupported claims |

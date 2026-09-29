@@ -14,5 +14,5 @@
 
 - Use `not available` rather than inference for missing fields.
 - Attendance duration is not proof of attention, contribution, or comprehension.
-- Use markdown tables when posting to a Webex space.
+- Use bullet lists with bold labels when posting to a Webex space; avoid Markdown tables.
 - Restrict the recipient list and request approval before sharing.

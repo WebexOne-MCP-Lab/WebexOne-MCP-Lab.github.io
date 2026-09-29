@@ -2,7 +2,7 @@
 
 ## What you will build
 
-In this lab you will configure a Webex organization, connect an AI client to the official Webex MCP servers, and build two practical workflows.
+In this lab you will govern Webex Agentic Apps, connect their MCP servers to a prepared VS Code agent, and use two practical meeting workflows.
 
 !!! webex "1 - Meeting follow-up assistant"
     - Find a completed meeting and retrieve its transcript or summary.
@@ -18,7 +18,7 @@ In this lab you will configure a Webex organization, connect an AI client to the
     - Generate an incident summary and recommended checks.
     - Enter **Incident Mode** - a dedicated coordination space created only after approval.
 
-You will package both workflows into reusable skill files, then coordinate them from a single business request in the capstone.
+The workspace already contains reusable skills. You will inspect and customize them after completing each workflow, then coordinate them from a single business request in the capstone.
 
 ## Learning Objectives
 
@@ -41,63 +41,17 @@ The Webex MCP servers, tool names, OAuth scopes, and client behavior shown in th
 
 ## Lab Access
 
-Your pod is a self-contained Cisco dCloud Windows desktop with Webex App, a browser, and Visual Studio Code with GitHub Copilot Chat preconfigured. You do not need to install software; you will generate Webex tokens during the lab.
+Your pod is a Cisco dCloud Windows desktop with Webex App, a browser, and a prepared **LAB-11161** VS Code workspace. You do not need to install software or create the MCP configuration.
 
-From your workstation, open an RDP (Remote Desktop) session to the host named **wkst1** using the values provided by your proctor.
+1. Open the [WebexOne dCloud Expo lab](https://www.ciscodcloud.com/apps/expo/65xjlkkzy7b2psabo4igzdzba){:target="_blank"} from your own computer.
+2. Enter your email address and accept the lab terms. Expo assigns your session ID; keep it available if you need a proctor's help.
+3. Select **Open** to launch the browser-based RDP session for **wkst1**, using the Windows user **cholland**.
+4. On the lab desktop, open **Session_Info.txt**. It contains the Control Hub and Webex App sign-in details for this pod. Use those details only inside this lab desktop.
+5. Open this guide again in the browser **inside the dCloud desktop** so its prompts can be copied into VS Code.
 
-<div class="grid" markdown>
-
-<form id="info">
-<label for="info">Enter the values provided by your proctor</label><br>
-
-  <label for="PodIP">Workstation IP:</label>
-  <input type="text" id="PodIP" name="PodIP"><br>
-
-  <label for="PodUser">Windows Username:</label>
-  <input type="text" id="PodUser" name="PodUser"><br>
-
-  <label for="PodPW">Windows Password:</label>
-  <input type="text" id="PodPW" name="PodPW"><br>
-
-  <label for="WbxUser">Webex Lab User:</label>
-  <input type="text" id="WbxUser" name="WbxUser"><br>
-
-  <label for="WbxPW">Webex Password:</label>
-  <input type="text" id="WbxPW" name="WbxPW"><br>
-
-  <label for="Pod">Pod ID:</label>
-  <input type="text" id="Pod" name="Pod"><br>
-  <br>
-  <button onclick="setValues()">Update Lab Guide</button>
-</form>
-
-> Workstation IP: <copy><w class="PodIP">Provided by proctor</w></copy>
->
-> Windows Username: <copy><w class="PodUser">Provided by proctor</w></copy>
->
-> Windows Password: <copy><w class="PodPW">Provided by proctor</w></copy>
->
-> Webex Lab User: <copy><w class="WbxUser">Provided by proctor</w></copy>
->
-> Webex Password: <copy><w class="WbxPW">Provided by proctor</w></copy>
->
-> Pod ID: <copy><w class="Pod">Provided by proctor</w></copy>
-
-</div>
-
-!!! important
-    The values you enter above are stored only in your own browser session and are used to personalize the instructions throughout this guide. They are never sent anywhere.
+If Expo access or sign-in fails, give your session ID to a proctor. Do not enter lab account passwords into this guide.
 
 ## Getting Started
-
-### What you need
-
-- [x] A Webex account in the lab organization (provided by the lab team)
-- [x] Access to the assigned Webex Control Hub organization
-- [x] A dCloud workstation with VS Code, GitHub Copilot Chat, and the lab workspace preloaded
-- [x] The GitHub account assigned for Copilot access
-- [x] The approved AI client configuration (supplied by the lab team)
-- [x] Permission to authorize the Webex Agentic Apps requested in the lab
 
 ### What you should know
 
@@ -107,16 +61,14 @@ No prior MCP experience is required - the lab will teach you.
 
 ### Your first five minutes
 
-1. Open the dCloud desktop and sign in with your Windows credentials.
-2. Open the browser and sign in to Webex with your assigned lab identity.
-3. Open Webex App and confirm the seeded meetings and spaces are visible.
-4. Open the preloaded lab workspace in VS Code and sign in to GitHub Copilot Chat with the account assigned for the lab.
-5. Open Copilot Chat, set **Session Target: Local**, select **Agent** mode and the lab's designated model. You will connect the Webex MCP servers in Lab 1.
+1. Confirm you are in the **wkst1** browser desktop as **cholland** and note your Expo session ID.
+2. Open **Session_Info.txt** on the desktop and locate the separate Control Hub and Webex App account details.
+3. Open this guide in the pod's browser so you can copy prompts into VS Code.
+4. Open **Visual Studio Code** from the desktop shortcut. The **LAB-11161** folder should already be open with `.github`, `.vscode`, `src`, and `AGENTS.md` visible in Explorer. The chat panel should offer **Agent**, **GPT-6 Luna (lab)**, and **Local**. You will start the Webex MCP servers in Lab 1.
+
+![Prepared LAB-11161 workspace and Copilot Chat panel](images/prepared-vscode-workspace.png)
 
 ## Lab Rules
-
-!!! danger "Protect your credentials"
-    Do not paste tokens into chat prompts, screenshots, or Webex messages. Enter the official server tokens only in VS Code's hidden input prompts; keep the quality server token only in its local `.env` file.
 
 !!! warning "Use only the lab environment"
     Work only with the lab organization and seeded data provided. Do not connect to your production Webex organization.
@@ -128,13 +80,13 @@ No prior MCP experience is required - the lab will teach you.
 
 | Time | Module | What you do |
 | ---: | ---------------- | ---------------- |
-| 0-10 min | Orientation | Understand the architecture and lab rules |
-| 10-30 min | [Lab 1](lab1_control_hub.md) | Enable Agentic Apps, configure tools, generate MCP tokens |
+| 0-10 min | Orientation | Enter the dCloud pod and inspect the prepared workspace |
+| 10-30 min | [Lab 1](lab1_control_hub.md) | Enable Agentic Apps, generate tokens, start prepared MCP servers |
 | 30-55 min | [Lab 2](lab2_connect_discover.md) | Discover, predict, invoke, reject, and approve MCP tools |
-| 55-95 min | [Lab 3](lab3_follow_up.md) | Build and refine the meeting follow-up assistant |
-| 95-135 min | [Lab 4](lab4_quality.md) | Build and test the meeting quality assistant |
+| 55-95 min | [Lab 3](lab3_follow_up.md) | Complete a follow-up and customize its preloaded skill |
+| 95-135 min | [Lab 4](lab4_quality.md) | Analyze quality data and inspect its preloaded skill |
 | 135-145 min | [Lab 5](lab5_capstone.md) | Coordinate both skills in a cross-workflow capstone |
-| 145-150 min | [Wrap-up](skills/customization-exercise.md) | Customize skills, export your bundle, clean up |
+| 145-150 min | [Wrap-up](skills/customization-exercise.md) | Save your skill changes and learn how to get the take-home bundle |
 
 !!! note
     This lab is designed as crawl, walk, run. Complete the core path first. Each lab marks its advanced exercises so that you can go deeper if you finish early.

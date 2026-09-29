@@ -5,13 +5,16 @@
 
 ## Section 1 - Verify your connection
 
-1. Open the supplied lab workspace in VS Code and start a local GitHub Copilot Chat session in **Agent** mode.
-2. Run **MCP: List Servers** and confirm both Webex servers are running. In Copilot Chat, open **Configure Tools** and confirm their tools are enabled (configured in Lab 1).
+1. Open **LAB-11161** in VS Code and the Chat panel on the right. At the bottom of the chat input, select **Agent** if needed, choose **GPT-6 Luna (lab)**, and confirm **Local** appears below it. Agent mode can plan and call MCP tools; a plain chat mode may only answer from text. Keep the default permission controls and review write calls individually.
+2. Press **Ctrl+Shift+P**, run **MCP: List Servers**, and confirm `webex-meeting` and `webex-messaging` say **Running**. If one is stopped, select it and start it with the matching Lab 1 token.
+3. In Copilot Chat, click the **slider icon beside the model name**. Its tooltip says **Configure Tools**. Confirm the two Webex servers' tools are enabled. This controls what the chat can offer; Control Hub policy is the separate organization-level boundary.
+
+![Configure Tools button in the Copilot Chat input](images/configure-tools-button.png)
 
 ## Section 2 - Discover tools
 
-3. Ask the agent to **list all available tools** without executing any write action.
-4. Inspect the schemas for these key tools:
+4. Ask the agent to **list all available tools** without executing any write action.
+5. Inspect the schemas for these key tools:
 
     - `webex-list-meetings`
     - `webex-list-transcripts`
@@ -20,10 +23,14 @@
     - `webex-create-message`
     - `webex-create-meeting`
 
-5. Ask the agent to explain which tools are **read-only** and which have **side effects**.
+6. Ask the agent to explain which tools are **read-only** and which have **side effects**.
 
 !!! blank "Try this prompt"
-    <copy>Show me the Webex Meetings and Messaging tools currently available. Group them by read-only and write/side-effecting behavior. Do not invoke any write tool. For each tool, show the required inputs and explain what data it can access.</copy>
+    <copy>List the Webex Meetings and Messaging tools available in this chat. Group them into read-only and write actions. Do not call any write tool. Show the required inputs for the tools we will use in this lab.</copy>
+
+A tool list may look like this. Your enabled set should reflect the 8 Meeting tools and 9 Messaging tools allowed in Lab 1.
+
+![Example Copilot answer listing available Webex tools](images/available-webex-tools.png)
 
 ## Section 3 - Tool-selection challenge
 
@@ -31,7 +38,7 @@ Before running each request below, predict which MCP server and tool the agent s
 
 | Request | Your predicted server/tool |
 | ---------------- | ---------------- |
-| Show my recent meetings | `____________________________` |
+| Find the two Wayfinder Mission lab meetings | `____________________________` |
 | Find spaces with "MCP" in the title | `____________________________` |
 | Create a new Webex space | `____________________________` |
 
@@ -51,7 +58,7 @@ Now that you know what tools are available, try them out and watch the results i
 
 ### Preparation
 
-6. Open the **Webex** desktop application on your lab workstation and sign in with your lab credentials. Keep it visible alongside VS Code so you can watch changes happen in real time.
+7. Open the **Webex** desktop application on your lab workstation and sign in with the **Webex App user** from **Session_Info.txt**. Keep it visible alongside VS Code so you can watch changes happen in real time.
 
 !!! important "Tool approval"
     Keep Copilot Chat on manual permissions. When a tool call requires approval, expand its details, review the exact inputs, and approve it for this use only. If a write call runs without a prompt, check **Chat: Manage Tool Approval** before continuing the approval experiment.
@@ -60,10 +67,15 @@ Now that you know what tools are available, try them out and watch the results i
 
 Ask the agent to do each of the following. Watch the results appear in the Webex desktop app as the agent executes each tool.
 
-7. **Create a space** - Ask the agent to create a Webex space with a fun name (for example `MCP Launch Pad` or `My First MCP Space`).
-8. **Post a message** - Ask the agent to post a message in the new space (for example "Hello from MCP! This message was sent by an AI agent."). Switch to Webex and confirm the message appears.
-9. **Add a member** - Ask the agent to add a lab partner or a second lab account to the space. Watch the membership notification appear in Webex.
-10. **List your meetings** - Ask the agent to list your recent meetings. Confirm it returns meeting data from the Meetings MCP server.
+8. **Create a space** - Ask the agent to create a Webex space with a fun name (for example `MCP Launch Pad` or `My First MCP Space`).
+9. **Post a message** - Ask the agent to post a message in the new space (for example "Hello from MCP! This message was sent by an AI agent."). Switch to Webex and confirm the message appears.
+10. **Add a member** - Ask the agent to add a second lab account to the space. Use **aperez@<your pod domain>**: read the exact domain from the `Domain` line in **Session_Info.txt** and replace the placeholder. Do not use the example domain from a screenshot. Review that email in the membership tool call before approving, then watch the notification appear in Webex.
+11. **Find the seeded meetings** - Ask for both **Wayfinder Mission - Daily Brief** and **Wayfinder Mission - New Images Review**. Search the October 5–7, 2026 period **including UTC dates and all meeting states**, rather than only `ended` meetings. Confirm the exact titles and meeting IDs came from the Meetings MCP server.
+
+!!! blank "If a simple recent-meetings prompt returns nothing"
+    <copy>Use the Webex Meetings MCP server to find meetings with "Wayfinder Mission" in the title from October 5 through October 7, 2026. Include all meeting states and account for UTC dates. Show the exact title, start time with timezone, state, and meeting ID for each match. Do not guess an ID.</copy>
+
+The lab recordings may appear under a state such as `missed` even though their recording and transcript exist. A narrow `ended` filter or a date range ending before the UTC recording date can hide them. If neither title appears, confirm the Webex account from **Session_Info.txt** and ask a proctor.
 
 !!! webex "What you should see"
     By the end of the warm-up you should have a Webex space with a message in it, visible in the Webex desktop app. This confirms both MCP servers are working and the agent can read and write data on your behalf.
@@ -83,15 +95,12 @@ Compare how Copilot Chat handles a read operation and a write operation:
     <copy>Post this revised message in my MCP warm-up space: "I reviewed and approved this message before the agent posted it."</copy>
 
 !!! important
-    This demonstrates that tool availability does not equal permission to act. The human still controls side effects.
+    A **read** tool fetches information and usually does not need the same approval as a **write** tool. A write tool changes Webex state: it can create a space, add a member, or publish a message. VS Code may still ask for permission on a read call depending on its settings. For a write, inspect the target and content, then approve only the exact action you intend. Control Hub can hide a tool entirely; chat approval governs an available tool call.
 
-## Section 6 - Find the lab meeting
+## Section 6 - Identify each seeded meeting's role
 
-11. Invoke `webex-list-meetings` with a narrow topic filter such as `LAB-FOLLOWUP`.
-12. Confirm the seeded lab meeting appears in the results.
-
-!!! note
-    The agent should resolve the meeting ID from the API. It should never guess an ID from a meeting title.
+12. Use `webex-list-meetings` or the prompt above to locate both exact titles. **Wayfinder Mission - Daily Brief** has the follow-up transcript for Lab 3. **Wayfinder Mission - New Images Review** has the quality issue for Lab 4 and the capstone.
+13. Record which title maps to each exercise. Let the tool return the meeting IDs; never construct an ID from a title.
 
 ## Checkpoint
 
@@ -103,4 +112,4 @@ You are ready for Lab 3 when:
 - [x] You can see the space and message in the Webex desktop app
 - [x] You predicted and verified which tools the agent selected
 - [x] You rejected, revised, and approved a write operation
-- [x] You confirmed the seeded follow-up meeting appears in the results
+- [x] You found both Wayfinder meetings and know which one each later lab uses
