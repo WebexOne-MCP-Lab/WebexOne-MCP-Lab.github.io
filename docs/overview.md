@@ -43,7 +43,7 @@ The Webex MCP servers, tool names, OAuth scopes, and client behavior shown in th
 
 Your pod is a Cisco dCloud Windows desktop with Webex App, a browser, and a prepared **LAB-11161** VS Code workspace. You do not need to install software or create the MCP configuration.
 
-1. Open the [WebexOne dCloud Expo lab](https://www.ciscodcloud.com/apps/expo/65xjlkkzy7b2psabo4igzdzba){:target="_blank"} from your own computer.
+1. Open the [WebexOne dCloud Expo lab](https://www.ciscodcloud.com/apps/expo/d2zg6fntqau7tl8gb5r6ucoc6){:target="_blank"} from your own computer.
 2. Enter your email address and accept the lab terms. Expo assigns your session ID; keep it available if you need a proctor's help.
 3. Select **Open** to launch the browser-based RDP session for **wkst1**, using the Windows user **cholland**.
 4. On the lab desktop, open **Session_Info.txt**. It contains the Control Hub and Webex App sign-in details for this pod. Use those details only inside this lab desktop.
