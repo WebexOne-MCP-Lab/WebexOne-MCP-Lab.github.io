@@ -1,6 +1,6 @@
 # Lab 5 - Cross-Workflow Capstone
 
-!!! note "Time: 135-145 min"
+!!! note "Time: 105-115 min"
     Use a single business request to make the agent select and coordinate the correct skills, MCP tools, and the quality server.
 
 ## Start with no conversation context
@@ -33,9 +33,9 @@ After reviewing the first draft, change one requirement:
 
 Confirm the agent updates presentation without changing source facts or bypassing approval.
 
-## Complete and verify
+## Complete and verify if time allows
 
-Approve the final actions, then verify the results in Webex App. If the quality API enforces its five-minute per-meeting limit after Lab 4, let that window pass before one fresh call; do not loop retries or pretend an old summary is fresh telemetry:
+If time remains, approve the final actions and verify the results in Webex App. Otherwise, stop after reviewing the drafts and proposed tool calls; do not rush a write approval. If the quality API enforces its five-minute per-meeting limit after Lab 4, let that window pass before one fresh call; do not loop retries or pretend an old summary is fresh telemetry:
 
 - The follow-up space contains the approved recap.
 - The existing incident space contains the approved update, or a newly approved incident space contains evidence, hypotheses, recommended checks, and data gaps.
@@ -48,4 +48,4 @@ Approve the final actions, then verify the results in Webex App. If the quality 
 - [x] MCP and quality-server data sources were clearly attributed
 - [x] A mid-workflow requirement change was handled correctly
 - [x] Every side effect required review and approval
-- [x] The final Webex content matched the approved drafts
+- [x] If you posted content, it matched the approved drafts

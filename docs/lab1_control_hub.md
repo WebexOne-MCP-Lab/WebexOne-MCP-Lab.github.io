@@ -1,6 +1,6 @@
 # Lab 1 - Enable Webex MCP in Control Hub
 
-!!! note "Time: 10-30 min"
+!!! note "Time: 5-25 min"
     Allow the official Webex Meetings and Messaging Agentic Apps, choose their tools, then generate tokens and start their preconfigured VS Code connections.
 
 ## Section 1 - Enable the Agentic Apps

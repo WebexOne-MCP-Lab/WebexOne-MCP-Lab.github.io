@@ -1,6 +1,6 @@
 # Lab 2 - Connect the AI Client and Discover Tools
 
-!!! note "Time: 30-55 min"
+!!! note "Time: 25-45 min"
     Inspect the connected MCP tools, discover their capabilities, and test them hands-on.
 
 ## Section 1 - Verify your connection

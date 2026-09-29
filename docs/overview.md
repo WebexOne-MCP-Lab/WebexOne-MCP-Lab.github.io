@@ -78,15 +78,17 @@ No prior MCP experience is required - the lab will teach you.
 
 ## Lab Flow and Timing
 
+This instructor-led session is **120 minutes (2 hours)**. Keep the core path moving; sections marked **if time allows** can be completed after the session. Never rush through a Webex write approval to stay on schedule.
+
 | Time | Module | What you do |
 | ---: | ---------------- | ---------------- |
-| 0-10 min | Orientation | Enter the dCloud pod and inspect the prepared workspace |
-| 10-30 min | [Lab 1](lab1_control_hub.md) | Enable Agentic Apps, generate tokens, start prepared MCP servers |
-| 30-55 min | [Lab 2](lab2_connect_discover.md) | Discover, predict, invoke, reject, and approve MCP tools |
-| 55-95 min | [Lab 3](lab3_follow_up.md) | Complete a follow-up and customize its preloaded skill |
-| 95-135 min | [Lab 4](lab4_quality.md) | Analyze quality data and inspect its preloaded skill |
-| 135-145 min | [Lab 5](lab5_capstone.md) | Coordinate both skills in a cross-workflow capstone |
-| 145-150 min | [Wrap-up](skills/customization-exercise.md) | Save your skill changes and learn how to get the take-home bundle |
+| 0-5 min | Orientation | Enter the dCloud pod and inspect the prepared workspace |
+| 5-25 min | [Lab 1](lab1_control_hub.md) | Enable Agentic Apps, generate tokens, start prepared MCP servers |
+| 25-45 min | [Lab 2](lab2_connect_discover.md) | Discover, predict, invoke, reject, and approve MCP tools |
+| 45-75 min | [Lab 3](lab3_follow_up.md) | Complete a follow-up and customize its preloaded skill |
+| 75-105 min | [Lab 4](lab4_quality.md) | Analyze quality data and inspect its preloaded skill |
+| 105-115 min | [Lab 5](lab5_capstone.md) | Coordinate both skills in a cross-workflow capstone |
+| 115-120 min | [Wrap-up](skills/customization-exercise.md) | Save your skill changes, complete the survey, and locate the take-home bundle |
 
 !!! note
     This lab is designed as crawl, walk, run. Complete the core path first. Each lab marks its advanced exercises so that you can go deeper if you finish early.

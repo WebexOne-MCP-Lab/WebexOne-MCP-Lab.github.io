@@ -1,13 +1,17 @@
 # Skill Customization and Wrap-Up
 
-!!! note "Time: 145-150 min"
-    Review the changes you made to the preloaded skills and learn where the take-home files will be shared.
+!!! note "Time: 115-120 min"
+    Review your skill changes, complete the session survey, and learn where the take-home files will be shared.
 
 ## Check your edits
 
 1. Open `.github/skills/meeting-follow-up/SKILL.md`. Confirm your Lab 3 space-naming and action-item format change is saved, and that evidence and approval requirements remain.
 2. Open `.github/skills/meeting-quality/SKILL.md` and `.github/skills/incident-mode/SKILL.md`. Point to the instructions that separate observations from hypotheses, handle data gaps, and restrict incident sharing.
 3. If you experimented with instructions that bypass approval, remove them. A skill cannot grant itself permission to post or create Webex content.
+
+## Session survey
+
+Complete the [session survey](../conclusion.md#tell-us-how-we-did) before leaving if you can. The [conclusion](../conclusion.md) includes the embedded Slido form.
 
 ## After the session
 

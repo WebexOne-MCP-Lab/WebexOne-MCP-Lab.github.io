@@ -1,6 +1,6 @@
 # Lab 4 - Use the Meeting Quality Assistant
 
-!!! note "Time: 95-135 min"
+!!! note "Time: 75-105 min"
     Start the prepared custom MCP server that wraps the Webex Meeting Qualities REST API, use it to troubleshoot a seeded meeting, then inspect the reusable skill already in your workspace.
 
 !!! important "Architecture note"
@@ -100,7 +100,7 @@ The server inherits the constraints of the underlying API. These matter during t
 
 - Good recommendations are grounded in the data, not generic checklists.
 
-### 4.8 Practice failure handling
+### 4.8 Practice failure handling (if time allows)
 
 Test the server with an invalid meeting ID:
 
@@ -138,7 +138,7 @@ Before pasting the prompt, read the exact `Domain` value in **Session_Info.txt**
 !!! important "Privacy"
     Do not expose full participant quality records to a broad space by default. Use aggregated findings and a restricted responder space unless your organization explicitly permits detailed sharing.
 
-### 4.11 Post a follow-up update
+### 4.11 Post a follow-up update (if time allows)
 
 !!! blank "Prompt the agent"
     <copy>Post a reply in the incident space: "Investigating the outbound packet loss observed for the affected participant. Checking the local network path and will report back with findings."</copy>
@@ -172,7 +172,6 @@ You are ready for Lab 5 when:
 - [x] The agent retrieved and analyzed quality data for a meeting
 - [x] Observations were separated from hypotheses with confidence levels
 - [x] Unsupported claims were removed from the reviewed incident summary
-- [x] The server handled an invalid request without the agent fabricating data
 - [x] The agent clearly attributed metadata to MCP and telemetry to the quality server
 - [x] An incident space was created only after your approval
 - [x] You inspected the preloaded quality and incident-mode skills and mapped them to this workflow

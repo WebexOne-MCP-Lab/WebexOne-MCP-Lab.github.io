@@ -1,6 +1,6 @@
 # Lab 3 - Use and Customize the Meeting Follow-Up Assistant
 
-!!! note "Time: 55-95 min"
+!!! note "Time: 45-75 min"
     Walk through a complete meeting follow-up workflow step by step, then inspect and customize the reusable skill already in your workspace.
 
 ## Workflow overview
@@ -79,7 +79,7 @@ Choose one extracted action item whose owner, due date, or intent is unclear.
 - Approve space creation, membership addition, and posting as separate write actions. Do not add a participant whose address you cannot verify.
 - Switch to **Webex App** and confirm the new space, members, and message.
 
-### 3.7 Schedule a follow-up meeting
+### 3.7 Schedule a follow-up meeting (if time allows)
 
 !!! blank "Prompt the agent"
     <copy>Check the Daily Brief transcript for a follow-up meeting. State the date, time, timezone, duration, and attendees that are explicitly supported. The intended future slot for this lab is Monday, October 12, 2026 at 14:00 UTC with Charles and Anita. If the transcript differs, the date has passed, or the duration is missing, ask me to confirm the missing detail before proposing a meeting. Show the final invitation for approval before scheduling.</copy>
@@ -110,7 +110,7 @@ The **LAB-11161** workspace already contains `.github/skills/meeting-follow-up/S
 - Review the changed `SKILL.md` and any referenced formatting file. Confirm it no longer asks for Markdown tables in Webex messages.
 - This changes presentation while preserving the workflow's evidence and approval rules.
 
-### 3.10 See the skill work without earlier chat context
+### 3.10 See the skill work without earlier chat context (if time allows)
 
 Start a **new Local Agent chat** in VS Code. Check **Configure Skills** (or type `/` in chat) for `meeting-follow-up`.
 
@@ -131,5 +131,4 @@ You are ready for Lab 4 when:
 - [x] The agent created a follow-up space with a reviewed recap (with your approval)
 - [x] You inspected the preloaded skill and connected it to the workflow you completed
 - [x] You customized the skill without weakening its safety rules
-- [x] You checked the edited skill in a fresh chat without creating duplicate Webex content
 - [x] No transcript or credentials were exposed unnecessarily
