@@ -33,11 +33,19 @@ The **LAB-11161** workspace already has `src/quality-tool/server.py`, its Python
 
    ![MCP List Servers command in VS Code](images/mcp-list-servers-command.png)
 
-3. Select **webex-meeting-qualities** from the server list and choose **Start Server**. When VS Code asks for the **Webex Meeting Qualities developer token**, paste the personal access token from step 4.1 and press Enter. Paste only the token; do not include `Bearer`. The input is hidden. If the server is already running, continue to the next step.
+3. Select **webex-meeting-qualities** from the server list.
 
-   ![MCP server list showing the quality server](images/mcp-server-list.png)
+   ![VS Code MCP server list with webex-meeting-qualities stopped](images/mcp-server-list.png)
 
-4. From that server's menu select **Show Output**, or open **View → Output** and choose `MCP: webex-meeting-qualities`. Confirm **Connection state: Running**. In Copilot Chat, select the **Configure Tools** slider beside the model and confirm `get_meeting_qualities` is enabled.
+4. Choose **Start Server**. If the server is already running, continue to step 6.
+
+   ![Start Server action for webex-meeting-qualities](images/mcp-start-server-action.png)
+
+5. When VS Code asks for the **Webex Meeting Qualities developer token**, paste the personal access token from step 4.1 and press Enter. Paste only the token; do not include `Bearer`. The input is hidden.
+
+   ![Hidden Webex Meeting Qualities developer token prompt](images/mcp-quality-token-prompt.png)
+
+6. From the server's menu select **Show Output**, or open **View → Output** and choose `MCP: webex-meeting-qualities`. Confirm **Connection state: Running**. In Copilot Chat, select the **Configure Tools** slider beside the model and confirm `get_meeting_qualities` is enabled.
 
 !!! curious "Where the token goes"
     VS Code passes the token you enter to the local quality-server process as `WEBEX_DEVELOPER_TOKEN`. The server uses it when calling the Webex Meeting Qualities REST API over HTTPS. Keep the token out of chat messages and source files.
