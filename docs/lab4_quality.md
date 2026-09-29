@@ -25,24 +25,22 @@ The Meeting Qualities API requires the `analytics:read_all` scope and an org adm
 
 ### 4.2 Inspect and start the prepared server
 
-The **LAB-11161** workspace already has `src/quality-tool/server.py`, its Python environment, and a `webex-meeting-qualities` entry in `.vscode/mcp.json`. You do **not** need to create a `.env` file, run `uv sync`, run `uv run server.py` in a terminal, or add an MCP entry. VS Code starts the server and asks for the token.
+The **LAB-11161** workspace already has `src/quality-tool/server.py`, its Python environment, and a `webex-meeting-qualities` entry in `.vscode/mcp.json`. VS Code starts the prepared server and prompts you for the token from step 4.1.
 
-1. In VS Code Explorer, expand **src → quality-tool**. Locate `server.py`. Expand **.vscode** and open `mcp.json` to see the preconfigured quality server. The screenshot also shows the preloaded skills you will inspect later. An older pilot image includes a `.env` file; your lab steps do not use one.
-
-   ![Prepared quality-tool folder and preloaded skills in VS Code Explorer](images/preloaded-skills-and-quality-tool.png)
+1. In VS Code Explorer, expand **src → quality-tool** and locate `server.py`. Expand **.vscode** and open `mcp.json` to see the preconfigured quality server.
 
 2. Press **Ctrl+Shift+P** to open the Command Palette, type `MCP: List Servers`, and select it.
 
    ![MCP List Servers command in VS Code](images/mcp-list-servers-command.png)
 
-3. Select **webex-meeting-qualities** from the server list. If it is stopped, choose **Start Server**. Paste the Lab 4 personal access token into VS Code's **hidden Webex Meeting Qualities developer token** prompt and press Enter. Do not include `Bearer`. If it is already running, do not enter the token again.
+3. Select **webex-meeting-qualities** from the server list and choose **Start Server**. When VS Code asks for the **Webex Meeting Qualities developer token**, paste the personal access token from step 4.1 and press Enter. Paste only the token; do not include `Bearer`. The input is hidden. If the server is already running, continue to the next step.
 
    ![MCP server list showing the quality server](images/mcp-server-list.png)
 
 4. From that server's menu select **Show Output**, or open **View → Output** and choose `MCP: webex-meeting-qualities`. Confirm **Connection state: Running**. In Copilot Chat, select the **Configure Tools** slider beside the model and confirm `get_meeting_qualities` is enabled.
 
 !!! curious "Where the token goes"
-    VS Code stores the hidden input and passes it to the local quality-server process as `WEBEX_DEVELOPER_TOKEN`. It is not placed in a chat prompt or a workspace `.env` file. The server uses it when calling the Webex Meeting Qualities REST API over HTTPS. Treat the token as a secret even though this setup avoids writing it into the workspace.
+    VS Code passes the token you enter to the local quality-server process as `WEBEX_DEVELOPER_TOKEN`. The server uses it when calling the Webex Meeting Qualities REST API over HTTPS. Keep the token out of chat messages and source files.
 
 !!! curious "Notice the different transport"
     The official Webex MCP servers are remote `http` URLs. VS Code launches this quality server locally using `uv` and the `stdio` transport. Inspect the two forms in the prepared `.vscode/mcp.json` and read [MCP Transports](reference/mcp-transports.md) for the tradeoffs.
@@ -69,7 +67,7 @@ The server inherits the constraints of the underlying API. These matter during t
 ### 4.4 Find the target meeting
 
 !!! blank "Prompt the agent"
-    <copy>Find "Wayfinder Mission - New Images Review" from the October 5–7, 2026 lab period. Include all meeting states and UTC dates. Show its exact title, date, participants, and meeting ID from the Webex Meetings MCP server.</copy>
+    <copy>Find "Wayfinder Mission - New Images Review" seeded for this pod between September 29 and October 7, 2026. Search in UTC date windows and include all meeting states. Show its exact title, date, participants, and meeting ID from the Webex Meetings MCP server.</copy>
 
 - Confirm it found **New Images Review**, rather than **Daily Brief**. The former has the intentionally degraded media stream.
 

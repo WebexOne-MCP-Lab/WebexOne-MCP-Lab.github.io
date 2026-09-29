@@ -70,10 +70,10 @@ Ask the agent to do each of the following. Watch the results appear in the Webex
 8. **Create a space** - Ask the agent to create a Webex space with a fun name (for example `MCP Launch Pad` or `My First MCP Space`).
 9. **Post a message** - Ask the agent to post a message in the new space (for example "Hello from MCP! This message was sent by an AI agent."). Switch to Webex and confirm the message appears.
 10. **Add a member** - Ask the agent to add a second lab account to the space. Use **aperez@<your pod domain>**: read the exact domain from the `Domain` line in **Session_Info.txt** and replace the placeholder. Do not use the example domain from a screenshot. Review that email in the membership tool call before approving, then watch the notification appear in Webex.
-11. **Find the seeded meetings** - Ask for both **Wayfinder Mission - Daily Brief** and **Wayfinder Mission - New Images Review**. Search the October 5–7, 2026 period **including UTC dates and all meeting states**, rather than only `ended` meetings. Confirm the exact titles and meeting IDs came from the Meetings MCP server.
+11. **Find the seeded meetings** - Ask for both **Wayfinder Mission - Daily Brief** and **Wayfinder Mission - New Images Review**. Search September 29–October 7, 2026 in UTC date windows **including all meeting states**, rather than only `ended` meetings. Split the range into smaller windows if the tool requires it. Confirm the exact titles and meeting IDs came from the Meetings MCP server.
 
 !!! blank "If a simple recent-meetings prompt returns nothing"
-    <copy>Use the Webex Meetings MCP server to find meetings with "Wayfinder Mission" in the title from October 5 through October 7, 2026. Include all meeting states and account for UTC dates. Show the exact title, start time with timezone, state, and meeting ID for each match. Do not guess an ID.</copy>
+    <copy>Use the Webex Meetings MCP server to find meetings with "Wayfinder Mission" in the title seeded for this pod from September 29 through October 7, 2026. Search in UTC date windows, splitting the range if needed, and include all meeting states. Show the exact title, start time with timezone, state, and meeting ID for each match. Do not guess an ID.</copy>
 
 The lab recordings may appear under a state such as `missed` even though their recording and transcript exist. A narrow `ended` filter or a date range ending before the UTC recording date can hide them. If neither title appears, confirm the Webex account from **Session_Info.txt** and ask a proctor.
 

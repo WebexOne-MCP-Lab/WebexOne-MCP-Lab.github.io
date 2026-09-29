@@ -28,7 +28,7 @@ In this phase you will prompt the agent to complete each step of a meeting follo
 ### 3.1 Find the meeting
 
 !!! blank "Prompt the agent"
-    <copy>Find the meeting titled "Wayfinder Mission - Daily Brief" from the October 5–7, 2026 lab period. Include all meeting states and UTC dates. Show its exact title, date, participants, and meeting ID from the Webex Meetings MCP server.</copy>
+    <copy>Find the meeting titled "Wayfinder Mission - Daily Brief" seeded for this pod between September 29 and October 7, 2026. Search in UTC date windows and include all meeting states. Show its exact title, date, participants, and meeting ID from the Webex Meetings MCP server.</copy>
 
 - If multiple meetings match, compare the exact title and recording date. Choose the **Daily Brief** with a transcript; do not use the separate **New Images Review** yet.
 
