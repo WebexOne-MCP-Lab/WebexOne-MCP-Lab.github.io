@@ -5,7 +5,7 @@
 
 ## Section 1 - Enable the Agentic Apps
 
-Sign in at [admin.webex.com](https://admin.webex.com/){:target="_blank"} with the **Control Hub administrator** email and password in **Session_Info.txt** on the pod desktop. The Webex App user may have different credentials.
+In the browser **inside the lab desktop**, sign in at [admin.webex.com](https://admin.webex.com/){:target="_blank"} with the **Control Hub administrator** email and password in **Session_Info.txt**. The Webex App user may have different credentials. If a cookie notice appears, choose your preferred option and continue; the screenshots may not show that notice.
 
 ### Enable the Webex Meeting app
 
@@ -15,6 +15,8 @@ Sign in at [admin.webex.com](https://admin.webex.com/){:target="_blank"} with th
 4. Open the app's **General** settings, select **Allowed for all users**, and click **Save** at the bottom right of the page.
 5. Select the **Tools** tab.
 6. Enable **all** Webex Meeting tools by toggling **Allow tool** on for each one, then click **Save**.
+
+Leave **Allow signature change** at its existing setting. This lab only asks you to change **Allow tool**; it does not use the signature-change control.
 
 ### Enable the Webex Messaging app
 
@@ -78,7 +80,7 @@ The lab already provides `.vscode/mcp.json` in **LAB-11161**. You will inspect a
 ![Configure Tools button beside Agent and the lab model](images/configure-tools-button.png)
 
 !!! important "Keep tokens in the hidden prompts"
-    Tokens grant access to Webex on your behalf. Never paste them into Copilot Chat, a skill file, a screenshot, or a committed file. If a server was already running, you do not need to enter its token again.
+    Tokens grant access to Webex on your behalf. Enter them only in the matching hidden VS Code prompts. Never paste them into Copilot Chat, **Session_Info.txt**, a skill file, a screenshot, or a committed file. Do not assume a file or clipboard is erased when you leave the pod. If a server was already running, you do not need to enter its token again.
 
 !!! curious "Two server transports"
     The official servers are hosted by Cisco and appear as `type: "http"` URLs in the prepared `.vscode/mcp.json`. In Lab 4, VS Code starts a local quality server over `stdio`. See [MCP Transports](reference/mcp-transports.md) for the difference.

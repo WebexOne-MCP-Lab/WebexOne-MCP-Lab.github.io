@@ -4,7 +4,7 @@
 
 On the **wkst1** dCloud desktop, open **Session_Info.txt**. The file lists the credentials for this pod's Control Hub administrator and Webex App user. Use the account named for each step; the two sign-ins may be different. The Expo session ID identifies your pod if you need a proctor's help.
 
-Keep this guide open in the pod's browser. Do not enter passwords into this website or copy them into Copilot Chat.
+Keep this guide open in Chrome on your own computer, alongside the dCloud RDP tab. Do not enter passwords into this website or copy them into Copilot Chat.
 
 | Where | Which account or token |
 | --- | --- |
@@ -15,6 +15,6 @@ Keep this guide open in the pod's browser. Do not enter passwords into this webs
 
 ## Tokens are different from passwords
 
-The two Agentic App tokens authorize the official Webex MCP servers. The personal access token authorizes the local quality server to call the Webex Meeting Qualities REST API. Enter tokens only in the **hidden VS Code prompts** when starting the corresponding server. Do not paste them into prompts, skill files, screenshots, or Webex messages.
+The two Agentic App tokens authorize the official Webex MCP servers. The personal access token authorizes the local quality server to call the Webex Meeting Qualities REST API. Enter tokens only in the **hidden VS Code prompts** when starting the corresponding server. Do not paste them into Copilot Chat, **Session_Info.txt**, skill files, screenshots, or Webex messages. Do not assume the pod's files or clipboard are wiped when you disconnect.
 
 If a token expires or a server fails to start, return to the token step in [Lab 1](../lab1_control_hub.md) or [Lab 4](../lab4_quality.md), then start that server again.

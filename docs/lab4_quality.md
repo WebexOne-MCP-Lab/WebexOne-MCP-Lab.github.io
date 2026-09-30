@@ -29,6 +29,8 @@ The **LAB-11161** workspace already has `src/quality-tool/server.py`, its Python
 
 1. In VS Code Explorer, expand **src → quality-tool** and locate `server.py`. Expand **.vscode** and open `mcp.json` to see the preconfigured quality server.
 
+   If VS Code offers to install the Python extension when you open `server.py`, you may dismiss that suggestion. It is optional for editing Python and is not needed to run this prepared MCP server.
+
 2. Press **Ctrl+Shift+P** to open the Command Palette, type `MCP: List Servers`, and select it.
 
    ![MCP List Servers command in VS Code](images/mcp-list-servers-command.png)
@@ -45,7 +47,9 @@ The **LAB-11161** workspace already has `src/quality-tool/server.py`, its Python
 
    ![Hidden Webex Meeting Qualities developer token prompt](images/mcp-quality-token-prompt.png)
 
-6. From the server's menu select **Show Output**, or open **View → Output** and choose `MCP: webex-meeting-qualities`. Confirm **Connection state: Running**. In Copilot Chat, select the **Configure Tools** slider beside the model and confirm `get_meeting_qualities` is enabled.
+6. From the server's menu select **Show Output**, or open **View → Output** and choose `MCP: webex-meeting-qualities`. Confirm startup finishes and the output shows **Discovered 1 tools**. In Copilot Chat, select **Configure Tools** beside the model and confirm the `get_meeting_qualities` **tool** is enabled. The separate `meeting-quality` **skill** appears under Configure Skills.
+
+   VS Code may label the FastMCP banner and update notice as `[warning] [server stderr]`. Those lines alone are not a failure if the server starts and its tool is discovered. If initialization does not finish or the tool is missing, ask a proctor. Do not install a FastMCP update during the lab.
 
 !!! curious "Where the token goes"
     VS Code passes the token you enter to the local quality-server process as `WEBEX_DEVELOPER_TOKEN`. The server uses it when calling the Webex Meeting Qualities REST API over HTTPS. Keep the token out of chat messages and source files.

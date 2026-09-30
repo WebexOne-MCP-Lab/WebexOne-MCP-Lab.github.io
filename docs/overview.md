@@ -41,29 +41,31 @@ The Webex MCP servers, tool names, OAuth scopes, and client behavior shown in th
 
 ## Lab Access
 
-Your pod is a Cisco dCloud Windows desktop with Webex App, a browser, and a prepared **LAB-11161** VS Code workspace. You do not need to install software or create the MCP configuration.
+Your pod is a Cisco dCloud Windows desktop with Webex App, a browser, and a prepared **LAB-11161** VS Code workspace. You do not need to install software or create the MCP configuration. Use **Google Chrome on your own computer** for both the lab guide and dCloud Web RDP.
 
-1. Open the [WebexOne dCloud Expo lab](https://www.ciscodcloud.com/apps/expo/d2zg6fntqau7tl8gb5r6ucoc6){:target="_blank"} from your own computer.
+1. In Chrome on your own computer, open the [WebexOne dCloud Expo lab](https://www.ciscodcloud.com/apps/expo/d2zg6fntqau7tl8gb5r6ucoc6){:target="_blank"}.
 2. Enter your email address and accept the lab terms. Expo assigns your session ID; keep it available if you need a proctor's help.
 3. Select **Open** to launch the browser-based RDP session for **wkst1**, using the Windows user **cholland**.
 4. On the lab desktop, open **Session_Info.txt**. It contains the Control Hub and Webex App sign-in details for this pod. Use those details only inside this lab desktop.
-5. Open this guide again in the browser **inside the dCloud desktop** so its prompts can be copied into VS Code.
+5. Keep the [lab guide](https://webexone-mcp-lab.github.io/){:target="_blank"} open in a **second Chrome tab on your own computer**. Copy prompts from that tab and paste them directly into VS Code in the RDP tab. You do not need to open the guide inside the lab desktop. Open Control Hub and the Webex developer portal **inside** the lab desktop when the guide asks you to sign in with lab accounts.
 
 If Expo access or sign-in fails, give your session ID to a proctor. Do not enter lab account passwords into this guide.
+
+If direct paste into the RDP session does not work, use Guacamole's clipboard panel or ask a proctor. See the [Troubleshooting Matrix](reference/troubleshooting.md).
 
 ## Getting Started
 
 ### What you should know
 
-Basic familiarity with Webex meetings and spaces, JSON data structures, and HTTP APIs (request/response concepts).
+Basic Webex familiarity helps, but you do not need prior AI, MCP, or coding experience. The lab explains JSON and HTTP concepts as you encounter them.
 
-No prior MCP experience is required - the lab will teach you.
+In one minute: **Copilot Chat in VS Code** is the MCP client. It connects to **MCP servers**, which offer individual actions called **tools**. The official Webex servers offer meeting and messaging tools; the prepared local quality server calls a Webex REST API behind the scenes. A **skill** is a reusable instruction file that guides the agent's workflow, not another connection or permission. See [MCP vs. REST API](reference/mcp-vs-rest.md) for more detail.
 
 ### Your first five minutes
 
 1. Confirm you are in the **wkst1** browser desktop as **cholland** and note your Expo session ID.
 2. Open **Session_Info.txt** on the desktop and locate the separate Control Hub and Webex App account details.
-3. Open this guide in the pod's browser so you can copy prompts into VS Code.
+3. Keep the guide open in a local Chrome tab and dCloud Web RDP in another. Copy prompts from the guide into VS Code through the RDP tab.
 4. Open **Visual Studio Code** from the desktop shortcut. The **LAB-11161** folder should already be open with `.github`, `.vscode`, `src`, and `AGENTS.md` visible in Explorer. The chat panel should offer **Agent**, **GPT-6 Luna (lab)**, and **Local**. You will start the Webex MCP servers in Lab 1.
 
 ![Prepared LAB-11161 workspace and Copilot Chat panel](images/prepared-vscode-workspace.png)
