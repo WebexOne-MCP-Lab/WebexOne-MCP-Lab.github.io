@@ -44,7 +44,9 @@ The Webex MCP servers, tool names, OAuth scopes, and client behavior shown in th
 Your pod is a Cisco dCloud Windows desktop with Webex App, a browser, and a prepared **LAB-11161** VS Code workspace. You do not need to install software or create the MCP configuration. Use **Google Chrome on your own computer** for both the lab guide and dCloud Web RDP.
 
 !!! warning "Do not end your dCloud session during the lab"
-    Do **not** select **Logout and End Session** in dCloud Expo. That tears down your assigned WebexOne MCP lab pod, including the prepared Windows desktop, and bringing it back can take more than two hours—longer than this lab. If your Web RDP tab closes or disconnects, return to Expo and select **Open** for your existing **wkst1** session. If you cannot reconnect, ask a proctor for help; do not end or restart the session yourself.
+    **Do not select “Logout and End Session” in dCloud Expo.**{.lab-session-stop}
+
+    That tears down your assigned WebexOne MCP lab pod, including the prepared Windows desktop, and bringing it back can take more than two hours—longer than this lab. If your Web RDP tab closes or disconnects, return to Expo and select **Open** for your existing **wkst1** session. If you cannot reconnect, ask a proctor for help; do not end or restart the session yourself.
 
 1. In Chrome on your own computer, open the [WebexOne dCloud Expo lab](https://www.ciscodcloud.com/apps/expo/65xjlkkzy7b2psabo4igzdzba){:target="_blank"}.
 2. Enter your email address and accept the lab terms. Expo assigns your session ID; keep it available if you need a proctor's help.
