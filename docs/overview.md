@@ -46,7 +46,7 @@ Your pod is a Cisco dCloud Windows desktop with Webex App, a browser, and a prep
 !!! warning "Do not end your dCloud session during the lab"
     Do **not** select **Logout and End Session** in dCloud Expo. That tears down your assigned WebexOne MCP lab pod, including the prepared Windows desktop, and bringing it back can take more than two hours—longer than this lab. If your Web RDP tab closes or disconnects, return to Expo and select **Open** for your existing **wkst1** session. If you cannot reconnect, ask a proctor for help; do not end or restart the session yourself.
 
-1. In Chrome on your own computer, open the [WebexOne dCloud Expo lab](https://www.ciscodcloud.com/apps/expo/d2zg6fntqau7tl8gb5r6ucoc6){:target="_blank"}.
+1. In Chrome on your own computer, open the [WebexOne dCloud Expo lab](https://www.ciscodcloud.com/apps/expo/65xjlkkzy7b2psabo4igzdzba){:target="_blank"}.
 2. Enter your email address and accept the lab terms. Expo assigns your session ID; keep it available if you need a proctor's help.
 3. Select **Open** to launch the browser-based RDP session for **wkst1**, using the Windows user **cholland**.
 4. On the lab desktop, open **Session_Info.txt**. It contains the Control Hub and Webex App sign-in details for this pod. Use those details only inside this lab desktop.
