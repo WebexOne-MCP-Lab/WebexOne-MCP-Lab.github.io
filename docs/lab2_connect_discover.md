@@ -34,15 +34,13 @@ A tool list may look like this. Your enabled set should reflect the 8 Meeting to
 
 ## Section 3 - Tool-selection challenge
 
-Before running each request below, predict which MCP server and tool the agent should use. Then run the request and compare your prediction with the tool call shown in Copilot Chat.
+Before running each request below, pause and predict in your head which MCP server and tool the agent should use. Enter the request in Copilot Chat in VS Code, then compare your prediction with the tool call shown there. You do not need to type an answer into this guide.
 
-| Request | Your predicted server/tool |
-| ---------------- | ---------------- |
-| Find the two Wayfinder Mission lab meetings | `____________________________` |
-| Find spaces with "MCP" in the title | `____________________________` |
-| Create a new Webex space | `____________________________` |
+- Find the two Wayfinder Mission lab meetings.
+- Find spaces with "MCP" in the title.
+- Create a new Webex space.
 
-For each request, answer:
+After each request, ask yourself:
 
 - Did the agent choose the tool you expected?
 - What required inputs did the tool need?
