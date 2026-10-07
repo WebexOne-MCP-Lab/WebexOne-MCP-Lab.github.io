@@ -79,12 +79,13 @@ Choose one extracted action item whose owner, due date, or intent is unclear.
 - Approve space creation, membership addition, and posting as separate write actions. Do not add a participant whose address you cannot verify.
 - Switch to **Webex App** and confirm the new space, members, and message.
 
-### 3.7 Schedule a follow-up meeting (if time allows)
+### 3.7 Schedule a follow-up meeting
 
 !!! blank "Prompt the agent"
     <copy>Check the Daily Brief transcript for a follow-up meeting. State the date, time, timezone, duration, and attendees that are explicitly supported. The intended future slot for this lab is Monday, October 12, 2026 at 14:00 UTC with Charles and Anita. If the transcript differs, the date has passed, or the duration is missing, ask me to confirm the missing detail before proposing a meeting. Show the final invitation for approval before scheduling.</copy>
 
 - Do not turn a vague phrase such as “next Monday” into a date without checking the calendar and current year.
+- If the agent asks for a duration, confirm **30 minutes** for this lab before reviewing the invitation.
 - An earlier recording may mention **October 7**. That date is already the lab day; do **not** schedule it. Tell a proctor so the recording can be refreshed.
 - After approving a valid meeting, open **Webex App → Meetings** and confirm the scheduled meeting appears in the calendar with the correct time and invitees.
 
@@ -129,6 +130,7 @@ You are ready for Lab 4 when:
 - [x] You interactively completed a full meeting follow-up workflow
 - [x] You corrected an ambiguous or unsupported extraction
 - [x] The agent created a follow-up space with a reviewed recap (with your approval)
+- [x] You reviewed and approved a follow-up meeting with a confirmed date, time, duration, and attendee list
 - [x] You inspected the preloaded skill and connected it to the workflow you completed
 - [x] You customized the skill without weakening its safety rules
 - [x] No transcript or credentials were exposed unnecessarily
