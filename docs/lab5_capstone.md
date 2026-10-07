@@ -8,7 +8,7 @@
 Open a **new local Copilot Chat session** in VS Code with **Agent** mode selected. Do not tell the agent which tools to use.
 
 !!! blank "Capstone prompt"
-    <copy>Help me close out "Wayfinder Mission - New Images Review" seeded for this pod between September 29 and October 7, 2026. Find the meeting by its exact title across UTC date windows and all meeting states. Use its transcript to draft a follow-up with evidence-supported decisions and actions, and its meeting-quality data to prepare an incident update for the observed media issue. Follow my workspace skill customizations. Use the existing incident space from Lab 4 if you find it; do not create a duplicate. Show every draft and exact recipient before a write. Ask for approval before each side effect. Tell me which skill instruction shaped each draft and which MCP tool or quality API supplied its evidence.</copy>
+    <copy>Help me close out "Wayfinder Mission - New Images Review" from September 29 to October 7, 2026. Find the meeting by its exact title across UTC date windows and all meeting states. Use its transcript to draft a follow-up with evidence-supported decisions and actions, and its meeting-quality data to prepare an incident update for the observed media issue. Follow my workspace skill customizations. Use the existing incident space from Lab 4 if you find it; do not create a duplicate. Show every draft and exact recipient before a write. Ask for approval before each side effect. Tell me which skill instruction shaped each draft and which MCP tool or quality API supplied its evidence.</copy>
 
 ## Observe the agent's plan
 

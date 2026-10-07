@@ -28,7 +28,7 @@ In this phase you will prompt the agent to complete each step of a meeting follo
 ### 3.1 Find the meeting
 
 !!! blank "Prompt the agent"
-    <copy>Find the meeting titled "Wayfinder Mission - Daily Brief" seeded for this pod between September 29 and October 7, 2026. Search in UTC date windows and include all meeting states. Show its exact title, date, participants, and meeting ID from the Webex Meetings MCP server.</copy>
+    <copy>Find the meeting titled "Wayfinder Mission - Daily Brief" between September 29 and October 7, 2026. Search in UTC date windows and include all meeting states. Show its exact title, date, participants, and meeting ID from the Webex Meetings MCP server.</copy>
 
 - If multiple meetings match, compare the exact title and recording date. Choose the **Daily Brief** with a transcript; do not use the separate **New Images Review** yet.
 
@@ -85,7 +85,7 @@ Choose one extracted action item whose owner, due date, or intent is unclear.
     <copy>Check the Daily Brief transcript for a follow-up meeting. State the date, time, timezone, duration, and attendees that are explicitly supported. The intended future slot for this lab is Monday, October 12, 2026 at 14:00 UTC with Charles and Anita. If the transcript differs, the date has passed, or the duration is missing, ask me to confirm the missing detail before proposing a meeting. Show the final invitation for approval before scheduling.</copy>
 
 - Do not turn a vague phrase such as “next Monday” into a date without checking the calendar and current year.
-- An older seeded recording may mention **October 7**. That date is already the lab day; do **not** schedule it. Tell a proctor so the recording can be refreshed.
+- An earlier recording may mention **October 7**. That date is already the lab day; do **not** schedule it. Tell a proctor so the recording can be refreshed.
 - After approving a valid meeting, open **Webex App → Meetings** and confirm the scheduled meeting appears in the calendar with the correct time and invitees.
 
 ---

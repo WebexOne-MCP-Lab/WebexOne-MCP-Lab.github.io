@@ -1,7 +1,7 @@
 # Lab 4 - Use the Meeting Quality Assistant
 
 !!! note "Time: 75-105 min"
-    Start the prepared custom MCP server that wraps the Webex Meeting Qualities REST API, use it to troubleshoot a seeded meeting, then add your own instruction to its reusable skill.
+    Start the prepared custom MCP server that wraps the Webex Meeting Qualities REST API, use it to troubleshoot "Wayfinder Mission - New Images Review", then add your own instruction to its reusable skill.
 
 !!! important "Architecture note"
     The official Webex Meetings MCP server provides meeting lifecycle and intelligence tools, but it does **not** expose media-quality telemetry. Quality data comes from a separate REST API.
@@ -79,7 +79,7 @@ The server inherits the constraints of the underlying API. These matter during t
 ### 4.4 Find the target meeting
 
 !!! blank "Prompt the agent"
-    <copy>Find "Wayfinder Mission - New Images Review" seeded for this pod between September 29 and October 7, 2026. Search in UTC date windows and include all meeting states. Show its exact title, date, participants, and meeting ID from the Webex Meetings MCP server.</copy>
+    <copy>Find "Wayfinder Mission - New Images Review" between September 29 and October 7, 2026. Search in UTC date windows and include all meeting states. Show its exact title, date, participants, and meeting ID from the Webex Meetings MCP server.</copy>
 
 - Confirm it found **New Images Review**, rather than **Daily Brief**. The former has the intentionally degraded media stream.
 

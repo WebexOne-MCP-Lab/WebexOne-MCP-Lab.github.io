@@ -11,7 +11,7 @@ The lab's separate [quality-tool source]({{config.extra.quality_tool_url}}){:tar
 ## What the shared files do not include
 
 - Lab passwords, API keys, or personal access tokens
-- Seeded meeting transcripts, recordings, or quality telemetry
+- Meeting transcripts, recordings, or quality telemetry
 - Pod-specific organization IDs or member email addresses
 
 Before using a skill in your organization, review its tool permissions, data handling, approval steps, and output format. Control Hub policy and your own approval process remain authoritative.

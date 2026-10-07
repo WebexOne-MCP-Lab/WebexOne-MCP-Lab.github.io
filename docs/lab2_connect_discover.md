@@ -36,7 +36,7 @@ A tool list may look like this. Your enabled set should reflect the 8 Meeting to
 
 Before running each request below, pause and predict in your head which MCP server and tool the agent should use. Enter the request in Copilot Chat in VS Code, then compare your prediction with the tool call shown there. You do not need to type an answer into this guide.
 
-- Find the two Wayfinder Mission lab meetings.
+- Find the two Wayfinder Mission meetings.
 - Find spaces with "MCP" in the title.
 - Create a new Webex space.
 
@@ -68,10 +68,10 @@ Ask the agent to do each of the following. Watch the results appear in the Webex
 8. **Create a space** - Ask the agent to create a Webex space with a fun name (for example `MCP Launch Pad` or `My First MCP Space`).
 9. **Post a message** - Ask the agent to post a message in the new space (for example "Hello from MCP! This message was sent by an AI agent."). Switch to Webex and confirm the message appears.
 10. **Add a member** - Ask the agent to add a second lab account to the space. Use **aperez@<your pod domain>**: read the exact domain from the `Domain` line in **Session_Info.txt** and replace the placeholder. Do not use the example domain from a screenshot. Review that email in the membership tool call before approving, then watch the notification appear in Webex.
-11. **Find the seeded meetings** - Ask for both **Wayfinder Mission - Daily Brief** and **Wayfinder Mission - New Images Review**. Search September 29–October 7, 2026 in UTC date windows **including all meeting states**, rather than only `ended` meetings. Split the range into smaller windows if the tool requires it. Confirm the exact titles and meeting IDs came from the Meetings MCP server.
+11. **Find the Wayfinder meetings** - Ask for both **Wayfinder Mission - Daily Brief** and **Wayfinder Mission - New Images Review**. Search September 29–October 7, 2026 in UTC date windows **including all meeting states**, rather than only `ended` meetings. Split the range into smaller windows if the tool requires it. Confirm the exact titles and meeting IDs came from the Meetings MCP server.
 
 !!! blank "If a simple recent-meetings prompt returns nothing"
-    <copy>Use the Webex Meetings MCP server to find meetings with "Wayfinder Mission" in the title seeded for this pod from September 29 through October 7, 2026. Search in UTC date windows, splitting the range if needed, and include all meeting states. Show the exact title, start time with timezone, state, and meeting ID for each match. Do not guess an ID.</copy>
+    <copy>Use the Webex Meetings MCP server to find meetings with "Wayfinder Mission" in the title from September 29 through October 7, 2026. Search in UTC date windows, splitting the range if needed, and include all meeting states. Show the exact title, start time with timezone, state, and meeting ID for each match. Do not guess an ID.</copy>
 
 The lab recordings may appear under a state such as `missed` even though their recording and transcript exist. A narrow `ended` filter or a date range ending before the UTC recording date can hide them. If neither title appears, confirm the Webex account from **Session_Info.txt** and ask a proctor.
 
@@ -95,7 +95,7 @@ Compare how Copilot Chat handles a read operation and a write operation:
 !!! important
     A **read** tool fetches information and usually does not need the same approval as a **write** tool. A write tool changes Webex state: it can create a space, add a member, or publish a message. VS Code may still ask for permission on a read call depending on its settings. For a write, inspect the target and content, then approve only the exact action you intend. Control Hub can hide a tool entirely; chat approval governs an available tool call.
 
-## Section 6 - Identify each seeded meeting's role
+## Section 6 - Identify what each Wayfinder meeting is for
 
 12. Use `webex-list-meetings` or the prompt above to locate both exact titles. **Wayfinder Mission - Daily Brief** has the follow-up transcript for Lab 3. **Wayfinder Mission - New Images Review** has the quality issue for Lab 4 and the capstone.
 13. Record which title maps to each exercise. Let the tool return the meeting IDs; never construct an ID from a title.

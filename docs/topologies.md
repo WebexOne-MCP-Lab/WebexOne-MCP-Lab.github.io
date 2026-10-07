@@ -58,7 +58,7 @@ Each attendee receives an isolated pod so that nothing you do can affect another
 | `Webex organization` | One isolated, non-production Webex test organization |
 | `Lab identities` | Pre-created fictional users providing a host, meeting attendees, and incident responders |
 | `Your identity` | One designated lab user used for Control Hub, Webex App, and MCP authorization |
-| `Seeded meetings` | The completed Wayfinder Daily Brief and New Images Review meetings |
+| `Wayfinder meetings` | The completed Daily Brief and New Images Review meetings |
 | `Output prefix` | A reserved space-name prefix for everything you create, to keep cleanup simple |
 
 ## Key concept: MCP and REST are different layers

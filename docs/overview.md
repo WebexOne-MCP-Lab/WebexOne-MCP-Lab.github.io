@@ -78,7 +78,7 @@ In one minute: **Copilot Chat in VS Code** is the MCP client. It connects to **M
 ## Lab Rules
 
 !!! warning "Use only the lab environment"
-    Work only with the lab organization and seeded data provided. Do not connect to your production Webex organization.
+    Work only with the lab organization and data provided. Do not connect to your production Webex organization.
 
 1. **Review before approving.** Keep Copilot Chat on manual tool approvals, review the tool name and inputs, and approve only the actions you intend.
 2. **Don't trust output blindly.** AI-generated summaries and recommendations may be incomplete or incorrect. Verify before acting on them.

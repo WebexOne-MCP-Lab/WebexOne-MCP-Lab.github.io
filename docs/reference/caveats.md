@@ -9,7 +9,7 @@
 - Tool visibility and data access can remain user-scoped even when the user is an administrator.
 - OAuth scopes may be requested during authorization or tool invocation.
 
-**Mitigation:** Use seeded data owned by the participant account, preflight every tool, and ask the facilitator for help with access failures.
+**Mitigation:** Use the meetings and data available to your assigned account, preflight every tool, and ask the facilitator for help with access failures.
 
 ## Meeting-quality data
 
