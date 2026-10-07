@@ -2,7 +2,7 @@
 
 ## What you will build
 
-In this lab you will govern Webex Agentic Apps, connect their MCP servers to a prepared VS Code agent, and use two practical meeting workflows.
+In this lab you will build two useful agent workflows from prepared components: a VS Code agent, Webex MCP tools, a custom meeting-quality tool, and reusable skill files. The tools give the agent access to meeting data and actions; the skills tell it how to follow up or troubleshoot consistently. You will govern the tools, customize both workflows, and test them together. You do not need to train a model or write an MCP server from scratch.
 
 !!! webex "1 - Meeting follow-up assistant"
     - Find a completed meeting and retrieve its transcript or summary.
@@ -18,7 +18,7 @@ In this lab you will govern Webex Agentic Apps, connect their MCP servers to a p
     - Generate an incident summary and recommended checks.
     - Enter **Incident Mode** - a dedicated coordination space created only after approval.
 
-The workspace already contains reusable skills. You will inspect and customize them after completing each workflow, then coordinate them from a single business request in the capstone.
+The workspace already contains starter skills. In Lab 3 you will change how the follow-up assistant formats its work; in Lab 4 you will add your own troubleshooting rule. The capstone tests whether the agent follows both of your edits from a fresh request.
 
 ## Learning Objectives
 
@@ -93,7 +93,7 @@ This instructor-led session is **120 minutes (2 hours)**. Keep the core path mov
 | 5-25 min | [Lab 1](lab1_control_hub.md) | Enable Agentic Apps, generate tokens, start prepared MCP servers |
 | 25-45 min | [Lab 2](lab2_connect_discover.md) | Discover, predict, invoke, reject, and approve MCP tools |
 | 45-75 min | [Lab 3](lab3_follow_up.md) | Complete a follow-up and customize its preloaded skill |
-| 75-105 min | [Lab 4](lab4_quality.md) | Analyze quality data and inspect its preloaded skill |
+| 75-105 min | [Lab 4](lab4_quality.md) | Analyze quality data and add a rule to its preloaded skill |
 | 105-115 min | [Lab 5](lab5_capstone.md) | Coordinate both skills in a cross-workflow capstone |
 | 115-120 min | [Wrap-up](skills/customization-exercise.md) | Save your skill changes, complete the survey, and locate the take-home bundle |
 

@@ -15,7 +15,7 @@ The prepared **LAB-11161** workspace includes six agent skills under `.github/sk
 | `attendance-report` | Report attendance without claiming unsupported engagement |
 | `multilingual-output` | Translate a reviewed output while preserving names, dates, and evidence |
 
-**Lab 3** covers the manual follow-up workflow and customization of `meeting-follow-up`. **Lab 4** uses the quality server and explores `meeting-quality` and `incident-mode`. **Lab 5** brings those skills together in one business request.
+**Lab 3** covers the manual follow-up workflow and customization of `meeting-follow-up`. **Lab 4** uses the quality server, adds your own rule to `meeting-quality`, and inspects `incident-mode`. **Lab 5** checks whether both edits shape the agent's response to one business request.
 
 ## How skills are arranged
 

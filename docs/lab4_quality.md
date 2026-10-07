@@ -1,7 +1,7 @@
 # Lab 4 - Use the Meeting Quality Assistant
 
 !!! note "Time: 75-105 min"
-    Start the prepared custom MCP server that wraps the Webex Meeting Qualities REST API, use it to troubleshoot a seeded meeting, then inspect the reusable skill already in your workspace.
+    Start the prepared custom MCP server that wraps the Webex Meeting Qualities REST API, use it to troubleshoot a seeded meeting, then add your own instruction to its reusable skill.
 
 !!! important "Architecture note"
     The official Webex Meetings MCP server provides meeting lifecycle and intelligence tools, but it does **not** expose media-quality telemetry. Quality data comes from a separate REST API.
@@ -157,17 +157,23 @@ Before pasting the prompt, read the exact `Domain` value in **Session_Info.txt**
 
 ---
 
-## Phase 3 - Review the preloaded quality skill
+## Phase 3 - Make the troubleshooting skill your own
 
-### 4.12 Inspect the reusable workflow
+### 4.12 Inspect and customize the reusable workflow
 
 The workspace already contains `.github/skills/meeting-quality/SKILL.md` and `.github/skills/incident-mode/SKILL.md`. In VS Code Explorer, open both. Find where the skills require meeting ID lookup, evidence-backed metrics, separate observations and hypotheses, `data_gaps`, restricted membership, and approval before writes.
 
-!!! blank "Ask the agent to explain skill creation"
-    <copy>Review the existing meeting-quality and incident-mode skills in this workspace. Map their instructions to the workflow I just completed. Explain how an agent could create a similar new skill from a repeated tool workflow if the skill did not already exist. Do not overwrite these files or call Webex tools.</copy>
+Spend about three minutes adding a rule to your troubleshooting assistant. This time, edit the skill file yourself in VS Code:
 
-- You are reviewing an existing reusable artifact rather than recreating it. The capstone will exercise both skills together.
-- Confirm the skill treats the quality API as a separate data source and never turns unmeasured values into zero.
+1. Open `.github/skills/meeting-quality/SKILL.md` and find **Customization**.
+2. Add a bullet in your own words describing how the agent should explain its recommended checks. You can adapt the example below. Put the instruction in the **skill file**, rather than the chat input.
+3. Press **Ctrl+S** to save. Keep the existing instructions about evidence, data gaps, and approval. Your change only needs to add one behavior; leave the MCP server, credentials, and `incident-mode` skill as they are.
+
+!!! blank "Example instruction to add to SKILL.md"
+    <copy>- For each recommended troubleshooting check, name the measured symptom that prompted it and explain what result would support or weaken the proposed cause.</copy>
+
+- Read back your rule. For example, a recommendation to check Wi-Fi should identify the measured packet loss and explain how comparing a wired connection would help test that hypothesis. The telemetry alone does not prove Wi-Fi caused the problem.
+- In Lab 5, use a new Agent chat to see whether the troubleshooting draft follows your rule. If it does not, ask the agent to revise the draft before approving any write. You are customizing a prepared skill, not recreating one from scratch.
 
 !!! webex "What this proves"
     A local MCP server can expose a REST API to an agent, while a skill captures the repeatable reasoning and review steps around that tool. The token remains outside the chat, and Webex write actions still require your approval.
@@ -184,4 +190,4 @@ You are ready for Lab 5 when:
 - [x] Unsupported claims were removed from the reviewed incident summary
 - [x] The agent clearly attributed metadata to MCP and telemetry to the quality server
 - [x] An incident space was created only after your approval
-- [x] You inspected the preloaded quality and incident-mode skills and mapped them to this workflow
+- [x] You inspected the preloaded quality and incident-mode skills and added one evidence-backed troubleshooting rule
