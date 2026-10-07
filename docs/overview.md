@@ -18,7 +18,7 @@ In this lab you will build two useful agent workflows from prepared components: 
     - Generate an incident summary and recommended checks.
     - Enter **Incident Mode** - a dedicated coordination space created only after approval.
 
-The workspace already contains starter skills. In Lab 3 you will change how the follow-up assistant formats its work; in Lab 4 you will add your own troubleshooting rule. The capstone tests whether the agent follows both of your edits from a fresh request.
+The workspace already contains starter skills. In Lab 3 you will add a rule for naming follow-up spaces; in Lab 4 you will add your own troubleshooting rule. The capstone tests whether the agent follows both of your edits from a fresh request.
 
 ## Learning Objectives
 

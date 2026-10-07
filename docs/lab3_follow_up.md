@@ -23,7 +23,7 @@ flowchart TD
 
 ## Phase 1 - Interactive follow-up workflow
 
-In this phase you will prompt the agent to complete each step of a meeting follow-up. You are driving the workflow - the agent executes tools on your behalf.
+In this phase you will prompt the agent through each step of a meeting follow-up. The prepared skills are available from the start, and the agent may use them here. You are guiding the sequence so you can inspect the evidence, drafts, and Webex tool calls before any write. In Phase 2, you will inspect and change the reusable skill instructions behind the workflow.
 
 ### 3.1 Find the meeting
 
@@ -73,9 +73,9 @@ Choose one extracted action item whose owner, due date, or intent is unclear.
 ### 3.6 Create the follow-up space and post
 
 !!! blank "Prompt the agent"
-    <copy>The draft looks good. Show me the exact space name "Wayfinder Mission - Daily Brief — Follow-Up", the recap, and the email addresses of the meeting participants you would add. Use participant details returned by Webex; do not guess an email. After I approve each action, create the space, add the other meeting participant, and post the reviewed recap.</copy>
+    <copy>The draft looks good. Propose a name for a follow-up space for "Wayfinder Mission - Daily Brief". Show me the proposed name, the recap, and the email addresses of the meeting participants you would add. Use participant details returned by Webex; do not guess an email. After I approve each action, create the space, add the other meeting participant, and post the reviewed recap.</copy>
 
-- Check the proposed space name, recap, and membership list before approving. If Webex returned only names, use **aperez@<your pod domain>** for Anita, using the exact `Domain` line in **Session_Info.txt**. Confirm the account in the tool preview before adding it.
+- Check that the proposed space name clearly identifies **Wayfinder Mission - Daily Brief**. Review the recap and membership list before approving. If Webex returned only names, use **aperez@<your pod domain>** for Anita, using the exact `Domain` line in **Session_Info.txt**. Confirm the account in the tool preview before adding it.
 - Approve space creation, membership addition, and posting as separate write actions. Do not add a participant whose address you cannot verify.
 - Switch to **Webex App** and confirm the new space, members, and message.
 
@@ -86,6 +86,7 @@ Choose one extracted action item whose owner, due date, or intent is unclear.
 
 - Do not turn a vague phrase such as “next Monday” into a date without checking the calendar and current year.
 - If the agent asks for a duration, confirm **30 minutes** for this lab before reviewing the invitation.
+- The approval-gate skill may prompt for your review, and VS Code may separately ask you to approve the scheduling tool call. Inspect the proposed invitation and the tool inputs before approving.
 - An earlier recording may mention **October 7**. That date is already the lab day; do **not** schedule it. Tell a proctor so the recording can be refreshed.
 - After approving a valid meeting, open **Webex App → Meetings** and confirm the scheduled meeting appears in the calendar with the correct time and invitees.
 
@@ -93,9 +94,9 @@ Choose one extracted action item whose owner, due date, or intent is unclear.
 
 ## Phase 2 - Learn from a preloaded reusable skill
 
-The **LAB-11161** workspace already contains `.github/skills/meeting-follow-up/SKILL.md`. You did the workflow manually first so you can recognize what this reusable instruction captures. A skill guides agent behavior; Control Hub tool policy and your approval of writes still apply.
+The **LAB-11161** workspace already contains `.github/skills/meeting-follow-up/SKILL.md`. It may have helped the agent during Phase 1. Now you will inspect the instructions that make those steps reusable and add your own naming rule. A skill guides agent behavior; Control Hub tool policy and your approval of writes still apply.
 
-### 3.8 Inspect the skill that was used
+### 3.8 Inspect the reusable follow-up skill
 
 1. In VS Code Explorer, expand **.github → skills → meeting-follow-up** and open `SKILL.md` plus its linked `references/workflow.md`.
 2. Find the steps for meeting discovery, transcript evidence, ambiguous action items, draft review, membership, and approval.
@@ -103,22 +104,22 @@ The **LAB-11161** workspace already contains `.github/skills/meeting-follow-up/S
 !!! blank "Ask the agent to connect the work to the skill"
     <copy>Review the existing meeting-follow-up skill in this workspace. Map the steps I just completed to its instructions. Explain how I could turn another repeated tool workflow into a new skill. Do not overwrite this skill.</copy>
 
-### 3.9 Customize one visible behavior
+### 3.9 Add a reusable space-naming rule
 
 !!! blank "Prompt the agent"
-    <copy>Update the existing meeting-follow-up skill so its default space title is "Follow-Up — [meeting title]" and action items use bullets with bold owner names. Keep transcript evidence, data-gap handling, and approval before every write action. Do not create a new skill directory.</copy>
+    <copy>Add a default follow-up space-naming rule to the existing meeting-follow-up skill: "Follow-Up — [meeting title]". Keep the existing action-item bullets with bold owner names, transcript evidence, data-gap handling, and approval before every write action. Do not create a new skill directory.</copy>
 
-- Review the changed `SKILL.md` and any referenced formatting file. Confirm it no longer asks for Markdown tables in Webex messages.
-- This changes presentation while preserving the workflow's evidence and approval rules.
+- Review the changed `SKILL.md` and confirm the new naming rule is saved. The existing formatting file already requires bullet action items with bold owner names; keep that rule and avoid Markdown tables in Webex messages.
+- This gives the agent a reusable default for future follow-up spaces while preserving the workflow's evidence and approval rules.
 
 ### 3.10 See the skill work without earlier chat context (if time allows)
 
 Start a **new Local Agent chat** in VS Code. Check **Configure Skills** (or type `/` in chat) for `meeting-follow-up`.
 
 !!! blank "Prompt the agent (new session)"
-    <copy>Use the meeting-follow-up skill for "Wayfinder Mission - Daily Brief". Find the meeting and draft a new recap using the skill's current format. Stop before creating a space, adding members, scheduling, or posting anything.</copy>
+    <copy>Use the meeting-follow-up skill for "Wayfinder Mission - Daily Brief". Find the meeting, draft a new recap, and propose a follow-up space name using the skill. Stop before creating a space, adding members, scheduling, or posting anything.</copy>
 
-- Check that the new draft follows your updated naming and bullet format without relying on the prior conversation.
+- Check that the proposed name is **Follow-Up — Wayfinder Mission - Daily Brief** and the recap still uses bullet action items with bold owner names, without relying on the prior conversation.
 - This is a draft-only check; it avoids creating a duplicate follow-up space. You will use both skills together in Lab 5.
 
 ---

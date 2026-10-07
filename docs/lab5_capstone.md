@@ -8,7 +8,7 @@
 Open a **new local Copilot Chat session** in VS Code with **Agent** mode selected. Do not tell the agent which tools to use.
 
 !!! blank "Capstone prompt"
-    <copy>Help me close out "Wayfinder Mission - New Images Review" from September 29 to October 7, 2026. Find the meeting by its exact title across UTC date windows and all meeting states. Use its transcript to draft a follow-up with evidence-supported decisions and actions, and its meeting-quality data to prepare an incident update for the observed media issue. Follow my workspace skill customizations. Use the existing incident space from Lab 4 if you find it; do not create a duplicate. Show every draft and exact recipient before a write. Ask for approval before each side effect. Tell me which skill instruction shaped each draft and which MCP tool or quality API supplied its evidence.</copy>
+    <copy>Help me close out "Wayfinder Mission - New Images Review" from September 29 to October 7, 2026. Find the meeting by its exact title across UTC date windows and all meeting states. Use its transcript to draft a follow-up with evidence-supported decisions and actions, and its meeting-quality data to prepare an incident update for the observed media issue. Follow my workspace skill customizations and propose a name for the follow-up space. Use the existing incident space from Lab 4 if you find it; do not create a duplicate. Show every draft and exact recipient before a write. Ask for approval before each side effect. Tell me which skill instruction shaped each draft and which MCP tool or quality API supplied its evidence.</copy>
 
 ## Observe the agent's plan
 
@@ -21,7 +21,7 @@ Before approving any tool call, confirm the agent:
 5. Shows drafts before creating or reusing spaces, posting messages, adding members, or scheduling meetings.
 6. Requests approval for each side effect.
 
-After the drafts appear, compare them with your saved skill edits. Look for the Lab 3 action-item formatting and the Lab 4 explanation of why each troubleshooting check would help. The agent saying it used a skill is not enough: the behavior you added should be visible in the draft. If either change is missing, ask the agent to read the edited skill file and revise the draft before approving a write.
+After the drafts appear, compare them with your saved skill edits. Look for the Lab 3 follow-up space name and the Lab 4 explanation of why each troubleshooting check would help. The agent saying it used a skill is not enough: the behavior you added should be visible in its proposal or draft. If either change is missing, ask the agent to read the edited skill file and revise its response before approving a write.
 
 !!! curious "This is the real test"
     Everything up to now told the agent what to do. Here it must decide for itself which skills apply, in what order, and where the data comes from. That is the difference between a scripted demo and a workflow you could actually hand to a colleague.
@@ -47,7 +47,7 @@ If time remains, approve the final actions and verify the results in Webex App. 
 ## Capstone checkpoint
 
 - [x] The agent selected the appropriate skills and tools from a high-level request
-- [x] Your follow-up formatting and troubleshooting rule were visible in the drafts
+- [x] Your follow-up space-naming rule and troubleshooting rule were visible in the proposal and drafts
 - [x] MCP and quality-server data sources were clearly attributed
 - [x] A mid-workflow requirement change was handled correctly
 - [x] Every side effect required review and approval

@@ -5,7 +5,7 @@
 
 ## Check your edits
 
-1. Open `.github/skills/meeting-follow-up/SKILL.md`. Confirm your Lab 3 space-naming and action-item format change is saved, and that evidence and approval requirements remain.
+1. Open `.github/skills/meeting-follow-up/SKILL.md`. Confirm your Lab 3 space-naming rule is saved, the existing action-item bullet format remains, and evidence and approval requirements remain.
 2. Open `.github/skills/meeting-quality/SKILL.md` and confirm your Lab 4 troubleshooting rule is saved. Then inspect `.github/skills/incident-mode/SKILL.md`. Point to the instructions that separate observations from hypotheses, handle data gaps, and restrict incident sharing.
 3. If you experimented with instructions that bypass approval, remove them. A skill cannot grant itself permission to post or create Webex content.
 
